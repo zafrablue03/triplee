@@ -20,43 +20,22 @@ class CreateFeaturesTable extends Migration
             $table->timestamps();
         });
         DB::table('features')->insert([
-            'name'          =>  Str::random(15),
-            'created_at'    =>  \Carbon\Carbon::now(),
-            'updated_at'    =>  \Carbon\Carbon::now(),
-        ]);
-
-        DB::table('features')->insert([
-            'name'          =>  Str::random(15),
+            'name'          =>  '1 Round of Purified Drinking Water',
             'created_at'    =>  \Carbon\Carbon::now(),
             'updated_at'    =>  \Carbon\Carbon::now(),
         ]);
         DB::table('features')->insert([
-            'name'          =>  Str::random(15),
+            'name'          =>  'Uniformed Waiter',
             'created_at'    =>  \Carbon\Carbon::now(),
             'updated_at'    =>  \Carbon\Carbon::now(),
         ]);
         DB::table('features')->insert([
-            'name'          =>  Str::random(15),
+            'name'          =>  '1 Choice of Dessert',
             'created_at'    =>  \Carbon\Carbon::now(),
             'updated_at'    =>  \Carbon\Carbon::now(),
         ]);
         DB::table('features')->insert([
-            'name'          =>  Str::random(15),
-            'created_at'    =>  \Carbon\Carbon::now(),
-            'updated_at'    =>  \Carbon\Carbon::now(),
-        ]);
-        DB::table('features')->insert([
-            'name'          =>  Str::random(15),
-            'created_at'    =>  \Carbon\Carbon::now(),
-            'updated_at'    =>  \Carbon\Carbon::now(),
-        ]);
-        DB::table('features')->insert([
-            'name'          =>  Str::random(15),
-            'created_at'    =>  \Carbon\Carbon::now(),
-            'updated_at'    =>  \Carbon\Carbon::now(),
-        ]);
-        DB::table('features')->insert([
-            'name'          =>  Str::random(15),
+            'name'          =>  'Table Dressing',
             'created_at'    =>  \Carbon\Carbon::now(),
             'updated_at'    =>  \Carbon\Carbon::now(),
         ]);

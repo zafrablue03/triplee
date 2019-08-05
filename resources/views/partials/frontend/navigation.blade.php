@@ -22,6 +22,10 @@
             <li class="nav-item">
             <a class="nav-link js-scroll-trigger" href="#contact">Contact</a>
             </li>
+            <li class="nav-item">
+
+            <a class="portfolio-link nav-link" data-toggle="modal" href="#reservation">Reservations</a>
+            </li>
         </ul>
         </div>
     </div>

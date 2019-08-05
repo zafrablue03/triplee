@@ -15,7 +15,7 @@
             <div class="column">
                 <div class="portfolio-caption text-center">
                   <h4>{{ ucfirst($service->name) }}</h4>
-                  <img class="w-100" src="/storage/{{ $service->image }}" style="width:100%">
+                  <img class="w-100" src="/storage/{{ $service->thumbnail }}" style="width:100%">
                   <small><p class="text-muted">>{{ ucfirst($service->description) }}</p></small>
                 </div>
                   
@@ -37,7 +37,7 @@
                 <div class="carousel-inner">
                     @foreach( $services as $service )
                       <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
-                        <img src="/storage/{{ $service->image }}" class="rounded d-block w-100" alt="Carousel">
+                        <img src="/storage/{{ $service->thumbnail }}" class="rounded d-block w-100" alt="Carousel">
                         <div class="carousel-caption d-none d-md-block">
                           <h5>{{ $service->name }}</h5>
                           <p>{{ $service->description }}</p>
@@ -68,21 +68,24 @@
             </div>
           </div>
           <div class="row">
-            <div class="col-md-4 col-sm-6 portfolio-item">
-              <a class="portfolio-link" data-toggle="modal" href="#portfolioModal1">
-                <div class="portfolio-hover">
-                  <div class="portfolio-hover-content">
-                    <i class="fas fa-plus fa-3x"></i>
+            @foreach($services as $service)
+              <div class="col-md-4 col-sm-6 portfolio-item">
+                <a class="portfolio-link" data-toggle="modal" href="#modal{{ $service->id }}">
+                  <div class="portfolio-hover">
+                    <div class="portfolio-hover-content">
+                      <i class="fas fa-plus fa-3x"></i>
+                    </div>
                   </div>
+                  <img class="img-fluid" src="/storage/{{ $service->thumbnail }}" alt="">
+                </a>
+                <div class="portfolio-caption">
+                  <h4>Threads</h4>
+                  <p class="text-muted">Illustration</p>
                 </div>
-                <img class="img-fluid" src="{{ ('assets/frontend/img/portfolio/01-thumbnail.jpg') }}" alt="">
-              </a>
-              <div class="portfolio-caption">
-                <h4>Threads</h4>
-                <p class="text-muted">Illustration</p>
               </div>
-            </div>
-            <div class="col-md-4 col-sm-6 portfolio-item">
+            @endforeach
+
+            {{-- <div class="col-md-4 col-sm-6 portfolio-item">
               <a class="portfolio-link" data-toggle="modal" href="#portfolioModal2">
                 <div class="portfolio-hover">
                   <div class="portfolio-hover-content">
@@ -96,6 +99,7 @@
                 <p class="text-muted">Graphic Design</p>
               </div>
             </div>
+
             <div class="col-md-4 col-sm-6 portfolio-item">
               <a class="portfolio-link" data-toggle="modal" href="#portfolioModal3">
                 <div class="portfolio-hover">
@@ -110,6 +114,7 @@
                 <p class="text-muted">Identity</p>
               </div>
             </div>
+
             <div class="col-md-4 col-sm-6 portfolio-item">
               <a class="portfolio-link" data-toggle="modal" href="#portfolioModal4">
                 <div class="portfolio-hover">
@@ -124,6 +129,7 @@
                 <p class="text-muted">Branding</p>
               </div>
             </div>
+
             <div class="col-md-4 col-sm-6 portfolio-item">
               <a class="portfolio-link" data-toggle="modal" href="#portfolioModal5">
                 <div class="portfolio-hover">
@@ -138,6 +144,7 @@
                 <p class="text-muted">Website Design</p>
               </div>
             </div>
+
             <div class="col-md-4 col-sm-6 portfolio-item">
               <a class="portfolio-link" data-toggle="modal" href="#portfolioModal6">
                 <div class="portfolio-hover">
@@ -151,7 +158,8 @@
                 <h4>Window</h4>
                 <p class="text-muted">Photography</p>
               </div>
-            </div>
+            </div> --}}
+
           </div>
         </div>
       </section>

@@ -19,6 +19,8 @@
 
     <!-- Footer -->
     @include('partials.frontend.footer')
+    {{-- Modals --}}
+    @include('partials.frontend.modals')
 
     {{-- Javascripts --}}
     @include('partials.frontend.javascripts')

@@ -46,7 +46,7 @@ class ServicesController extends Controller
     public function store(Request $request)
     {
         if ( ($this->checkSlug(str_slug($request->name))) ) {
-            return redirect()->back()->withError('Course already exists!');
+            return redirect()->back()->withError('Service already exists!');
         }
 
         $request->request->add(['slug' => str_slug($request->name)]);
@@ -59,13 +59,16 @@ class ServicesController extends Controller
 
         $image = $request->file('image')->store('gallery','public');
 
-        $imageSquare = Image::make(public_path("storage/{$image}"))->fit(800,800);
-        $imageSquare->save();
+        $thumbnail = $request->file('image')->store('thumbnail','public');
+
+        $imageThumbnail = Image::make(public_path("storage/{$thumbnail}"))->fit(800,800);
+        $imageThumbnail->save();
 
         Service::create(array_merge(
             $request->except(['_token', 'type', 'image']),
-            ['type_id'  => $request->type],
-            ['image'    => $image]
+            ['type_id'      => $request->type],
+            ['image'        => $image],
+            ['thumbnail'    => $thumbnail]
         ));
 
         if ($request->get('action') == 'save') {
@@ -102,6 +105,11 @@ class ServicesController extends Controller
         return File::exists(storage_path('app/public/'.$image));
     }
 
+    public function checkThumbnail($thumbnail)
+    {
+        return File::exists(storage_path('app/public/'.$thumbnail));
+    }
+
     /**
      * Update the specified resource in storage.
      *
@@ -112,7 +120,7 @@ class ServicesController extends Controller
     public function update(Request $request, Service $service)
     {
         if ( ($this->checkSlug(str_slug($request->name))) ) {
-            $request->request->add(['slug' => str_slug($request->name).' '.str_random(5)]);
+            $request->request->add(['slug' => str_slug($request->name).str_random(5)]);
         }else {
             $request->request->add(['slug' => str_slug($request->name)]);
         }
@@ -131,16 +139,23 @@ class ServicesController extends Controller
                 File::delete(storage_path('app/public/'.$service->image));
             }
             $image = $request->file('image')->store('gallery','public');
-
-            $imageSquare = Image::make(public_path("storage/{$image}"))->fit(800,800);
-            $imageSquare->save();
-
             array_push($img_arr, ['image' => $image]);
+
+            if($this->checkThumbnail($service->thumbnail)){
+                File::delete(storage_path('app/public/'.$service->thumbnail));
+            }
+            $thumbnail = $request->file('image')->store('thumbnail','public');
+
+            $imageThumbnail = Image::make(public_path("storage/{$thumbnail}"))->fit(800,800);
+            $imageThumbnail->save();
+
+            array_push($img_arr, ['thumbnail' => $thumbnail]);
         }
 
         $service->update(array_merge(
             $request->except(['_token', 'type', 'image']),
-            $img_arr[0] ?? []
+            $img_arr[0] ?? [],
+            $img_arr[1] ?? []
         ));
         if ($request->get('action') == 'save') {
             return redirect()->route('services.index')->withSuccess('Service/Occassion has been successfully updated!');

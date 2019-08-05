@@ -116,7 +116,7 @@ class CourseController extends Controller
     public function update(Request $request, Course $course)
     {
         if ( ($this->checkSlug(str_slug($request->name))) ) {
-            $request->request->add(['slug' => str_slug($request->name).' '.str_random(5)]);
+            $request->request->add(['slug' => str_slug($request->name).str_random(5)]);
         }else {
             $request->request->add(['slug' => str_slug($request->name)]);
         }

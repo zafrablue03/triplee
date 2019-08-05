@@ -16,7 +16,12 @@
     <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
+
+    {{-- Select picker --}}
+    <link rel="stylesheet" href="{{ asset('assets/vendor/bs-select/bs-select.css') }}" />
     
+    {{-- Datepicker --}}
+    <link href="{{ asset('assets/frontend/vendor/datepicker/datepicker.css') }}" rel="stylesheet">
     <!-- Custom styles for this template -->
     <link href="{{ asset('assets/frontend/css/agency.min.css') }}" rel="stylesheet">
 
