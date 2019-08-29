@@ -1,7 +1,9 @@
 <!doctype html>
 <html lang="en">
 
-@include('partials.backend.head')
+
+	@include('partials.backend.head')
+	
 
 	<body>
 
@@ -48,7 +50,8 @@
 
 		@include('sweetalert::alert')
 
-        @include('partials.backend.javascripts')
+		@include('partials.backend.javascripts')
+		
 
 	</body>
 

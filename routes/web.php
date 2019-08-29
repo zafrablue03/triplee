@@ -10,7 +10,7 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/test', 'Backend\Sets\SetsController@index');
+
 
 Route::get('/', 'Frontend\HomepageController@index');
 
@@ -21,6 +21,12 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 
+// Fronted
+
+Route::resource('reservations', 'Frontend\Reservation\ReservationsController');
+
+
+// Backend
 
 Route::group( ['prefix' => 'admin', 'middleware' => ['auth','admin'], ], function(){
 
@@ -35,5 +41,6 @@ Route::group( ['prefix' => 'admin', 'middleware' => ['auth','admin'], ], functio
     Route::resource('inclusions', 'Backend\Inclusion\InclusionsController');
     Route::resource('features', 'Backend\Feature\FeaturesController')->except(['show']);
     Route::resource('services', 'Backend\Service\ServicesController');
+    Route::resource('reservation', 'Backend\Reservation\ReservationsController');
 
 });

@@ -22,6 +22,7 @@
     {{-- Modals --}}
     @include('partials.frontend.modals')
 
+    @include('sweetalert::alert')
     {{-- Javascripts --}}
     @include('partials.frontend.javascripts')
 

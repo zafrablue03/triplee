@@ -45,6 +45,7 @@ class ServicesController extends Controller
      */
     public function store(Request $request)
     {
+        dd($request->all());
         if ( ($this->checkSlug(str_slug($request->name))) ) {
             return redirect()->back()->withError('Service already exists!');
         }

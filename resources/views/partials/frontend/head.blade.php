@@ -19,6 +19,7 @@
 
     {{-- Select picker --}}
     <link rel="stylesheet" href="{{ asset('assets/vendor/bs-select/bs-select.css') }}" />
+
     
     {{-- Datepicker --}}
     <link href="{{ asset('assets/frontend/vendor/datepicker/datepicker.css') }}" rel="stylesheet">

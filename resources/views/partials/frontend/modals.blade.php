@@ -8,7 +8,7 @@
         <div class="modal-content">
             <div class="close-modal" data-dismiss="modal">
                 <div class="lr">
-                <div class="rl"></div>
+                    <div class="rl"></div>
                 </div>
             </div>
             <div class="container">
@@ -19,53 +19,89 @@
                             <div class="container">
                                 <div class="row">
                                 <div class="col-lg-12 text-center">
-                                    <h2 class="section-heading text-uppercase">Contact Us</h2>
-                                    <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
+                                    <h2 class="section-heading text-uppercase">Reservations</h2>
+                                    <h5 class="section-subheading text-muted">Experience quality food, excellent service, and affordable prices for your Catering needs.</h5>
                                 </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-lg-12">
-                                        <form>
+                                        <form action="{{ route('reservations.store') }}" method="POST">
+                                            @csrf
                                             <div class="row">
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label for="date">Choose the date</label>
-                                                        <input class="form-control" type='text' id="date" placeholder="mm-dd-yyyy" readonly required="required" data-validation-required-message="Please enter the target date."/>
+                                                        <input class="form-control @error('date') is-invalid @enderror" name="date" type='text' id="date" placeholder="yyyy-mm-dd" readonly 
+                                                        required="required" data-validation-required-message="Please enter the target date." value="{{ old('date') }}">
+                                                        @error('date')
+                                                            <span class="invalid-feedback" role="alert">
+                                                                <strong>{{ $message }}</strong>
+                                                            </span>
+                                                        @enderror
                                                         <p class="help-block text-danger"></p>
                                                     </div>
                                                     <div class="form-group">
-                                                        <input class="form-control" id="name" type="text" placeholder="Name" required="required" data-validation-required-message="Please enter your name.">
+                                                        <input class="form-control @error('name') is-invalid @enderror" name="name" id="name" type="text" placeholder="Name" 
+                                                        required="required" data-validation-required-message="Please enter your name." value="{{ old('name') }}">
+                                                        @error('name')
+                                                            <span class="invalid-feedback" role="alert">
+                                                                <strong>{{ $message }}</strong>
+                                                            </span>
+                                                        @enderror
                                                         <p class="help-block text-danger"></p>
                                                     </div>
                                                     <div class="form-group">
-                                                        <input class="form-control" id="email" type="email" placeholder="Email Address" required="required" data-validation-required-message="Please enter your email address.">
+                                                        <input class="form-control @error('email') is-invalid @enderror" name="email" id="email" type="email" placeholder="Email Address" 
+                                                        required="required" data-validation-required-message="Please enter your email address." value="{{ old('email') }}">
+                                                        @error('email')
+                                                            <span class="invalid-feedback" role="alert">
+                                                                <strong>{{ $message }}</strong>
+                                                            </span>
+                                                        @enderror
                                                         <p class="help-block text-danger"></p>
                                                     </div>
                                                     <div class="form-group">
-                                                        <input class="form-control" id="phone" type="tel" placeholder="Contact Number" required="required" data-validation-required-message="Please enter your phone number.">
+                                                        <input class="form-control @error('contact') is-invalid @enderror" name="contact" id="phone" type="text" placeholder="Contact Number" 
+                                                        required="required" data-validation-required-message="Please enter your phone number." value="{{ old('contact') }}">
+                                                        @error('contact')
+                                                            <span class="invalid-feedback" role="alert">
+                                                                <strong>{{ $message }}</strong>
+                                                            </span>
+                                                        @enderror
                                                         <p class="help-block text-danger"></p>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <label for="menu">Choose a Menu</label>
                                                     <div class="form-group">
-                                                        <select class="form-control selectpicker" data-style="btn-info" name="type" required>
+                                                        <label for="menu">Choose a Menu</label>
+                                                        <select class="form-control selectpicker @error('service_id') is-invalid @enderror" data-style="btn-info" name="service_id" required>
                                                             <option selected disabled>Select Type</option>
                                                             @foreach( $services->pluck('name','id') as $key => $value)
                                                             <option value="{{ $key }}">{{ $value }}</option>
                                                             @endforeach
                                                         </select>
+                                                        @error('service_id')
+                                                            <span class="invalid-feedback" role="alert">
+                                                                <strong>{{ $message }}</strong>
+                                                            </span>
+                                                        @enderror
                                                         <p class="help-block text-danger"></p>
                                                     </div>
                                                     <div class="form-group">
-                                                        <textarea class="form-control" id="message" placeholder="Your Message *" required="required" data-validation-required-message="Please enter a message."></textarea>
+                                                        <textarea class="form-control @error('message') is-invalid @enderror" name="message" id="message" placeholder="Your Message *" 
+                                                        required="required" data-validation-required-message="Please enter a message.">{{ old('message') }}</textarea>
+                                                        @error('message')
+                                                            <span class="invalid-feedback" role="alert">
+                                                                <strong>{{ $message }}</strong>
+                                                            </span>
+                                                        @enderror
                                                         <p class="help-block text-danger"></p>
                                                     </div>
                                                 </div>
                                                 <div class="clearfix"></div>
                                                 <div class="col-lg-12 text-center">
                                                 <div id="success"></div>
-                                                <button class="btn btn-primary btn-xl text-uppercase" type="submit">Send Message</button>
+                                                <button class="btn btn-primary btn-xl text-uppercase" type="submit">Send</button>
                                                 </div>
                                             </div>
                                         </form>
@@ -117,183 +153,12 @@
 </div>
 @endforeach
 
-    <!-- Modal 2 -->
-{{-- <div class="portfolio-modal modal fade" id="portfolioModal2" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-        <div class="close-modal" data-dismiss="modal">
-            <div class="lr">
-            <div class="rl"></div>
-            </div>
-        </div>
-        <div class="container">
-            <div class="row">
-            <div class="col-lg-8 mx-auto">
-                <div class="modal-body">
-                <!-- Project Details Go Here -->
-                <h2 class="text-uppercase">Project Name</h2>
-                <p class="item-intro text-muted">Lorem ipsum dolor sit amet consectetur.</p>
-                <img class="img-fluid d-block mx-auto" src="{{ asset('assets/frontend/img/portfolio/02-full.jpg') }}" alt="">
-                <p>Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere nemo!</p>
-                <ul class="list-inline">
-                    <li>Date: January 2017</li>
-                    <li>Client: Explore</li>
-                    <li>Category: Graphic Design</li>
-                </ul>
-                <button class="btn btn-primary" data-dismiss="modal" type="button">
-                    <i class="fas fa-times"></i>
-                    Close Project</button>
-                </div>
-            </div>
-            </div>
-        </div>
-        </div>
-    </div>
-</div>
-
-    <!-- Modal 3 -->
-<div class="portfolio-modal modal fade" id="portfolioModal3" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-        <div class="close-modal" data-dismiss="modal">
-            <div class="lr">
-            <div class="rl"></div>
-            </div>
-        </div>
-        <div class="container">
-            <div class="row">
-            <div class="col-lg-8 mx-auto">
-                <div class="modal-body">
-                <!-- Project Details Go Here -->
-                <h2 class="text-uppercase">Project Name</h2>
-                <p class="item-intro text-muted">Lorem ipsum dolor sit amet consectetur.</p>
-                <img class="img-fluid d-block mx-auto" src="{{ asset('assets/frontend/img/portfolio/03-full.jpg') }}" alt="">
-                <p>Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere nemo!</p>
-                <ul class="list-inline">
-                    <li>Date: January 2017</li>
-                    <li>Client: Finish</li>
-                    <li>Category: Identity</li>
-                </ul>
-                <button class="btn btn-primary" data-dismiss="modal" type="button">
-                    <i class="fas fa-times"></i>
-                    Close Project</button>
-                </div>
-            </div>
-            </div>
-        </div>
-        </div>
-    </div>
-</div>
-
-    <!-- Modal 4 -->
-<div class="portfolio-modal modal fade" id="portfolioModal4" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-        <div class="close-modal" data-dismiss="modal">
-            <div class="lr">
-            <div class="rl"></div>
-            </div>
-        </div>
-        <div class="container">
-            <div class="row">
-            <div class="col-lg-8 mx-auto">
-                <div class="modal-body">
-                <!-- Project Details Go Here -->
-                <h2 class="text-uppercase">Project Name</h2>
-                <p class="item-intro text-muted">Lorem ipsum dolor sit amet consectetur.</p>
-                <img class="img-fluid d-block mx-auto" src="{{ asset('assets/frontend/img/portfolio/04-full.jpg') }}" alt="">
-                <p>Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere nemo!</p>
-                <ul class="list-inline">
-                    <li>Date: January 2017</li>
-                    <li>Client: Lines</li>
-                    <li>Category: Branding</li>
-                </ul>
-                <button class="btn btn-primary" data-dismiss="modal" type="button">
-                    <i class="fas fa-times"></i>
-                    Close Project</button>
-                </div>
-            </div>
-            </div>
-        </div>
-        </div>
-    </div>
-</div>
-
-    <!-- Modal 5 -->
-<div class="portfolio-modal modal fade" id="portfolioModal5" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-        <div class="close-modal" data-dismiss="modal">
-            <div class="lr">
-            <div class="rl"></div>
-            </div>
-        </div>
-        <div class="container">
-            <div class="row">
-            <div class="col-lg-8 mx-auto">
-                <div class="modal-body">
-                <!-- Project Details Go Here -->
-                <h2 class="text-uppercase">Project Name</h2>
-                <p class="item-intro text-muted">Lorem ipsum dolor sit amet consectetur.</p>
-                <img class="img-fluid d-block mx-auto" src="{{ asset('assets/frontend/img/portfolio/05-full.jpg') }}" alt="">
-                <p>Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere nemo!</p>
-                <ul class="list-inline">
-                    <li>Date: January 2017</li>
-                    <li>Client: Southwest</li>
-                    <li>Category: Website Design</li>
-                </ul>
-                <button class="btn btn-primary" data-dismiss="modal" type="button">
-                    <i class="fas fa-times"></i>
-                    Close Project</button>
-                </div>
-            </div>
-            </div>
-        </div>
-        </div>
-    </div>
-</div>
-
-    <!-- Modal 6 -->
-<div class="portfolio-modal modal fade" id="portfolioModal6" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-        <div class="close-modal" data-dismiss="modal">
-            <div class="lr">
-            <div class="rl"></div>
-            </div>
-        </div>
-        <div class="container">
-            <div class="row">
-            <div class="col-lg-8 mx-auto">
-                <div class="modal-body">
-                <!-- Project Details Go Here -->
-                <h2 class="text-uppercase">Project Name</h2>
-                <p class="item-intro text-muted">Lorem ipsum dolor sit amet consectetur.</p>
-                <img class="img-fluid d-block mx-auto" src="{{ asset('assets/frontend/img/portfolio/06-full.jpg') }}" alt="">
-                <p>Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere nemo!</p>
-                <ul class="list-inline">
-                    <li>Date: January 2017</li>
-                    <li>Client: Window</li>
-                    <li>Category: Photography</li>
-                </ul>
-                <button class="btn btn-primary" data-dismiss="modal" type="button">
-                    <i class="fas fa-times"></i>
-                    Close Project</button>
-                </div>
-            </div>
-            </div>
-        </div>
-        </div>
-    </div>
-</div> --}}
-
-
 @push('additionalJS')
 <script src="{{ asset('assets/frontend/vendor/datepicker/datepicker.js') }}"></script>
 <script>
     $(function() {
         $( "#date" ).datepicker({  
-            'format': 'mm-dd-yyyy',
+            'format': 'yyyy-mm-dd',
             'autoclose': true,
             'todayHighlight': true
         });

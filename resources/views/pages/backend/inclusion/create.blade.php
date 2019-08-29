@@ -56,16 +56,16 @@
                                     @enderror
                                 </div>
                                 <div class="col-lg-10">
-                                        <div class="form-group">
-                                            <label class="form-label">Features</label>
-                                            <p><code>Add Feature/Features</code></p>
-                                            <select name="feature[]" id="feature" class="form-control" multiple>
-                                                @foreach($features as $key => $value)
-                                                    <option value="{{ $key }}">{{ $value }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Features</label>
+                                        <p><code>Add Feature/Features</code></p>
+                                        <select name="feature[]" id="feature" class="form-control" multiple>
+                                            @foreach($features as $key => $value)
+                                                <option value="{{ $key }}">{{ $value }}</option>
+                                            @endforeach
+                                        </select>
                                     </div>
+                                </div>
                                 <div class="pt-3">
                                     <button type="submit" name="action" value="save" class="btn btn-secondary btn-rounded">Save</button>
                                     <button type="submit" name="action" value="continue" class="btn btn-secondary btn-rounded">Save & Continue</button>
