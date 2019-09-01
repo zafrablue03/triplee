@@ -34,34 +34,30 @@
                         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 							<div class="card">
 								<div class="card-body">
-                                    <div class="form-group row">
-                                        <label class="col-sm-2 col-form-label"><h4>ID</h4></label>
-                                        <div class="col-sm-10">
-                                            <input type="text" readonly class="form-control" id="inputReadOnly" value="{{ $service->id }}">
-                                        </div>
-                                    </div>
 									<div class="form-group row">
-										<label class="col-sm-2 col-form-label"><h4>Name</h4></label>
+										<label class="col-sm-2 col-form-label"><h5>Name</h5></label>
 										<div class="col-sm-10">
 											<input type="text" readonly class="form-control" value="{{ $service->name }}">
 										</div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="col-sm-2 col-form-label"><h4>Slug</h4></label>
+                                        <label class="col-sm-2 col-form-label"><h5>Slug</h5></label>
                                         <div class="col-sm-10">
                                             <input type="text" readonly class="form-control" value="{{ $service->slug }}">
                                         </div>
                                     </div>
                                     
                                     <div class="form-group row">
-										<label class="col-sm-2 col-form-label"><h4>Description</h4></label>
+										<label class="col-sm-2 col-form-label"><h5>Description</h5></label>
 										<div class="col-sm-10">
-											<input type="text" readonly class="form-control" value="{{ $service->description }}">
+                                            <textarea cols="30" rows="10" readonly class="form-control">{{ $service->description }}</textarea>
 										</div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="col-sm-2 col-form-label"><h4>Image</h4></label>
+                                        <label class="col-sm-2 col-form-label"><h5>Image</h5></label>
+                                        <div class="col-xl-10 col-lg-10 col-md-10 col-sm-10 col-10">
                                             <img src="/storage/{{ $service->image }}" class="w-50">
+                                        </div>
                                     </div>
                                     <div class="pt-3">
                                         <a href="{{ route('services.edit', $service->slug) }}"class="btn btn-secondary btn-rounded" style="float:right"> Edit </a>

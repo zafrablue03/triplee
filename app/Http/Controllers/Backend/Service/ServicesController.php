@@ -45,7 +45,6 @@ class ServicesController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request->all());
         if ( ($this->checkSlug(str_slug($request->name))) ) {
             return redirect()->back()->withError('Service already exists!');
         }
@@ -54,6 +53,7 @@ class ServicesController extends Controller
 
         $request->validate([
             'name'          =>  'required|min:2',
+            'slug'          =>  'required|unique:services',
             'description'   =>  '',
             'image'         =>  'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048|dimensions:min_width=25,max_width=2000',
         ]);
@@ -120,15 +120,11 @@ class ServicesController extends Controller
      */
     public function update(Request $request, Service $service)
     {
-        if ( ($this->checkSlug(str_slug($request->name))) ) {
-            $request->request->add(['slug' => str_slug($request->name).str_random(5)]);
-        }else {
-            $request->request->add(['slug' => str_slug($request->name)]);
-        }
-        
+        $request->request->add(['slug' => str_slug($request->name)]);
 
         $request->validate([
             'name'          =>  'required|min:2',
+            'slug'          =>  'required|unique:services,slug,'.$service->id,
             'description'   =>  '',
             'image'         =>  'sometimes|image|mimes:jpeg,png,jpg,gif,svg|max:2048|dimensions:min_width=25,max_width=2000',
         ]);
@@ -173,7 +169,15 @@ class ServicesController extends Controller
      */
     public function destroy(Service $service)
     {
+        if($this->checkImage($service->image)){
+            File::delete(storage_path('app/public/'.$service->image));
+        }
+        if($this->checkThumbnail($service->thumbnail)){
+            File::delete(storage_path('app/public/'.$service->thumbnail));
+        }
+
         $service->delete();
-        return redirect()->route('services.index')->withSuccess('Service/Occassion has been successfully deleted!');
+        return response()->json('Service successfully deleted!');
+        // return redirect()->route('services.index')->withSuccess('Service/Occassion has been successfully deleted!');
     }
 }

@@ -13,6 +13,11 @@ class Course extends Model
         return $this->belongsTo(Type::class);
     }
 
+    public function reservations()
+    {
+        return $this->belongsToMany(Reservation::class);
+    }
+
     public function getRouteKeyName()
     {
         return 'slug';

@@ -24,7 +24,32 @@ class ReservationsController extends Controller
 
     public function create(Reservation $reservation)
     {
-        
+        return view('pages.backend.reservations.create');
+    }
+
+
+    public function store(Request $request)
+    {
+        $reservation = new Reservation();
+        $course = $reservation->getCourseArray($request->course);
+
+        $request->validate([
+            'date'          =>  'date_format:Y-m-d|required',
+            'name'          =>  'required|min:2|max:50',
+            'email'         =>  'required|email|min:3|max:80',
+            'contact'       =>  'required|numeric|digits_between:11,15',
+            'venue'         =>  'required|min:2|max:90',
+            'pax'           =>  'required|numeric|min:10',
+            'service_id'    =>  'required',
+            'set_id'        =>  'required',
+        ]);
+
+        Reservation::create(array_merge(
+            $request->except('_token', 'finish'),
+            ['is_approved' => 1]
+        ))->courses()->attach($course);
+
+        return redirect()->route('reservation.index')->withSuccess('Reservation approved!');
     }
 
     public function edit(Reservation $reservation)
@@ -34,12 +59,41 @@ class ReservationsController extends Controller
 
     public function update(Request $request, Reservation $reservation)
     {
-        //
+        
+        $course = $reservation->getCourseArray($request->course);
+
+        $request->validate([
+            'date'          =>  'date_format:Y-m-d|required',
+            'name'          =>  'required|min:2|max:50',
+            'email'         =>  'required|email|min:3|max:80',
+            'contact'       =>  'required|numeric|digits_between:11,15',
+            'venue'         =>  'required|min:2|max:90',
+            'pax'           =>  'required|numeric|min:10',
+            'service_id'    =>  'required',
+            'set_id'        =>  'required',
+            // 'course'        =>  'required'
+        ]);
+
+        // dd($request->all());
+
+        $reservation->update(array_merge(
+            $request->except('_token', 'finish'),
+            ['is_approved' => 1]
+        ));
+        $reservation->courses()->sync($course);
+
+        return redirect()->route('reservation.index')->withSuccess('Reservation approved!');
     }
 
+
     
-    public function destroy($id)
+    public function destroy(Request $request, Reservation $reservation)
     {
-        //
+        if($request->get('approved') === 'cancel')
+        {
+            $reservation->is_approved = false;
+            $reservation->save();
+            return redirect()->route('reservation.index')->withSuccess('Reservation cancelled!');
+        }
     }
 }

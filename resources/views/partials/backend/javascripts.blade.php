@@ -1,5 +1,5 @@
 
-@if(Request::routeIs('reservation.edit'))
+@if(Request::routeIs(['reservation.edit', 'reservation.create']))
 
     <script src="{{ asset('assets/form-wizard-only/js/vendors/jquery-3.2.1.min.js') }}"></script>
     <script src="{{ asset('assets/form-wizard-only/js/vendors/bootstrap.bundle.min.js') }}"></script>

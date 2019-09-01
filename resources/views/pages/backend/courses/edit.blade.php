@@ -36,7 +36,7 @@
                         @csrf
                         {{ method_field('PUT') }}
                         <div class="row gutters">
-                            <div class="col-xl-5 col-lg-6 col-md-4 col-sm-4 col-12">
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6">
                                 <div class="form-group">
                                     <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" placeholder="Type Name" value="{{ old('name') ?? $course->name }}" required>
                                     @error('name')
@@ -67,7 +67,7 @@
                                     </select>
                                 </div>
                                 <div class="form-row pb-2">
-                                        <span><code>Maximum size is 555x500</code></span>
+                                        <span><code>Maximum size is 500x500</code></span>
                                 </div>
                                 <div class="custom-file pb-4">                                    
                                     <input type="file" class="custom-file-input @error('image') is-invalid @enderror" id="inputGroupFile01" name="image" aria-describedby="inputGroupFileAddon01">
@@ -84,10 +84,10 @@
                                 </div>
                             </div>
 
-                            <div class="col-xl-5 col-lg-6 col-md-4 col-sm-4 col-12">
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6">
                                 <div class="form-group row">
                                     <label class="col-sm-2 col-form-label"><h4>Image</h4></label>
-                                        <img src="/storage/{{ $course->image }}" class="w-50">
+                                    <img src="/storage/{{ $course->image }}" class="w-50">
                                 </div>
                             </div>
 

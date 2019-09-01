@@ -18,9 +18,12 @@ class CreateReservationsTable extends Migration
             $table->string('name');
             $table->string('email');
             $table->string('contact');
-            $table->text('message');
+            $table->text('message')->nullable();
             $table->date('date');
+            $table->string('venue')->nullable();
+            $table->integer('pax')->nullable();
             $table->unsignedInteger('service_id');
+            $table->unsignedInteger('set_id')->nullable();
             $table->boolean('is_approved')->default(0);
             $table->unsignedInteger('inclusion_id')->nullable();
             $table->timestamps();

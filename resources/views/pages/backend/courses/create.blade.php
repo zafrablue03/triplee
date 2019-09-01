@@ -44,7 +44,7 @@
                     <form action="{{ route('courses.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="row gutters">
-                            <div class="col-xl-5 col-lg-6 col-md-4 col-sm-4 col-12">
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6">
                                 <div class="form-group">
                                     <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" placeholder="Type Name" value="{{ old('name') }}" required>
                                     @error('name')
@@ -62,12 +62,18 @@
                                     @enderror
                                 </div>
                                 <div class="form-group">
-                                    <select class="form-control selectpicker" data-style="btn-info" name="type" required>
+                                    <select class="form-control selectpicker @error('type_id') is-invalid @enderror" data-style="btn-info" name="type_id" required>
                                         <option selected disabled>Select Type</option>
                                         @foreach($types as $key => $value)
                                         <option value="{{ $key }}">{{ $value }}</option>
                                         @endforeach
                                     </select>
+
+                                    @error('type_id')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>Type field is required</strong>
+                                        </span>
+                                    @enderror
                                 </div>
 
                                 <div class="form-group">

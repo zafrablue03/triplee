@@ -6,22 +6,7 @@
 @endpush
 
 @push('additionalJS')
-    <script src="{{ asset('assets/vendor/datatables/dataTables.min.js') }}"></script>
-    <script src="{{ asset('assets/vendor/datatables/dataTables.bootstrap.min.js') }}"></script>
-
-    <!-- Custom Data tables -->
-    <script src="{{ asset('assets/vendor/datatables/custom/custom-datatables.js') }}"></script>
-    <script src="{{ asset('assets/vendor/datatables/custom/fixedHeader.js') }}"></script>
-    <script>
-        $(function(e) {
-            $('#pending-reservations').DataTable();
-        } );
-    </script>
-    <script>
-        $(function(e) {
-            $('#approved-reservations').DataTable();
-        } );
-    </script>
+    @include('pages.backend.partials.datatables')
 @endpush
 
 @section('content')
@@ -32,6 +17,9 @@
             <h5 class="title">Reservations</h5>
         </div>
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+            <div class="daterange-container pr-5">
+                <a class="btn btn-secondary btn-rounded" href="{{ route('reservation.create') }}"><span class="icon-add"></span>New Reservation</a>
+            </div>
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="#"><i class="icon-area-graph"></i></a></li>
@@ -76,8 +64,8 @@
                                                     <th>Name</th>
                                                     <th>Email</th>
                                                     <th>Contact</th>
-                                                    <th>Message</th>
-                                                    <th>Status</th>
+                                                    {{-- <th>Message</th> --}}
+                                                    <th>Time of reservation</th>
                                                     <th>Action</th>
                                                 </tr>
                                             </thead>
@@ -88,8 +76,9 @@
                                                     <td>{{ $pending->name }}</td>
                                                     <td>{{ $pending->email }}</td>
                                                     <td>{{ $pending->contact }}</td>
-                                                    <td>{{ str_limit($pending->message, $limit=50, $end="...") }}</td>
-                                                    <td><span class="badge badge-danger">Pending</span></td>
+                                                    {{-- <td>{{ str_limit($pending->message, $limit=50, $end="...") }}</td> --}}
+                                                    <td>{{ $pending->created_at->diffForHumans() }}({{ $pending->created_at->toFormattedDateString() }})</td>
+                                                    {{-- <td><span class="badge badge-danger">Pending</span></td> --}}
                                                     <td>
                                                         <div class="dropdown">
                                                             <button type="button" class="btn btn-info dropdown-toggle btn-sm" data-toggle="dropdown">
@@ -131,8 +120,8 @@
                                                     <th>Name</th>
                                                     <th>Email</th>
                                                     <th>Contact</th>
-                                                    <th>Message</th>
-                                                    <th>Status</th>
+                                                    {{-- <th>Message</th> --}}
+                                                    <th>Approved</th>
                                                     <th>Action</th>
                                                 </tr>
                                             </thead>
@@ -143,8 +132,9 @@
                                                     <td>{{ $approved->name }}</td>
                                                     <td>{{ $approved->email }}</td>
                                                     <td>{{ $approved->contact }}</td>
-                                                    <td>{{ str_limit($approved->message, $limit=50, $end="...") }}</td>
-                                                    <td><span class="badge badge-success">Approved</span></td>
+                                                    {{-- <td>{{ str_limit($approved->message, $limit=50, $end="...") }}</td> --}}
+                                                    <td>{{ $approved->updated_at->diffForHumans() }}({{ $approved->updated_at->toFormattedDateString() }})</td>
+                                                    {{-- <td><span class="badge badge-success">Approved</span></td> --}}
                                                     <td>
                                                         <div class="dropdown">
                                                             <button type="button" class="btn btn-info dropdown-toggle btn-sm" data-toggle="dropdown">
@@ -152,11 +142,10 @@
                                                             </button>
                                                             <div class="dropdown-menu">
                                                                 <a class="dropdown-item" href="{{ route('reservation.show', $approved->id) }}">View</a>
-                                                                <a class="dropdown-item" href="{{ route('reservation.edit', $approved->id) }}">Edit</a>
                                                                 <form action="{{ route('reservation.destroy', $approved->id) }}" method="POST">
                                                                     @csrf
                                                                     @method('DELETE')
-                                                                    <button type="submit" class="dropdown-item">Delete</button>
+                                                                    <button type="submit" name="approved" value="cancel" class="dropdown-item btn-danger">Cancel</button>
                                                                 </form>
                                                             </div>
                                                         </div>

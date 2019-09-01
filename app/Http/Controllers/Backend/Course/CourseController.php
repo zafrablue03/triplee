@@ -49,25 +49,23 @@ class CourseController extends Controller
     
     public function store(Request $request)
     {
-        if ( ($this->checkSlug(str_slug($request->name))) ) {
-            return redirect()->back()->withError('Course already exists!');
-        }
-
         $request->request->add(['slug' => str_slug($request->name)]);
 
         $request->validate([
             'name'          =>  'required|min:2',
+            'slug'          =>  'required|unique:courses',
             'description'   =>  '',
+            'type_id'       =>  'required',
             'image'         =>  'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048|dimensions:min_width=25,max_width=500',
         ]);
 
         $image = $request->file('image')->store('gallery','public');
 
-        $imageSquare = Image::make(public_path("storage/{$image}"))->fit(1200,1200);
+        $imageSquare = Image::make(public_path("storage/{$image}"))->fit(500,500);
 
         Course::create(array_merge(
             $request->except(['_token', 'type', 'image']),
-            ['type_id'  => $request->type],
+            ['type_id'  => $request->type_id],
             ['image'    => $image]
         ));
 
@@ -115,15 +113,13 @@ class CourseController extends Controller
      */
     public function update(Request $request, Course $course)
     {
-        if ( ($this->checkSlug(str_slug($request->name))) ) {
-            $request->request->add(['slug' => str_slug($request->name).str_random(5)]);
-        }else {
-            $request->request->add(['slug' => str_slug($request->name)]);
-        }
+        
+        $request->request->add(['slug' => str_slug($request->name)]);
         
 
         $request->validate([
             'name'          =>  'required|min:2',
+            'slug'          =>  'required|unique:courses,slug,' .$course->id,
             'description'   =>  '',
             'image'         =>  'sometimes|image|mimes:jpeg,png,jpg,gif,svg|max:2048|dimensions:min_width=25,max_width=500',
         ]);
@@ -135,7 +131,7 @@ class CourseController extends Controller
                 File::delete(storage_path('app/public/'.$course->image));
             }
             $image = $request->file('image')->store('gallery','public');
-            $imageSquare = Image::make(public_path("storage/{$image}"))->fit(1200,1200);
+            $imageSquare = Image::make(public_path("storage/{$image}"))->fit(500,500);
             
             array_push($img_arr, ['image' => $image]);
         }
@@ -160,7 +156,12 @@ class CourseController extends Controller
      */
     public function destroy(Course $course)
     {
+        if($this->checkImage($course->image)){
+            File::delete(storage_path('app/public/'.$course->image));
+        }
         $course->delete();
-        return redirect()->route('courses.index')->withSuccess('Course Successfully deleted!');
+
+        return response()->json('Course successfully deleted!');
+        // return redirect()->route('courses.index')->withSuccess('Course Successfully deleted!');
     }
 }

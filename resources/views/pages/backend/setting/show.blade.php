@@ -35,38 +35,38 @@
 							<div class="card">
 								<div class="card-body">
                                     <div class="form-group row">
-                                        <label class="col-sm-2 col-form-label"><h4>ID</h4></label>
+                                        <label class="col-sm-2 col-form-label"><h5>ID</h5></label>
                                         <div class="col-sm-10">
                                             <input type="text" readonly class="form-control" id="inputReadOnly" value="{{ $setting->id }}">
                                         </div>
                                     </div>
 									<div class="form-group row">
-										<label class="col-sm-2 col-form-label"><h4>Name</h4></label>
+										<label class="col-sm-2 col-form-label"><h5>Name</h5></label>
 										<div class="col-sm-10">
 											<input type="text" readonly class="form-control" value="{{ $setting->name }}">
 										</div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="col-sm-2 col-form-label"><h4>Slug</h4></label>
+                                        <label class="col-sm-2 col-form-label"><h5>Slug</h5></label>
                                         <div class="col-sm-10">
                                             <input type="text" readonly class="form-control" value="{{ $setting->slug }}">
                                         </div>
                                     </div>
                                     
                                     <div class="form-group row">
-										<label class="col-sm-2 col-form-label"><h4>Description</h4></label>
+										<label class="col-sm-2 col-form-label"><h5>Description</h5></label>
 										<div class="col-sm-10">
 											<input type="text" readonly class="form-control" value="{{ $setting->description }}">
 										</div>
                                     </div>
                                     <div class="form-group row">
-                                            <label class="col-sm-2 col-form-label"><h4>Price</h4></label>
+                                            <label class="col-sm-2 col-form-label"><h5>Price</h5></label>
                                             <div class="col-sm-10">
                                                 <input type="text" readonly class="form-control" value="&#8369;  {{ number_format($setting->price, 2) }}">
                                             </div>
                                         </div>
                                     <div class="form-group row">
-                                            <label for="type" class="col-sm-2 col-form-label"><h4>Package</h4></label>
+                                            <label for="type" class="col-sm-2 col-form-label"><h5>Package</h5></label>
                                             <div class="col-sm-10">
                                                 @foreach($setting->types as $type)
                                                 <span class="badge badge-pill badge-light" id="type"><a href="{{ route('types.show',$type->slug) }}">{{ $type->name }}</a></span>

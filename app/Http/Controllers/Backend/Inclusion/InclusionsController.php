@@ -136,6 +136,7 @@ class InclusionsController extends Controller
     public function destroy(Inclusion $inclusion)
     {
         $inclusion->delete();
-        return redirect()->route('inclusions.index')->withSuccess('Set of inclusion has been successfully deleted!');
+        return response()->json('Inclusion successfully deleted!');
+        // return redirect()->route('inclusions.index')->withSuccess('Set of inclusion has been successfully deleted!');
     }
 }

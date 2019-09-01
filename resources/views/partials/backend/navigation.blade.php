@@ -21,7 +21,7 @@
                 </a>
                 <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="appsDropdown">
                     <li>
-                        <a class="dropdown-item" href="{{ route('services.index') }}">Menu</a>
+                        <a class="dropdown-item" href="{{ route('services.index') }}">Services</a>
                     </li>
                     <li>
                         <a class="dropdown-item" href="{{ route('inclusions.index') }}">Manage Inclusions</a>
@@ -56,12 +56,6 @@
                 <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="tablesDropdown">
                     <li>
                         <a class="dropdown-item" href="{{ route('settings.index') }}">Setting</a>
-                    </li>
-                    <li>
-                        <a class="dropdown-item" href="{{ route('sets.index') }}">Sets & Menu</a>
-                    </li>
-                    <li>
-                        <a class="dropdown-item" href="data-tables.html">Manage Inclusions</a>
                     </li>
                 </ul>
             </li>            

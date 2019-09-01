@@ -24,6 +24,7 @@
 
 @push('additionalJS')
 <script src="{{ asset('assets/vendor/datepicker/datepicker.js') }}"></script>
+
 <script>
     $('.type').hide();
     // find elements
@@ -35,17 +36,18 @@
         $(".card.type").not(targetDiv).hide();
         $(targetDiv).show();
     })
+
 </script>
 
 <script>
-        $(function() {
-            $( "#date" ).datepicker({  
-                'format': 'yyyy-mm-dd',
-                'autoclose': true,
-                'todayHighlight': true
-            });
+    $(function() {
+        $( "#date" ).datepicker({  
+            'format': 'yyyy-mm-dd',
+            'autoclose': true,
+            'todayHighlight': true
         });
-    </script>
+    });
+</script>
 @endpush
 
 @section('content')
@@ -61,7 +63,7 @@
                     <li class="breadcrumb-item"><a href="#"><i class="icon-area-graph"></i></a></li>
                     <li class="breadcrumb-item"><a href="{{ route('admin') }}">Dashboard</a></li>
                     <li class="breadcrumb-item"><a href="{{ route('reservation.index') }}">Reservations</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Manage Reservation</li>
+                    <li class="breadcrumb-item active" aria-current="page">New Reservation</li>
                 </ol>
             </nav>
         </div>
@@ -79,9 +81,8 @@
                     <div class="card-body p-12">
                         <div class="wizard-container">
                             <div class="wizard-card m-0" data-color="red" id="wizardProfile">
-                                <form action="{{ route('reservation.update', $reservation->id) }}" method="POST">
+                                <form action="{{ route('reservation.store') }}" method="POST">
                                     @csrf
-                                    {{ method_field('PUT') }}
                                     <div class="wizard-navigation">
                                         <ul>
                                             <li><a href="#firstTab" data-toggle="tab">Customer Details</a></li></a></li>
@@ -101,7 +102,7 @@
                 
                                                                 <div class="form-group label-floating">
                                                                     <label class="control-label">Name <small>(required)</small></label>
-                                                                    <input name="name" type="text" class="form-control @error('name') is-invalid @enderror" value="{{ old('name') ?? $reservation->name }}" required>
+                                                                    <input name="name" type="text" class="form-control @error('name') is-invalid @enderror" value="{{ old('name') }}" required>
                                                                     @error('name')
                                                                         <span class="invalid-feedback" role="alert">
                                                                             <strong>{{ $message }}</strong>
@@ -116,7 +117,7 @@
     
                                                                 <div class="form-group label-floating">
                                                                     <label class="control-label">Contact # <small>(required)</small></label>
-                                                                    <input name="contact" type="text" class="form-control @error('contact') is-invalid @enderror" value="{{ old('contact') ?? $reservation->contact }}" required>
+                                                                    <input name="contact" type="text" class="form-control @error('contact') is-invalid @enderror" value="{{ old('contact') }}" required>
                                                                 </div>
                                                                 @error('contact')
                                                                     <span class="invalid-feedback" role="alert">
@@ -130,7 +131,7 @@
     
                                                                 <div class="form-group label-floating">
                                                                     <label class="control-label">Email <small>(required)</small></label>
-                                                                    <input name="email" type="text" class="form-control @error('email') is-invalid @enderror" value="{{ old('email') ?? $reservation->email }}" required>
+                                                                    <input name="email" type="text" class="form-control @error('email') is-invalid @enderror" value="{{ old('email') }}" required>
                                                                 </div>
                                                                 @error('email')
                                                                     <span class="invalid-feedback" role="alert">
@@ -144,8 +145,7 @@
                                                         <div class="col-sm-3">
                                                             <div class="form-group">
                                                                 <label for="date">Choose the date(required)</label>
-                                                                <input class="form-control @error('date') is-invalid @enderror" name="date" type='text' id="date" placeholder="yyyy-mm-dd" value="{{ old('date') ?? $reservation->date }}" 
-                                                                required>
+                                                                <input class="form-control @error('date') is-invalid @enderror" name="date" type='text' id="date" placeholder="yyyy-mm-dd" readonly required value="{{ old('date') }}">
                                                                 @error('date')
                                                                     <span class="invalid-feedback" role="alert">
                                                                         <strong>{{ $message }}</strong>
@@ -249,28 +249,24 @@
                                                     </div>
                                                     <hr>
                                                     {{-- Loop Here --}}
-                                                    {{-- Sets --}}
+
                                                     @foreach ($sets as $set)
                                                         <div class="card type set_{{ $set->id }}">
-                                                            {{-- Set types --}}
                                                             @foreach($set->types as $type)
                                                                 <div class="card-header">
                                                                     <div class="card-title">{{ $type->name }} <small>(choose one)</small></div>
                                                                 </div>
                                                                 <div class="card-body">
-                                                                    {{-- Set type and courses --}}
+                                                                    <!-- Radios example -->
                                                                     @foreach ($type->courses as $course)
                                                                         <div class="custom-control custom-radio custom-control-inline">
                                                                             <input type="radio" id="{{ $course->slug }}" name="course[][{{ $type->slug }}]" value="{{ $course->id }}" class="custom-control-input" required>
                                                                             <label class="custom-control-label" for="{{ $course->slug }}">{{ $course->name }}</label>
                                                                         </div>
                                                                     @endforeach
-
                                                                 </div>
                                                             @endforeach
-
                                                         </div>
-
                                                     @endforeach
                                                 </div>
                                             </div>

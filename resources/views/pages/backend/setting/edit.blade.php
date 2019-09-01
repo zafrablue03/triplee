@@ -47,7 +47,7 @@
                         @csrf
                         {{ method_field('PUT') }}
                         <div class="row gutters">
-                            <div class="col-xl-4 col-lglg-4 col-md-4 col-sm-4 col-12">
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6">
                                 <div class="col-lg-10">
                                         <div class="form-group">
                                             <label for="inputName">Name</label>

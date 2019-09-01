@@ -15,7 +15,7 @@
         ************ Common Css Files *************
         ************ -->
     <!-- Bootstrap css -->
-    @if(Request::routeIs('reservation.edit'))
+    @if(Request::routeIs(['reservation.edit', 'reservation.create']))
 
         <link rel="stylesheet" href="{{ asset('assets/form-wizard-only/fonts/fonts/font-awesome.min.css') }}">
         <!-- forn-wizard css-->

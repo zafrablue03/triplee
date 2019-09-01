@@ -6,17 +6,8 @@
 @endpush
 
 @push('additionalJS')
-    <script src="{{ asset('assets/vendor/datatables/dataTables.min.js') }}"></script>
-    <script src="{{ asset('assets/vendor/datatables/dataTables.bootstrap.min.js') }}"></script>
-
-    <!-- Custom Data tables -->
-    <script src="{{ asset('assets/vendor/datatables/custom/custom-datatables.js') }}"></script>
-    <script src="{{ asset('assets/vendor/datatables/custom/fixedHeader.js') }}"></script>
-    <script>
-        $(function(e) {
-            $('#table-services').DataTable();
-        } );
-    </script>
+    @include('pages.backend.partials.datatables')
+    @include('pages.backend.partials.ajax-for-delete')
 @endpush
 
 @section('content')
@@ -24,17 +15,17 @@
 <div class="page-title">
     <div class="row gutters">
         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
-            <h5 class="title">Services/Occasion</h5>
+            <h5 class="title">Service and Occasion</h5>
         </div>
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
             <div class="daterange-container pr-5">
-                <a class="btn btn-secondary btn-rounded" href="{{ route('services.create') }}"><span class="icon-add"></span>Add a new Service/Occassion</a>
+                <a class="btn btn-secondary btn-rounded" href="{{ route('services.create') }}"><span class="icon-add"></span> New Service/Occassion</a>
             </div>
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="#"><i class="icon-area-graph"></i></a></li>
                     <li class="breadcrumb-item"><a href="{{ route('admin') }}">Dashboard</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Services/Occassion</li>
+                    <li class="breadcrumb-item active" aria-current="page">Service and Occassion</li>
                 </ol>
             </nav>
         </div>
@@ -50,7 +41,7 @@
                 <div class="card-body">
 
                     <div class="table-responsive">
-                        <table id="table-services" class="table m-0">
+                        <table id="datatables" class="table m-0">
                             <thead>
                                 <tr>
                                     <th>ID</th>
@@ -75,11 +66,12 @@
                                             <div class="dropdown-menu">
                                                 <a class="dropdown-item" href="{{ route('services.show', $service->slug) }}">View</a>
                                                 <a class="dropdown-item" href="{{ route('services.edit', $service->slug) }}">Edit</a>
-                                                <form action="{{ route('services.destroy', $service->slug) }}" method="POST">
+                                                <a slug="{{ $service->slug }}" href="javascript:;" class="dropdown-item button-delete">Delete</a>
+                                                {{-- <form action="{{ route('services.destroy', $service->slug) }}" method="POST">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="dropdown-item">Delete</button>
-                                                </form>
+                                                </form> --}}
                                             </div>
                                         </div>
                                     </td>

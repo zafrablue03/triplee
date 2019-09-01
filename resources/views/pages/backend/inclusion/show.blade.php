@@ -35,26 +35,26 @@
 							<div class="card">
 								<div class="card-body">
                                     <div class="form-group row">
-                                        <label class="col-sm-2 col-form-label"><h4>ID</h4></label>
-                                        <div class="col-sm-10">
+                                        <label class="col-sm-2 col-form-label"><h5>ID</h5></label>
+                                        <div class="col-sm-6">
                                             <input type="text" readonly class="form-control" id="inputReadOnly" value="{{ $inclusion->id }}">
                                         </div>
                                     </div>
 									<div class="form-group row">
-										<label class="col-sm-2 col-form-label"><h4>Name</h4></label>
-										<div class="col-sm-10">
+										<label class="col-sm-2 col-form-label"><h5>Name</h5></label>
+										<div class="col-sm-6">
 											<input type="text" readonly class="form-control" value="{{ $inclusion->name }}">
 										</div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="col-sm-2 col-form-label"><h4>Slug</h4></label>
-                                        <div class="col-sm-10">
+                                        <label class="col-sm-2 col-form-label"><h5>Slug</h5></label>
+                                        <div class="col-sm-6">
                                             <input type="text" readonly class="form-control" value="{{ $inclusion->slug }}">
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                            <label for="type" class="col-sm-2 col-form-label"><h4>Features</h4></label>
-                                            <div class="col-sm-10">
+                                            <label for="type" class="col-sm-2 col-form-label"><h5>Features</h5></label>
+                                            <div class="col-sm-6">
                                                 @foreach($inclusion->features as $feature)
                                                 <span class="badge badge-pill badge-light" id="type">{{ $feature->name }}</span>
                                                 @endforeach

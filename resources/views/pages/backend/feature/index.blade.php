@@ -71,11 +71,11 @@
                                             <div class="dropdown-menu">
                                                 {{-- <a class="dropdown-item" href="{{ route('features.show', $feature->slug) }}">View</a> --}}
                                                 <a class="dropdown-item" href="{{ route('features.edit', $feature->id) }}">Edit</a>
-                                                <form action="{{ route('features.destroy', $feature->id) }}" method="POST">
+                                                {{-- <form action="{{ route('features.destroy', $feature->id) }}" method="POST">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="dropdown-item">Delete</button>
-                                                </form>
+                                                </form> --}}
                                             </div>
                                         </div>
                                     </td>

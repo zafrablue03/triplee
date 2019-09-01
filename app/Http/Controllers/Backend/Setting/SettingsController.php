@@ -61,7 +61,8 @@ class SettingsController extends Controller
         $request->request->add(['slug' => str_slug($request->name)]);
 
         $request->validate([
-            'name'          =>  'required|min:3|unique:settings',
+            'name'          =>  'required|min:3',
+            'slug'          =>  'required|unique:settings',
             'description'   =>  'sometimes|min:3',
             'price'         =>  'numeric|min:1'
         ]);
@@ -109,16 +110,11 @@ class SettingsController extends Controller
      */
     public function update(Request $request, Setting $setting)
     {
-        if ( $this->checkSlug(str_slug($request->name)) ) {
-            $request->request->add(['slug' => str_slug($request->name).' '.str_random(5)]);
-        }else {
-            $request->request->add(['slug' => str_slug($request->name)]);
-        }
-
         $request->request->add(['slug' => str_slug($request->name)]);
 
         $request->validate([
             'name'          =>  'required|min:3',
+            'slug'          =>  'required|unique:settings,slug,'.$setting->id,
             'description'   =>  'sometimes|min:3',
             'price'         =>  'numeric|min:1'
         ]);
@@ -140,8 +136,11 @@ class SettingsController extends Controller
      */
     public function destroy(Setting $setting)
     {
+
         $setting->delete();
 
-        return redirect()->route('settings.index')->withSuccess('Setting successfully deleted!');
+        return response()->json('Setting successfully deleted!');
+
+        // return redirect()->route('settings.index')->withSuccess('Setting successfully deleted!');
     }
 }

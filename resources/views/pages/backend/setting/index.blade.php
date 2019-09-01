@@ -6,17 +6,8 @@
 @endpush
 
 @push('additionalJS')
-    <script src="{{ asset('assets/vendor/datatables/dataTables.min.js') }}"></script>
-    <script src="{{ asset('assets/vendor/datatables/dataTables.bootstrap.min.js') }}"></script>
-
-    <!-- Custom Data tables -->
-    <script src="{{ asset('assets/vendor/datatables/custom/custom-datatables.js') }}"></script>
-    <script src="{{ asset('assets/vendor/datatables/custom/fixedHeader.js') }}"></script>
-    <script>
-        $(function(e) {
-            $('#table-setting').DataTable();
-        } );
-    </script>
+    @include('pages.backend.partials.datatables')
+    @include('pages.backend.partials.ajax-for-delete')
 @endpush
 
 @section('content')
@@ -50,7 +41,7 @@
                 <div class="card-body">
 
                     <div class="table-responsive">
-                        <table id="table-setting" class="table m-0">
+                        <table id="datatables" class="table m-0">
                             <thead>
                                 <tr>
                                     <th>ID</th>
@@ -71,8 +62,10 @@
                                     <td>{{ $setting->description }}</td>
                                     <td>
                                         @foreach($setting->types as $type)
-                                        {{ $type->name }}, 
+                                        {{ $loop->first ? '' : ',' }}
+                                        {{ $type->name }}
                                         @endforeach
+                                        ...
                                     </td>
                                     <td>&#8369; {{ number_format($setting->price,2) }}</td>
                                     <td>
@@ -83,11 +76,12 @@
                                             <div class="dropdown-menu">
                                                 <a class="dropdown-item" href="{{ route('settings.show', $setting->slug) }}">View</a>
                                                 <a class="dropdown-item" href="{{ route('settings.edit', $setting->slug) }}">Edit</a>
-                                                <form action="{{ route('settings.destroy', $setting->slug) }}" method="POST">
+                                                <a slug="{{ $setting->slug }}" href="javascript:;" class="dropdown-item button-delete">Delete</a>
+                                                {{-- <form action="{{ route('settings.destroy', $setting->slug) }}" method="POST">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="dropdown-item">Delete</button>
-                                                </form>
+                                                </form> --}}
                                             </div>
                                         </div>
                                     </td>

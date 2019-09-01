@@ -6,17 +6,8 @@
 @endpush
 
 @push('additionalJS')
-    <script src="{{ asset('assets/vendor/datatables/dataTables.min.js') }}"></script>
-    <script src="{{ asset('assets/vendor/datatables/dataTables.bootstrap.min.js') }}"></script>
-
-    <!-- Custom Data tables -->
-    <script src="{{ asset('assets/vendor/datatables/custom/custom-datatables.js') }}"></script>
-    <script src="{{ asset('assets/vendor/datatables/custom/fixedHeader.js') }}"></script>
-    <script>
-        $(function(e) {
-            $('#table-courses').DataTable();
-        } );
-    </script>
+    @include('pages.backend.partials.datatables')
+    @include('pages.backend.partials.ajax-for-delete')
 @endpush
 
 @section('content')
@@ -50,7 +41,7 @@
                 <div class="card-body">
 
                     <div class="table-responsive">
-                        <table id="table-courses" class="table m-0">
+                        <table id="datatables" class="table m-0">
                             <thead>
                                 <tr>
                                     <th>ID</th>
@@ -77,11 +68,12 @@
                                             <div class="dropdown-menu">
                                                 <a class="dropdown-item" href="{{ route('courses.show', $course->slug) }}">View</a>
                                                 <a class="dropdown-item" href="{{ route('courses.edit', $course->slug) }}">Edit</a>
-                                                <form action="{{ route('courses.destroy', $course->slug) }}" method="POST">
+                                                <a slug="{{ $course->slug }}" href="javascript:;" class="dropdown-item button-delete">Delete</a>
+                                                {{-- <form action="{{ route('courses.destroy', $course->slug) }}" method="POST">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="dropdown-item">Delete</button>
-                                                </form>
+                                                </form> --}}
                                             </div>
                                         </div>
                                     </td>

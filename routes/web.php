@@ -25,7 +25,6 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::resource('reservations', 'Frontend\Reservation\ReservationsController');
 
-
 // Backend
 
 Route::group( ['prefix' => 'admin', 'middleware' => ['auth','admin'], ], function(){
@@ -37,7 +36,6 @@ Route::group( ['prefix' => 'admin', 'middleware' => ['auth','admin'], ], functio
     // ->except('create','store', 'destroy')
     Route::resource('courses', 'Backend\Course\CourseController');
     Route::resource('settings', 'Backend\Setting\SettingsController');
-    Route::resource('sets', 'Backend\Sets\SetsController')->except(['create', 'store']);
     Route::resource('inclusions', 'Backend\Inclusion\InclusionsController');
     Route::resource('features', 'Backend\Feature\FeaturesController')->except(['show']);
     Route::resource('services', 'Backend\Service\ServicesController');
