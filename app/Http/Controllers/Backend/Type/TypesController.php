@@ -115,7 +115,7 @@ class TypesController extends Controller
      */
     public function destroy(Type $type)
     {
-        $type->delete();
-        return redirect()->route('types.index')->withSuccess('Course Type Successfully deleted!');
+        // $type->delete();
+        // return redirect()->route('types.index')->withSuccess('Course Type Successfully deleted!');
     }
 }

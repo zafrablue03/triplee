@@ -1,5 +1,9 @@
 @extends('layouts.backend.master')
 
+@push('additionalCSS')
+<link rel="stylesheet" href="{{ asset('assets/vendor/calendar/css/fullcalendar.min.css') }}" />
+<link rel="stylesheet" href="{{ asset('assets/vendor/calendar/css/custom-calendar.css') }}" />
+@endpush
 
 @push('additionalJS')
 <!-- Apex Charts -->
@@ -7,6 +11,7 @@
 <script src="{{ asset('assets/vendor/apex/custom/apexLineChartGradient.js') }}"></script>
 <script src="{{ asset('assets/vendor/apex/custom/apexColumnBasic.js') }}"></script>
 <script src="{{ asset('assets/vendor/apex/custom/apexAllCustomGraphs.js') }}"></script>
+@include('pages.backend.partials.fullcalendar')
 
 @endpush
 
@@ -43,6 +48,22 @@
 
         <!-- ************************** Visitors and Revenue ************************** -->
         <!-- Row start -->
+        <div class="row gutters justify-content-center">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="mb-0 card-title">Default Calendar</h3>
+                        </div>
+                        <div class="card-body">
+                            <div id='calendar1'></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
         <div class="row gutters justify-content-center">
             <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 col-12">
                 
@@ -127,158 +148,6 @@
                 </div>
                 <!-- Row end -->
 
-            </div>
-        </div>
-        <!-- Row end -->
-
-
-        <!-- Row start -->
-        <div class="row gutters">
-            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
-                <div class="card">
-                    <div class="card-header">
-                        <div class="card-title">Rvenue</div>
-                        <div class="card-sub-title">Overall Sales Revenue and Profits Performance Online and Offline for Q1 to Q4.</div>
-                    </div>
-                    <div class="card-body btm-bdr blue pb-0">
-                        <div class="revenue">
-                            <div class="revenue-header">
-                                <span class="revenue-number">2750</span>
-                                <i class="icon-trending_up text-success"></i>
-                                <small>15.25%</small>
-                            </div>
-                            <div id="apexOrders" class="blue-graph"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
-                <div class="card">
-                    <div class="card-header">
-                        <div class="card-title">Traffic Source</div>
-                        <div class="card-sub-title">Overall Traffic Source and Referral Performance Online and Offline for Q1 to Q4.</div>
-                    </div>
-                    <div class="card-body btm-bdr green pb-0">
-                        <div class="traffic">
-                            <div class="traffic-header">
-                                <span class="traffic-number">5000</span>
-                                <i class="icon-trending_down text-danger"></i>
-                                <small>10.75%</small>
-                            </div>
-                            <div id="traffic" class="orange-graph"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
-                <div class="card">
-                    <div class="card-header">
-                        <div class="card-title">Overall Product Rating</div>
-                    <div class="card-sub-title">250 out of 250(100%) reviewers would recommend this products rating for Q1 to Q4.</div>
-                    </div>
-                    <div class="card-body btm-bdr orange pb-0">
-                        <div class="overall-rating">
-                            <div class="rating-header">
-                                <span class="rating-number">5.0</span>
-                                <div class="rating-box">
-                                    <img src="{{ asset('assets/img/star-selected.svg') }}" class="star" alt="Rating" />
-                                    <img src="{{ asset('assets/img/star-selected.svg') }}" class="star" alt="Rating" />
-                                    <img src="{{ asset('assets/img/star-selected.svg') }}" class="star" alt="Rating" />
-                                    <img src="{{ asset('assets/img/star-selected.svg') }}" class="star" alt="Rating" />
-                                    <img src="{{ asset('assets/img/star-selected.svg') }}" class="star" alt="Rating" />
-                                </div>
-                            </div>
-                            <div id="overAllRating" class="sea-blue-graph"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
-                <div class="card">
-                    <div class="card-header">
-                        <div class="card-title">Deals</div>
-                        <div class="card-sub-title">Overall Deals Revenue and Profits Performance Online and Offline for Q1 to Q4.</div>
-                    </div>
-                    <div class="card-body btm-bdr pink pb-0">
-                        <div class="deals">
-                            <div class="deals-header">
-                                <span class="deals-number">3,500</span>
-                                <i class="icon-trending_up text-success"></i>
-                                <small>25.9%</small>
-                            </div>
-                            <div id="deals" class="pink-graph"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
-                <div class="card">
-                    <div class="card-header">
-                        <div class="card-title">Department Sales</div>
-                        <div class="card-sub-title">Overall Sales Revenue and Profits Performance Online and Offline for Q1 to Q4.</div>
-                    </div>
-                    <div class="card-body btm-bdr yellow pb-0">
-                        <div class="dpt-sales">
-                            <div class="dpt-sales-header">
-                                <span class="dpt-sales-number">6,000</span>
-                                <i class="icon-trending_up text-success"></i>
-                                <small>10.5%</small>
-                            </div>
-                            <div id="apexSales" class="blue-graph"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
-                <div class="card">
-                    <div class="card-header">
-                        <div class="card-title">Customers</div>
-                        <div class="card-sub-title">Overall Customers and Signups Performance Online and Offline Sales Q1 to Q4.</div>
-                    </div>
-                    <div class="card-body btm-bdr sea-blue pb-0">
-                        <div class="customers">
-                            <div class="customers-header">
-                                <span class="customers-number">7,500</span>
-                                <i class="icon-trending_up text-success"></i>
-                                <small>12.5%</small>
-                            </div>
-                            <div id="customers" class="pink-graph"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Row end -->
-
-
-        <!-- Row start -->
-        <div class="row gutters">
-            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
-                <div class="notify info">
-                    <div class="notify-body">
-                        <span class="type">Info</span>
-                        <div class="notify-title">Give your valuable feedback.<img src="{{ asset('assets/img/notification-info.svg') }}" alt="" /></div>
-                        <div class="notify-text">How likely are you to recommend Retail Dashboard to your friends?</div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
-                <div class="notify danger">
-                    <div class="notify-body">
-                        <span class="type">Danger</span>
-                        <div class="notify-title">Give your valuable feedback.<img src="{{ asset('assets/img/notification-danger.svg') }}" alt="" /></div>
-                        <div class="notify-text">How likely are you to recommend Retail Dashboard to your friends?</div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
-                <div class="notify success">
-                    <div class="notify-body">
-                        <span class="type">Success</span>
-                        <div class="notify-title">Give your valuable feedback.<img src="{{ asset('assets/img/notification-success.svg') }}" alt="" /></div>
-                        <div class="notify-text">How likely are you to recommend Retail Dashboard to your friends?</div>
-                    </div>
-                </div>
             </div>
         </div>
         <!-- Row end -->

@@ -11,10 +11,11 @@ use Carbon\Carbon;
 class ReservationsController extends Controller
 {
 
-    public function checkEmail($email)
+    public function checkIfSpamming($email, $date)
     {
-        return Reservation::where('email',$email)
+        return Reservation::whereEmail($email)
         ->whereDay('created_at', Carbon::now()->day)
+        ->where('date',$date)
         ->exists();
     }
 
@@ -26,11 +27,10 @@ class ReservationsController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->all());
-        if($this->checkEmail($request->email))
+        if($this->checkIfSpamming($request->email, $request->date))
         {
             Spam::create($request->all());
-            return redirect()->back()->withError('Sorry! Email has already a pending reservation for today. Try again tommorrow!');
+            return redirect()->back()->withError('Sorry! You already have a pending reservation with the same booking date. We will contact you as soon as possible!');
         }
         $request->validate([
             'date'          =>  'date_format:Y-m-d|required',
@@ -40,7 +40,6 @@ class ReservationsController extends Controller
             'service_id'    =>  'required',
             'message'       =>  ''
         ]);
-        // dd($request->except('_token'));
 
         Reservation::create($request->except('_token'));
 

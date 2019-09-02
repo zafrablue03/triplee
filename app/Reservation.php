@@ -30,7 +30,7 @@ class Reservation extends Model
     
     public function setting()
     {
-        return $this->belongsTo(Setting::class);
+        return $this->belongsTo(Setting::class, 'set_id');
     }
 
     public function getCourseArray($course)

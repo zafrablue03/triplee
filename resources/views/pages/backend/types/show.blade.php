@@ -35,32 +35,33 @@
 							<div class="card">
 								<div class="card-body">
                                     <div class="form-group row">
-                                        <label for="staticEmail" class="col-sm-2 col-form-label"><h4>ID</h4></label>
+                                        <label for="staticEmail" class="col-sm-2 col-form-label"><h5>ID</h5></label>
                                         <div class="col-sm-10">
                                             <input type="text" readonly class="form-control" id="inputReadOnly" value="{{ $type->id }}">
                                         </div>
                                     </div>
 									<div class="form-group row">
-										<label for="staticEmail" class="col-sm-2 col-form-label"><h4>Name</h4></label>
+										<label for="staticEmail" class="col-sm-2 col-form-label"><h5>Name</h5></label>
 										<div class="col-sm-10">
 											<input type="text" readonly class="form-control" value="{{ $type->name }}">
 										</div>
                                     </div>
                                     <div class="form-group row">
-                                        <label for="staticEmail" class="col-sm-2 col-form-label"><h4>Slug</h4></label>
+                                        <label for="staticEmail" class="col-sm-2 col-form-label"><h5>Slug</h5></label>
                                         <div class="col-sm-10">
                                             <input type="text" readonly class="form-control" value="{{ $type->slug }}">
                                         </div>
                                     </div>
                                     
                                     <div class="form-group row">
-										<label for="staticEmail" class="col-sm-2 col-form-label"><h4>Description</h4></label>
+										<label for="staticEmail" class="col-sm-2 col-form-label"><h5>Description</h5></label>
 										<div class="col-sm-10">
-											<input type="text" readonly class="form-control" value="{{ $type->description }}">
+                                            {{-- <input type="text" readonly class="form-control" value="{{ $type->description }}"> --}}
+                                            <textarea cols="30" rows="10" readonly class="form-control">{{ $type->description }}</textarea>
 										</div>
                                     </div>
                                     <div class="form-group row">
-                                        <label for="staticEmail" class="col-sm-2 col-form-label"><h4>Total No. of Courses for this type</h4></label>
+                                        <label for="staticEmail" class="col-sm-2 col-form-label"><h5>Total No. of Courses for this type</h5></label>
                                         <div class="col-sm-10">
                                             <input type="text" readonly class="form-control" value="{{ $type->courses()->count() }}">
                                         </div>

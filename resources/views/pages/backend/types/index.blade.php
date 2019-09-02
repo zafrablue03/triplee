@@ -6,17 +6,7 @@
 @endpush
 
 @push('additionalJS')
-    <script src="{{ asset('assets/vendor/datatables/dataTables.min.js') }}"></script>
-    <script src="{{ asset('assets/vendor/datatables/dataTables.bootstrap.min.js') }}"></script>
-
-    <!-- Custom Data tables -->
-    <script src="{{ asset('assets/vendor/datatables/custom/custom-datatables.js') }}"></script>
-    <script src="{{ asset('assets/vendor/datatables/custom/fixedHeader.js') }}"></script>
-    <script>
-        $(function(e) {
-            $('#table-types').DataTable();
-        } );
-    </script>
+    @include('pages.backend.partials.datatables')
 @endpush
 
 @section('content')
@@ -51,7 +41,7 @@
                 <div class="card-body">
 
                     <div class="table-responsive">
-                        <table id="table-types" class="table m-0">
+                        <table id="datatables" class="table m-0">
                             <thead>
                                 <tr>
                                     <th>ID</th>

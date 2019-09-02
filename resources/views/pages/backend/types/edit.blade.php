@@ -36,14 +36,15 @@
                         @csrf
                         {{ method_field('PUT') }}
                         <div class="row gutters">
-                            <div class="col-xl-4 col-lglg-4 col-md-4 col-sm-4 col-12">
+                            <div class="col-xl-6 col-lglg-6 col-md-6 col-sm-6 col-6">
                                 <div class="form-group">
                                     <label for="inputName">Name</label>
                                     <input type="text" class="form-control" name="name" value="{{ old('name') ?? $type->name}}">
                                 </div>
                                 <div class="form-group">
                                     <label for="inputName">Description</label>
-                                    <input type="text" class="form-control" name="description" value="{{ old('name') ?? $type->description }}">
+                                    {{-- <input type="text" class="form-control" name="description" value="{{ old('name') ?? $type->description }}"> --}}
+                                    <textarea name="description" cols="30" rows="10" class="form-control">{{ old('name') ?? $type->description }}</textarea>
                                 </div>
                                 <button type="submit" class="btn btn-secondary btn-rounded">Save</button>
                             </div>

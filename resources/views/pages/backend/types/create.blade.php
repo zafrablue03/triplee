@@ -33,14 +33,15 @@
                     <form action="{{ route('types.store') }}" method="POST">
                         @csrf
                         <div class="row gutters">
-                            <div class="col-xl-4 col-lglg-4 col-md-4 col-sm-4 col-12">
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6">
                                 <div class="form-group">
                                     <label for="inputName">Name</label>
                                     <input type="text" class="form-control" name="name" placeholder="Type Name" value="{{ old('name') }}">
                                 </div>
                                 <div class="form-group">
                                     <label for="inputName">Description</label>
-                                    <input type="text" class="form-control" name="description" placeholder="Type Description" value="{{ old('description') }}">
+                                    {{-- <input type="text" class="form-control" name="description" placeholder="Type Description" value="{{ old('description') }}"> --}}
+                                    <textarea name="description"placeholder="Type Description" cols="30" rows="10" class="form-control">{{ old('description') }}</textarea>
                                 </div>
                                 <button type="submit" class="btn btn-secondary btn-rounded">Save</button>
                             </div>

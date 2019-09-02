@@ -35,39 +35,41 @@
 							<div class="card">
 								<div class="card-body">
                                     <div class="form-group row">
-                                        <label class="col-sm-2 col-form-label"><h4>ID</h4></label>
+                                        <label class="col-sm-2 col-form-label"><h5>ID</h5></label>
                                         <div class="col-sm-10">
                                             <input type="text" readonly class="form-control" id="inputReadOnly" value="{{ $course->id }}">
                                         </div>
                                     </div>
 									<div class="form-group row">
-										<label class="col-sm-2 col-form-label"><h4>Name</h4></label>
+										<label class="col-sm-2 col-form-label"><h5>Name</h5></label>
 										<div class="col-sm-10">
 											<input type="text" readonly class="form-control" value="{{ $course->name }}">
 										</div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="col-sm-2 col-form-label"><h4>Slug</h4></label>
+                                        <label class="col-sm-2 col-form-label"><h5>Slug</h5></label>
                                         <div class="col-sm-10">
                                             <input type="text" readonly class="form-control" value="{{ $course->slug }}">
                                         </div>
                                     </div>
                                     
                                     <div class="form-group row">
-										<label class="col-sm-2 col-form-label"><h4>Description</h4></label>
+										<label class="col-sm-2 col-form-label"><h5>Description</h5></label>
 										<div class="col-sm-10">
 											<input type="text" readonly class="form-control" value="{{ $course->description }}">
 										</div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="col-sm-2 col-form-label"><h4>Course Type</h4></label>
+                                        <label class="col-sm-2 col-form-label"><h5>Course Type</h5></label>
                                         <div class="col-sm-10">
                                             <input type="text" readonly class="form-control" value="{{ $course->type->name }}">
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="col-sm-2 col-form-label"><h4>Image</h4></label>
+                                        <label class="col-sm-2 col-form-label"><h5>Image</h5></label>
+                                        <div class="col-sm-10">
                                             <img src="/storage/{{ $course->image }}" class="w-50">
+                                        </div>
                                     </div>
                                     <div class="pt-3">
                                         <a href="{{ route('courses.edit', $course->slug) }}"class="btn btn-secondary btn-rounded" style="float:right"> Edit </a>

@@ -41,4 +41,8 @@ Route::group( ['prefix' => 'admin', 'middleware' => ['auth','admin'], ], functio
     Route::resource('services', 'Backend\Service\ServicesController');
     Route::resource('reservation', 'Backend\Reservation\ReservationsController');
 
+    Route::get('contract/{reservation}', 'Backend\Reservation\ReservationsController@streamPDF')->name('reservation.pdf');
+
+    
+
 });

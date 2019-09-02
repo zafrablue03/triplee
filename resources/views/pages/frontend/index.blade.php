@@ -5,14 +5,14 @@
     <section class="page-section" id="services">
         <div class="container">
           <div class="row">
-            <div class="col-lg-12 text-center">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 text-center">
               <h2 class="section-heading text-uppercase">Gallery</h2>
               <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
             </div>
           </div>
           <div class="row">
             @foreach($services as $service)
-            <div class="column">
+            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4">
                 <div class="portfolio-caption text-center">
                   <h4>{{ ucfirst($service->name) }}</h4>
                   <img class="w-100" src="/storage/{{ $service->thumbnail }}" style="width:100%">
@@ -24,9 +24,9 @@
           </div>
         </div>
       </section>
-      {{-- <section>
-      <div align="center">
-          <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+      <section>
+      {{-- <div class="row text-center">
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
               <h5>With Captions</h5>
               <div id="carouselExampleFade" class="carousel slide carousel-fade" data-ride="carousel">
                 <ol class="carousel-indicators">
@@ -55,16 +55,16 @@
                 </a>
               </div>
           </div>
-      </div>
+      </div> --}}
         
-      </section> --}}
+      </section>
       <!-- Portfolio Grid -->
       <section class="bg-light page-section" id="portfolio">
         <div class="container">
           <div class="row">
-            <div class="col-lg-12 text-center">
-              <h2 class="section-heading text-uppercase">Portfolio</h2>
-              <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 text-center">
+              <h2 class="section-heading text-uppercase">Services</h2>
+              <h3 class="section-subheading text-muted">Corporate Meetings and Events may be taxing to all participants. Good food must be in order. Triple E Gourmet Catering Services is the caterer you can rely on.</h3>
             </div>
           </div>
           <div class="row">
@@ -79,7 +79,9 @@
                   <img class="img-fluid" src="/storage/{{ $service->thumbnail }}" alt="">
                 </a>
                 <div class="portfolio-caption">
+                <a class="portfolio-link" data-toggle="modal" href="#modal{{ $service->id }}">
                   <h4>{{ ucfirst($service->name) }}</h4>
+                </a>
                   <p class="text-muted">Illustration</p>
                 </div>
               </div>
@@ -92,7 +94,7 @@
       <section class="page-section" id="about">
         <div class="container">
           <div class="row">
-            <div class="col-lg-12 text-center">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 text-center">
               <h2 class="section-heading text-uppercase">About</h2>
               <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
             </div>
@@ -173,7 +175,7 @@
       <section class="bg-light page-section" id="team">
         <div class="container">
           <div class="row">
-            <div class="col-lg-12 text-center">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 text-center">
               <h2 class="section-heading text-uppercase">Our Amazing Team</h2>
               <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
             </div>

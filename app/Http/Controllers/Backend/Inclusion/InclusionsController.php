@@ -60,7 +60,8 @@ class InclusionsController extends Controller
         $request->request->add(['slug' => str_slug($request->name)]);
 
         $request->validate([
-            'name'      =>  'required|min:3|max:30'
+            'name'      =>  'required|min:3|max:30',
+            'slug'      =>  'required|unique:inclusions'
         ]);
 
         Inclusion::create($request->except('_token'))->features()->attach($request->feature);
@@ -104,16 +105,11 @@ class InclusionsController extends Controller
      */
     public function update(Request $request, Inclusion $inclusion)
     {
-        if ( $this->checkSlug(str_slug($request->name)) ) {
-            $request->request->add(['slug' => str_slug($request->name).' '.str_random(5)]);
-        }else {
-            $request->request->add(['slug' => str_slug($request->name)]);
-        }
-
         $request->request->add(['slug' => str_slug($request->name)]);
 
         $request->validate([
-            'name'      =>  'required|min:3|max:30'
+            'name'      =>  'required|min:3|max:30',
+            'slug'      =>  'required|unique:inclusions,slug,'.$inclusion-id
         ]);
 
         $inclusion->update($request->except('_token'));

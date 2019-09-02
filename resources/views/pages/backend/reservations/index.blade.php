@@ -122,7 +122,9 @@
                                                     <th>Contact</th>
                                                     {{-- <th>Message</th> --}}
                                                     <th>Approved</th>
+                                                    <th>Date</th>
                                                     <th>Action</th>
+                                                    <th>Contract</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -134,6 +136,7 @@
                                                     <td>{{ $approved->contact }}</td>
                                                     {{-- <td>{{ str_limit($approved->message, $limit=50, $end="...") }}</td> --}}
                                                     <td>{{ $approved->updated_at->diffForHumans() }}({{ $approved->updated_at->toFormattedDateString() }})</td>
+                                                    <td>{{ Carbon\Carbon::now()->diffInDays((Carbon\Carbon::parse($approved->date)), false) }} days left ({{ Carbon\Carbon::parse($approved->date)->toFormattedDateString() }})</td>
                                                     {{-- <td><span class="badge badge-success">Approved</span></td> --}}
                                                     <td>
                                                         <div class="dropdown">
@@ -150,6 +153,9 @@
                                                             </div>
                                                         </div>
                                                     </td>
+                                                    <td>
+                                                        <a href="{{ route('reservation.pdf', $approved->id) }}" class="btn btn-info" target="_blank"><i class="icon-download"></i></a>
+                                                    </td>
                                                 </tr>
                                                 @endforeach               
                                             </tbody>
@@ -163,11 +169,9 @@
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 </div>
-
 
 @endsection
 

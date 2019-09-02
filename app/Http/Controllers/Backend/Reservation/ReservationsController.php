@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Reservation;
 use App\Setting;
+use Carbon\Carbon;
 
 class ReservationsController extends Controller
 {
@@ -95,5 +96,13 @@ class ReservationsController extends Controller
             $reservation->save();
             return redirect()->route('reservation.index')->withSuccess('Reservation cancelled!');
         }
+    }
+
+    public function streamPDF(Reservation $reservation)
+    {
+        $total = $reservation->setting->price * $reservation->pax;
+        $date = Carbon::parse($reservation->date)->toFormattedDateString();
+        $pdf = \PDF::loadView('pages.backend.reservations.partials.contract-pdf', compact('reservation', 'date', 'total'))->setPaper('a4', 'portrait');
+        return $pdf->stream('test.pdf');
     }
 }

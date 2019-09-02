@@ -14,10 +14,16 @@
                     Dashboard
                 </a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link {{ Request::routeIs('reservation*') ? 'active-page': '' }}" href="{{ route('reservation.index') }}">
+                    <i class="icon-calendar nav-icon"></i>
+                    Reservation
+                </a>
+            </li>
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle {{ Request::routeIs(['features*', 'inclusions*']) ? 'active-page': '' }}" href="#" id="appsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a class="nav-link dropdown-toggle {{ Request::routeIs(['features*', 'inclusions*', 'services*']) ? 'active-page': '' }}" href="#" id="appsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="icon-package nav-icon"></i>
-                    Menus
+                    Services
                 </a>
                 <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="appsDropdown">
                     <li>
@@ -32,24 +38,21 @@
                 </ul>
             </li>
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="formsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="icon-edit1 nav-icon"></i>
-                    Reviews
+                <a class="nav-link dropdown-toggle {{ Request::routeIs(['courses*', 'types*']) ? 'active-page': '' }}" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="icon-local_bar nav-icon"></i>
+                    Menus
                 </a>
                 <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="formsDropdown">
                     <li>
-                        <a class="dropdown-item" href="bs-select.html">BS Select</a>
+                        <a class="dropdown-item" href="{{ route('types.index') }}">Types</a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" href="{{ route('courses.index') }}">Courses</a>
                     </li>
                 </ul>
             </li>
-            <li class="nav-item">
-                <a class="nav-link {{ Request::routeIs('courses.*') ? 'active-page': '' }}" href="{{ route('courses.index') }}">
-                    <i class="icon-local_bar nav-icon"></i>
-                    Courses
-                </a>
-            </li>
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle {{ Request::routeIs('settings.*') ? 'active-page': '' }}" href="#" id="tablesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a class="nav-link dropdown-toggle {{ Request::routeIs('settings*') ? 'active-page': '' }}" href="#" id="tablesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="icon-shopping-bag1 nav-icon"></i>
                     Setting
                 </a>
@@ -64,6 +67,17 @@
                     <i class="icon-camera2 nav-icon"></i>
                     Gallery
                 </a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="formsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="icon-edit1 nav-icon"></i>
+                    Reviews
+                </a>
+                <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="formsDropdown">
+                    <li>
+                        <a class="dropdown-item" href="bs-select.html">BS Select</a>
+                    </li>
+                </ul>
             </li>
         </ul>
     </div>
