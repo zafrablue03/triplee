@@ -40,6 +40,7 @@ Route::group( ['prefix' => 'admin', 'middleware' => ['auth','admin'], ], functio
     Route::resource('features', 'Backend\Feature\FeaturesController')->except(['show']);
     Route::resource('services', 'Backend\Service\ServicesController');
     Route::resource('reservation', 'Backend\Reservation\ReservationsController');
+    Route::resource('profile', 'Backend\Profile\ProfileController')->parameters(['profile' => 'user']);
 
     Route::get('contract/{reservation}', 'Backend\Reservation\ReservationsController@streamPDF')->name('reservation.pdf');
 

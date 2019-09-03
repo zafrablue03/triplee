@@ -31,6 +31,31 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    public function isAdmin()
+    {
+        return $this->is_admin === self::ADMIN_TYPE;
+    }
+
+    public function profile()
+    {
+        return $this->hasOne(Profile::class);
+    }
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::created(function ($user){
+            $user->profile()->create([
+                'about' =>  '<small> Edit your bio </small>',
+                'title' =>  'Member',
+                'image' =>  'default.png',
+                'avatar' =>  'default.png'
+            ]);
+        });
+
+    }
+
     /**
      * The attributes that should be cast to native types.
      *
@@ -39,9 +64,4 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-
-    public function isAdmin()
-    {
-        return $this->is_admin === self::ADMIN_TYPE;
-    }
 }

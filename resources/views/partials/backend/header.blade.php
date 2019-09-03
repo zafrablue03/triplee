@@ -67,14 +67,12 @@
                         <div class="header-profile-actions">
                             <div class="header-user-profile">
                                 <div class="header-user">
-                                    <img src="{{ asset('assets/img/user.png') }}" alt="Reatil Admin" />
+                                    <img src="/storage/{{ auth()->user()->profile->image }}" alt="Reatil Admin" />
                                 </div>
                                 <h5>{{ auth()->user()->name }}</h5>
-                                <p>Balance - $35,000</p>
+                                <p>{{ auth()->user()->profile->title }}</p>
                             </div>
-                            <a href="user-profile.html"><i class="icon-user1"></i> My Profile</a>
-                            <a href="pricing.html"><i class="icon-settings1"></i> Account Settings</a>
-                            <a href="tasks.html"><i class="icon-activity"></i> Activity Logs</a>
+                            <a href="{{ route('profile.index') }}"><i class="icon-user1"></i> My Profile</a>
                             <a href="{{ route('logout') }}" 
                                 onclick="event.preventDefault();
                                     document.getElementById('logout-form').submit();" >

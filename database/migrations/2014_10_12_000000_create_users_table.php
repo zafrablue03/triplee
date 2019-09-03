@@ -26,7 +26,7 @@ class CreateUsersTable extends Migration
         });
         DB::table('users')->insert([
             'name' => 'Janrey Maligro',
-            'email' => 'malricjan25@gmail.com',
+            'email' => 'admin@admin.com',
             'is_admin' => true,
             'password' => Hash::make('12345678'),
             "created_at" =>  \Carbon\Carbon::now(),

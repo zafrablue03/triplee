@@ -64,7 +64,6 @@
                                                     <th>Name</th>
                                                     <th>Email</th>
                                                     <th>Contact</th>
-                                                    {{-- <th>Message</th> --}}
                                                     <th>Time of reservation</th>
                                                     <th>Action</th>
                                                 </tr>
