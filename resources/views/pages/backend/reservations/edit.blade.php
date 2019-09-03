@@ -23,7 +23,6 @@
 @endpush
 
 @push('additionalJS')
-<script src="{{ asset('assets/vendor/datepicker/datepicker.js') }}"></script>
 <script>
     $('.type').hide();
     // find elements
@@ -36,7 +35,7 @@
         $(targetDiv).show();
     })
 </script>
-
+<script src="{{ asset('assets/vendor/datepicker/datepicker.js') }}"></script>
 <script>
         $(function() {
             $( "#date" ).datepicker({  
@@ -229,7 +228,7 @@
                                                                     <div class="icon">
                                                                         <i class="fa fa-laptop"></i>
                                                                     </div>
-                                                                    <h6>{{ $set->name }} (&#8369; 150/head)</h6>
+                                                                    <h6>{{ $set->name }} (&#8369; {{ $set->description }})</h6>
                                                                     <ul>
                                                                         @foreach($set->types as $type)
                                                                             <li style="width:10em; float:left;"><small>&bull;{{ $type->name }}</small></li>
@@ -261,8 +260,8 @@
                                                                     {{-- Set type and courses --}}
                                                                     @foreach ($type->courses as $course)
                                                                         <div class="custom-control custom-radio custom-control-inline">
-                                                                            <input type="radio" id="{{ $course->slug }}" name="course[][{{ $type->slug }}]" value="{{ $course->id }}" class="custom-control-input" required>
-                                                                            <label class="custom-control-label" for="{{ $course->slug }}">{{ $course->name }}</label>
+                                                                            <input type="radio" id="{{ $set->slug }}_{{ $course->slug }}" name="course[][{{ $type->slug }}]" value="{{ $course->id }}" class="custom-control-input" required>
+                                                                            <label class="custom-control-label" for="{{ $set->slug }}_{{ $course->slug }}">{{ $course->name }}</label>
                                                                         </div>
                                                                     @endforeach
 

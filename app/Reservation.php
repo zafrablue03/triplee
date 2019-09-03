@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 class Reservation extends Model
 {
@@ -45,5 +46,15 @@ class Reservation extends Model
             }
         }
         return $val_arr;
+    }
+
+    public function payable()
+    {
+        return $this->setting->price * $this->pax;
+    }
+
+    public function eventDate()
+    {
+        return Carbon::parse($this->date);
     }
 }

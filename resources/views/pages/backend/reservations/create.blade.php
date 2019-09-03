@@ -23,7 +23,6 @@
 @endpush
 
 @push('additionalJS')
-<script src="{{ asset('assets/vendor/datepicker/datepicker.js') }}"></script>
 
 <script>
     $('.type').hide();
@@ -33,11 +32,21 @@
     choiceObj.on("click", function(){
         radioBtnValue = $(this).find("input[id='sets']").val();
         var targetDiv = $(".set_" + radioBtnValue);
-        $(".card.type").not(targetDiv).hide();
+        $(".type").not(targetDiv).hide();
         $(targetDiv).show();
     })
-
 </script>
+
+{{-- <script>
+    $('input[type=radio]').click(function(){
+        if (this.previous) {
+            this.checked = false;
+        }
+        this.previous = this.checked;
+    });
+</script> --}}
+
+<script src="{{ asset('assets/vendor/datepicker/datepicker.js') }}"></script>
 
 <script>
     $(function() {
@@ -260,8 +269,8 @@
                                                                     <!-- Radios example -->
                                                                     @foreach ($type->courses as $course)
                                                                         <div class="custom-control custom-radio custom-control-inline">
-                                                                            <input type="radio" id="{{ $course->slug }}" name="course[][{{ $type->slug }}]" value="{{ $course->id }}" class="custom-control-input" required>
-                                                                            <label class="custom-control-label" for="{{ $course->slug }}">{{ $course->name }}</label>
+                                                                            <input type="radio" id="{{ $set->slug }}_{{ $course->slug }}" name="course[][{{ $type->slug }}]" value="{{ $course->id }}" class="custom-control-input" required>
+                                                                            <label class="custom-control-label" for="{{ $set->slug }}_{{ $course->slug }}">{{ $course->name }}</label>
                                                                         </div>
                                                                     @endforeach
                                                                 </div>

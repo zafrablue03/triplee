@@ -38,6 +38,10 @@
                         <td class="text-right">{{ $reservation->pax }}</td>
                     </tr>
                     <tr>
+                        <th>Setting Price:</th>
+                        <td class="text-right">{{ $reservation->setting->description }}</td>
+                    </tr>
+                    <tr>
                         <th> Date: </th>
                         <td class="text-right">{{ $date }}</td>
                     </tr>

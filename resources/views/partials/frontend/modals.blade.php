@@ -13,7 +13,7 @@
             </div>
             <div class="container">
                 <div class="row">
-                    <div class="col-lg-8 mx-auto">
+                    <div class="col-lg-12">
                         <div class="modal-body">
                         <!-- Project Details Go Here -->
                             <div class="container">
@@ -29,16 +29,37 @@
                                             @csrf
                                             <div class="row">
                                                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                                                    <div class="form-group">
-                                                        <label for="date">Choose the date</label>
-                                                        <input class="form-control @error('date') is-invalid @enderror" name="date" type='text' id="date" placeholder="yyyy-mm-dd" readonly 
-                                                        required="required" data-validation-required-message="Please enter the target date." value="{{ old('date') }}">
-                                                        @error('date')
-                                                            <span class="invalid-feedback" role="alert">
-                                                                <strong>{{ $message }}</strong>
-                                                            </span>
-                                                        @enderror
-                                                        <p class="help-block text-danger"></p>
+                                                    <div class="row">
+                                                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6">
+                                                            <div class="form-group">
+                                                                <label for="date">Choose the date</label>
+                                                                <input class="form-control @error('date') is-invalid @enderror" name="date" type='text' id="date" placeholder="yyyy-mm-dd" readonly 
+                                                                required="required" data-validation-required-message="Please enter the target date." value="{{ old('date') }}">
+                                                                @error('date')
+                                                                    <span class="invalid-feedback" role="alert">
+                                                                        <strong>{{ $message }}</strong>
+                                                                    </span>
+                                                                @enderror
+                                                                <p class="help-block text-danger"></p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6">
+                                                            <div class="form-group">
+                                                                <label for="menu">Choose a Service</label>
+                                                                <select class="form-control selectpicker @error('service_id') is-invalid @enderror" data-style="btn-info" name="service_id" required>
+                                                                    <option selected disabled>Select Service</option>
+                                                                    @foreach( $services->pluck('name','id') as $key => $value)
+                                                                    <option value="{{ $key }}">{{ $value }}</option>
+                                                                    @endforeach
+                                                                </select>
+                                                                @error('service_id')
+                                                                    <span class="invalid-feedback" role="alert">
+                                                                        <strong>{{ $message }}</strong>
+                                                                    </span>
+                                                                @enderror
+                                                                <p class="help-block text-danger"></p>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="name" class="form-label" style="float:left">Name <small>(required*)</small></label>
@@ -75,21 +96,6 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                                                    <div class="form-group">
-                                                        <label for="menu">Choose a Service</label>
-                                                        <select class="form-control selectpicker @error('service_id') is-invalid @enderror" data-style="btn-info" name="service_id" required>
-                                                            <option selected disabled>Select Service</option>
-                                                            @foreach( $services->pluck('name','id') as $key => $value)
-                                                            <option value="{{ $key }}">{{ $value }}</option>
-                                                            @endforeach
-                                                        </select>
-                                                        @error('service_id')
-                                                            <span class="invalid-feedback" role="alert">
-                                                                <strong>{{ $message }}</strong>
-                                                            </span>
-                                                        @enderror
-                                                        <p class="help-block text-danger"></p>
-                                                    </div>
                                                     <div class="form-group">
                                                         <textarea class="form-control @error('message') is-invalid @enderror" name="message" rows="10" cols="30" id="message" placeholder="Your Message *" 
                                                         data-validation-required-message="Please enter a message.">{{ old('message') }}</textarea>

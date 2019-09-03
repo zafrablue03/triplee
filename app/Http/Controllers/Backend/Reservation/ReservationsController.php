@@ -19,8 +19,11 @@ class ReservationsController extends Controller
     {
         $pending_reservations =  Reservation::pending()->get();
         $approved_reservations =  Reservation::approved()->get();
+        $now = Carbon::now();
 
-        return view('pages.backend.reservations.index', compact('approved_reservations', 'pending_reservations'));
+        $customer = Reservation::approved()->first();
+
+        return view('pages.backend.reservations.index', compact('approved_reservations', 'pending_reservations', 'now'));
     }
 
     public function create(Reservation $reservation)
@@ -59,8 +62,7 @@ class ReservationsController extends Controller
     }
 
     public function update(Request $request, Reservation $reservation)
-    {
-        
+    {        
         $course = $reservation->getCourseArray($request->course);
 
         $request->validate([
@@ -72,11 +74,8 @@ class ReservationsController extends Controller
             'pax'           =>  'required|numeric|min:10',
             'service_id'    =>  'required',
             'set_id'        =>  'required',
-            // 'course'        =>  'required'
         ]);
-
-        // dd($request->all());
-
+        
         $reservation->update(array_merge(
             $request->except('_token', 'finish'),
             ['is_approved' => 1]
@@ -93,6 +92,7 @@ class ReservationsController extends Controller
         if($request->get('approved') === 'cancel')
         {
             $reservation->is_approved = false;
+            $reservation->courses()->detach();
             $reservation->save();
             return redirect()->route('reservation.index')->withSuccess('Reservation cancelled!');
         }
@@ -100,7 +100,7 @@ class ReservationsController extends Controller
 
     public function streamPDF(Reservation $reservation)
     {
-        $total = $reservation->setting->price * $reservation->pax;
+        $total = $reservation->payable();
         $date = Carbon::parse($reservation->date)->toFormattedDateString();
         $pdf = \PDF::loadView('pages.backend.reservations.partials.contract-pdf', compact('reservation', 'date', 'total'))->setPaper('a4', 'portrait');
         return $pdf->stream('test.pdf');

@@ -53,7 +53,7 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="mb-0 card-title">Default Calendar</h3>
+                            <h3 class="mb-0 card-title">Reservation Event Calendar</h3>
                         </div>
                         <div class="card-body">
                             <div id='calendar1'></div>

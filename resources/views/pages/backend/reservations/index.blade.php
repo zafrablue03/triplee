@@ -119,8 +119,7 @@
                                                     <th>Name</th>
                                                     <th>Email</th>
                                                     <th>Contact</th>
-                                                    {{-- <th>Message</th> --}}
-                                                    <th>Approved</th>
+                                                    <th>Service</th>
                                                     <th>Date</th>
                                                     <th>Action</th>
                                                     <th>Contract</th>
@@ -133,10 +132,18 @@
                                                     <td>{{ $approved->name }}</td>
                                                     <td>{{ $approved->email }}</td>
                                                     <td>{{ $approved->contact }}</td>
-                                                    {{-- <td>{{ str_limit($approved->message, $limit=50, $end="...") }}</td> --}}
-                                                    <td>{{ $approved->updated_at->diffForHumans() }}({{ $approved->updated_at->toFormattedDateString() }})</td>
-                                                    <td>{{ Carbon\Carbon::now()->diffInDays((Carbon\Carbon::parse($approved->date)), false) }} days left ({{ Carbon\Carbon::parse($approved->date)->toFormattedDateString() }})</td>
-                                                    {{-- <td><span class="badge badge-success">Approved</span></td> --}}
+                                                    <td>{{ $approved->service->name }}</td>
+                                                    <td>
+                                                        @if($approved->eventDate()->day == $now->day )
+                                                            On Going ({{ $approved->eventDate()->toFormattedDateString() }})
+                                                        @elseif( $approved->eventDate()->day > $now->day )
+                                                            {{ $now->diffInDays($approved->eventDate()) }} day/s left. ({{ $approved->eventDate()->toFormattedDateString() }})
+
+                                                        @else
+                                                            Over ({{ $approved->eventDate()->toFormattedDateString() }})
+
+                                                        @endif
+                                                    </td>
                                                     <td>
                                                         <div class="dropdown">
                                                             <button type="button" class="btn btn-info dropdown-toggle btn-sm" data-toggle="dropdown">
@@ -147,7 +154,12 @@
                                                                 <form action="{{ route('reservation.destroy', $approved->id) }}" method="POST">
                                                                     @csrf
                                                                     @method('DELETE')
-                                                                    <button type="submit" name="approved" value="cancel" class="dropdown-item btn-danger">Cancel</button>
+                                                                    <button type="submit" name="approved" value="cancel" class="dropdown-item"
+                                                                    @if($now->diffInDays($approved->eventDate()) < 2 )
+                                                                        disabled
+                                                                        style="background:gray; color:grayish; cursor:default"
+                                                                    @endif
+                                                                    >Cancel</button>
                                                                 </form>
                                                             </div>
                                                         </div>
