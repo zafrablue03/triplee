@@ -120,7 +120,7 @@
                                                     <th>Email</th>
                                                     <th>Contact</th>
                                                     <th>Service</th>
-                                                    <th>Date</th>
+                                                    <th>Date <a href="#" title="Cancellation of order will be unavailable if event date is less than two days!"><i class="icon-report"></i></a></th>
                                                     <th>Action</th>
                                                     <th>Contract</th>
                                                 </tr>
@@ -133,17 +133,12 @@
                                                     <td>{{ $approved->email }}</td>
                                                     <td>{{ $approved->contact }}</td>
                                                     <td>{{ $approved->service->name }}</td>
-                                                    <td>
-                                                        @if($approved->eventDate()->day == $now->day )
-                                                            On Going ({{ $approved->eventDate()->toFormattedDateString() }})
-                                                        @elseif( $approved->eventDate()->day > $now->day )
-                                                            {{ $now->diffInDays($approved->eventDate()) }} day/s left. ({{ $approved->eventDate()->toFormattedDateString() }})
-
-                                                        @else
-                                                            Over ({{ $approved->eventDate()->toFormattedDateString() }})
-
-                                                        @endif
-                                                    </td>
+                                                    @php
+                                                        $date = $approved->eventDate();
+                                                        $diffInDays = $now->diffInDays($date, false);
+                                                        $year = $approved->eventDate()->year;
+                                                    @endphp
+                                                    <td>{{ $date->toFormattedDateString() }} <a href="#" title="Cancellation of order will be unavailable if event date is less than two days!"><i class="icon-report"></i></a></td>
                                                     <td>
                                                         <div class="dropdown">
                                                             <button type="button" class="btn btn-info dropdown-toggle btn-sm" data-toggle="dropdown">
@@ -155,7 +150,10 @@
                                                                     @csrf
                                                                     @method('DELETE')
                                                                     <button type="submit" name="approved" value="cancel" class="dropdown-item"
-                                                                    @if($now->diffInDays($approved->eventDate()) < 2 )
+                                                                    @if(!($now->year == $year))
+                                                                        disabled
+                                                                        style="background:gray; color:grayish; cursor:default"
+                                                                    @elseif( $diffInDays < 2 AND $date->month <= $now->month )
                                                                         disabled
                                                                         style="background:gray; color:grayish; cursor:default"
                                                                     @endif
@@ -165,7 +163,7 @@
                                                         </div>
                                                     </td>
                                                     <td>
-                                                        <a href="{{ route('reservation.pdf', $approved->id) }}" class="btn btn-info" target="_blank"><i class="icon-download"></i></a>
+                                                        <a href="{{ route('reservation.pdf', $approved->id) }}" class="btn btn-info" target="_blank"><i class="icon-export"></i>Export PDF</a>
                                                     </td>
                                                 </tr>
                                                 @endforeach               

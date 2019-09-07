@@ -20,8 +20,18 @@ class ReservationsController extends Controller
         $pending_reservations =  Reservation::pending()->get();
         $approved_reservations =  Reservation::approved()->get();
         $now = Carbon::now();
+        
 
-        $customer = Reservation::approved()->first();
+        // $customer = Reservation::find(3);
+
+        // if($customer->eventDate()->year != $now->year)
+        // {
+        //     return 'Not Equal';
+        // }else{
+        //     return 'Parehas or labaw';
+        // }
+
+        // dd($customer->eventDate()->year);
 
         return view('pages.backend.reservations.index', compact('approved_reservations', 'pending_reservations', 'now'));
     }
@@ -54,6 +64,11 @@ class ReservationsController extends Controller
         ))->courses()->attach($course);
 
         return redirect()->route('reservation.index')->withSuccess('Reservation approved!');
+    }
+
+    public function show(Reservation $reservation)
+    {
+        return view('pages.backend.reservations.show', compact('reservation'));
     }
 
     public function edit(Reservation $reservation)

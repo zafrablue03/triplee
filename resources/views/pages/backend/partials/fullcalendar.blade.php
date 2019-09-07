@@ -8,7 +8,6 @@
  			center: 'title',
  			right: 'month,agendaWeek,agendaDay'
  		},
- 		
  		navLinks: true, // can click day/week names to navigate views
  		selectable: true,
  		selectHelper: true,
