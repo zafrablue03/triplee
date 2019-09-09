@@ -39,7 +39,7 @@ class FeaturesController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name'  =>  'required|min:3|max:30',
+            'name'  =>  'required|min:3|max:80',
         ]);
 
         Feature::create($request->except('_token'));
@@ -83,7 +83,7 @@ class FeaturesController extends Controller
     public function update(Request $request, Feature $feature)
     {
         $request->validate([
-            'name'  =>  'required|min:3|max:30',
+            'name'  =>  'required|min:3|max:80',
         ]);
 
         $feature->update($request->except('_token'));

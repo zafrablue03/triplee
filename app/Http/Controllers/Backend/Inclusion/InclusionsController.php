@@ -109,7 +109,7 @@ class InclusionsController extends Controller
 
         $request->validate([
             'name'      =>  'required|min:3|max:30',
-            'slug'      =>  'required|unique:inclusions,slug,'.$inclusion-id
+            'slug'      =>  'required|unique:inclusions,slug,'.$inclusion->id
         ]);
 
         $inclusion->update($request->except('_token'));
