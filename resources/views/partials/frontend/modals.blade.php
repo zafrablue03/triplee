@@ -160,28 +160,32 @@
                     $sets = App\Setting::get();
                     $inclusion = App\Inclusion::first();
                 @endphp
-                @foreach ($sets as $set)
-                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4">
-                        <h1 class="menu-heading">{{ ucfirst($set->name) }}</h1>
-                        <h2 class="sub-heading" style="font-size: 16px;">{{ $set->description }}</h2>
-                        <ul class="list-inline">
-                            @foreach ($set->types as $type)
-                                <li>{{ $type->name }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @endforeach
+                @if(!empty($sets))
+                    @foreach ($sets as $set)
+                        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4">
+                            <h1 class="menu-heading">{{ ucfirst($set->name) }}</h1>
+                            <h2 class="sub-heading" style="font-size: 16px;">{{ $set->description }}</h2>
+                            <ul class="list-inline">
+                                @foreach ($set->types as $type)
+                                    <li>{{ $type->name }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endforeach
+                @endif
 
                 <hr>
-
+                @if(!empty($inclusions))
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                     <h2 class="sub-heading" style="font-size: 30px;">{{ $inclusion->name }}</h2>
                     <ul class="list-inline">
-                        @foreach ($inclusion->features as $feature)
-                            <li>{{ $feature->name }}</li>
-                        @endforeach
+                        
+                            @foreach ($inclusion->features as $feature)
+                                <li>{{ $feature->name }}</li>
+                            @endforeach
                     </ul>
                 </div>
+                @endif
                 
             </div>
             <button class="btn btn-primary" data-dismiss="modal" type="button">

@@ -38,6 +38,7 @@
 			<!-- *************
 				************ Main container start *************
 				************* -->
+				
 			<div class="main-container">
 				@yield('content')
 			</div>
