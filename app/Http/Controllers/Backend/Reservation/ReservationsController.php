@@ -77,8 +77,7 @@ class ReservationsController extends Controller
     }
 
     public function update(Request $request, Reservation $reservation)
-    { 
-        dd($request->all());       
+    {       
         $course = $reservation->getCourseArray($request->course);
 
         $request->validate([
