@@ -72,6 +72,19 @@
                                                         @enderror
                                                         <p class="help-block text-danger"></p>
                                                     </div>
+
+                                                    <div class="form-group">
+                                                        <label for="venue" class="form-label" style="float:left">Venue <small></small></label>
+                                                        <input class="form-control @error('venue') is-invalid @enderror" name="venue" id="venue" type="text" placeholder="Venue" 
+                                                        required="required" value="{{ old('venue') }}">
+                                                        @error('venue')
+                                                            <span class="invalid-feedback" role="alert">
+                                                                <strong>{{ $message }}</strong>
+                                                            </span>
+                                                        @enderror
+                                                        <p class="help-block text-danger"></p>
+                                                    </div>
+
                                                     <div class="form-group">
                                                         <label for="email" class="form-label" style="float:left">Email <small>(required*)</small></label>
                                                         <input class="form-control @error('email') is-invalid @enderror" name="email" id="email" type="email" placeholder="Email Address" 

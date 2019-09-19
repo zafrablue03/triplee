@@ -35,6 +35,7 @@ class ReservationsController extends Controller
         $request->validate([
             'date'          =>  'date_format:Y-m-d|required',
             'name'          =>  'required|min:2|max:50',
+            'venue'       =>  'required|min:2',
             'email'         =>  'required|email|min:3|max:80',
             'contact'       =>  'required|numeric|digits_between:11,15',
             'service_id'    =>  'required',

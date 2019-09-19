@@ -157,7 +157,7 @@
                                                             <div class="input-group">
                                                                 <div class="form-group label-floating">
                                                                     <label class="control-label">Venue <small>(required)</small></label>
-                                                                    <input name="venue" type="text" class="form-control @error('venue') is-invalid @enderror" value="{{ old('venue') }}" required>
+                                                                    <input name="venue" type="text" class="form-control @error('venue') is-invalid @enderror" value="{{ old('venue') ?? $reservation->venue }}" required>
                                                                     @error('venue')
                                                                         <span class="invalid-feedback" role="alert">
                                                                             <strong>{{ $message }}</strong>
