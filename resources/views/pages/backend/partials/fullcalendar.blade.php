@@ -39,7 +39,8 @@
                 @endphp
                 title: '{{ $reservation->service->name }} - {{ $reservation->name }}',
                 start: '{{ $reservation->date }}',
-                color: '{{ $colors[$randomColors] }}'
+                color: '{{ $colors[$randomColors] }}',
+					 url: '{{ route('reservation.show', $reservation->id) }}'
             },
          @endforeach
     ]
