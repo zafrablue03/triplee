@@ -175,7 +175,7 @@
                 @endif
 
                 <hr>
-                @if(!empty($inclusions))
+                @if(!empty($inclusion))
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                     <h2 class="sub-heading" style="font-size: 30px;">{{ $inclusion->name }}</h2>
                     <ul class="list-inline">
