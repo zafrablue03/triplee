@@ -9,7 +9,7 @@
  			right: 'month,agendaWeek,agendaDay'
  		},
  		navLinks: true, // can click day/week names to navigate views
- 		selectable: true,
+ 		selectable: false,
  		selectHelper: true,
  		select: function(start, end) {
  			var title = prompt('Event Title:');
@@ -34,13 +34,16 @@
              @foreach($reservations as $reservation)
              {
                 @php
-                    $colors = ['#67caf0', '#80bcdc', '#fd7274', '#a5ca7b', '#f68d60', '#f9be52', '#ff8087', '#ac92ec', '#41ca94', '#ffb445', '#89bf52', '#00b894'];
-                    $randomColors = array_rand($colors);
+                  //   $colors = ['#67caf0', '#80bcdc', '#fd7274', '#a5ca7b', '#f68d60', '#f9be52', '#ff8087', '#ac92ec', '#41ca94', '#ffb445', '#89bf52', '#00b894'];
+                  //   $randomColors = array_rand($colors);
+						$now = Carbon\Carbon::now();
+						$color = $reservation->eventDate() < $now ? 'darkgrey' : 'limegreen';
+						$over = $reservation->eventDate() < $now ? '(Over)' : '';
                 @endphp
-                title: '{{ $reservation->service->name }} - {{ $reservation->name }}',
-                start: '{{ $reservation->date }}',
-                color: '{{ $colors[$randomColors] }}',
-					 url: '{{ route('reservation.show', $reservation->id) }}'
+               title: '{{ $reservation->service->name }} - {{ $reservation->name }} {{ $over }}',
+               start: '{{ $reservation->date }}',
+					color: '{{ $color }}',
+					url: '{{ route('reservation.show', $reservation->id) }}',
             },
          @endforeach
     ]

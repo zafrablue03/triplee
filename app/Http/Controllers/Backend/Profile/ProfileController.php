@@ -15,7 +15,7 @@ class ProfileController extends Controller
     public function index()
     {
         $user = auth()->user();
-        $reservations = Reservation::orderBy('created_at', 'asc')->get();
+        $reservations = Reservation::approved()->orderBy('date', 'ASC')->get();
 
         return view('pages.backend.profile.user-profile', compact('user', 'reservations'));
     }

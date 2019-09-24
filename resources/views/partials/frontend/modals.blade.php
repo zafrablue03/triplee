@@ -215,7 +215,9 @@
 <script src="{{ asset('assets/frontend/vendor/datepicker/datepicker.js') }}"></script>
 <script>
     $(function() {
-        $( "#date" ).datepicker({  
+        var date = new Date();
+        $( "#date" ).datepicker({
+            'startDate': date,
             'format': 'yyyy-mm-dd',
             'autoclose': true,
             'todayHighlight': true

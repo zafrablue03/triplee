@@ -4,8 +4,8 @@
             <h4>From:</h4>
             <strong>Triple E Catering Services</strong>
             <br> Poblacion, Clarin, Bohol
-            <br> P: (416) 123-4567
-            <br> E: company@company.com
+            <br> P: (038) 509-9063
+            <br> E: jheyceq05@yahoo.com
             <br>
 
             <br>

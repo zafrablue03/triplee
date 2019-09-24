@@ -13,10 +13,17 @@ class ReservationsController extends Controller
 
     public function checkIfSpamming($email, $date)
     {
-        return Reservation::whereEmail($email)
+        $approved_reservation = Reservation::whereEmail($email)
         ->whereDay('created_at', Carbon::now()->day)
         ->where('date',$date)
         ->exists();
+
+        
+    }
+
+    public function checkMaxReservation($date)
+    {
+        return Reservation::whereIsApproved(true)->where('date',$date)->count() < 3 ? true : false;
     }
 
     /**
@@ -27,6 +34,7 @@ class ReservationsController extends Controller
      */
     public function store(Request $request)
     {
+        
         if($this->checkIfSpamming($request->email, $request->date))
         {
             Spam::create($request->all());
@@ -35,15 +43,22 @@ class ReservationsController extends Controller
         $request->validate([
             'date'          =>  'date_format:Y-m-d|required',
             'name'          =>  'required|min:2|max:50',
-            'venue'       =>  'required|min:2',
+            'venue'         =>  'required|min:2',
             'email'         =>  'required|email|min:3|max:80',
             'contact'       =>  'required|numeric|digits_between:11,15',
             'service_id'    =>  'required',
             'message'       =>  ''
         ]);
+        if($this->checkMaxReservation($request->date)){
 
-        Reservation::create($request->except('_token'));
+            Reservation::create($request->except('_token'));
 
-        return redirect()->back()->withSuccess('Thank you!');
+            return redirect()->back()->withSuccess('Thank you!');
+        }else{
+
+            return redirect()->back()->withError('Date being reserved is fully occupied!');
+        }
+
+        
     }
 }

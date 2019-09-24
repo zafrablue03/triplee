@@ -13,9 +13,9 @@
                     <h3>Contact Information</h3>
                     Poblacion Centro, Clarin, Bohol<br>
 
-                    Phone: (02)123-4567 / (02)123-4567 / 123-4567<br>
-                    Mobile: (63)9338637170<br>
-                    Mail: triple-ecatering@gmail.com<br>
+                    Phone: (038) 509-9063<br>
+                    Mobile: (63)9338637170 - Sun / (63)9451193037 - Globe <br>
+                    Email: jheyceq05@yahoo.com<br>
                 </div>
             </div>
         </div>

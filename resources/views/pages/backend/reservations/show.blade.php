@@ -38,23 +38,24 @@
 
         <!-- Row start -->
         <div class="row gutters">
-            <div class="col-lg-4 col-md-4 col-sm-12">
+            <div class="col-lg-4 col-md-4 col-sm-4">
                 <div class="pricing-plan">
                     <div class="pricing-header">
                         <h4 class="pricing-title">Service</h4>
-                        <div class="pricing-cost">{{ $reservation->service->name }}</div>
+                        <div class="pricing-cost">{{ ucfirst($reservation->service->name) }}</div>
                         <div class="pricing-save">Number of Pax: {{ $reservation->pax }}</div>
                     </div>
                     <ul class="pricing-features">
                         <li>Name: {{ $reservation->name }}</li>
                         <li>Email: {{ $reservation->email }}</li>
                         <li>Phone: {{ $reservation->contact }}</li>
-                        <li>Venue: {{ $reservation->venue }}</li>
+                        <li>Venue: {{ ucfirst($reservation->venue) }}</li>
                         <li>Date: {{ Carbon\Carbon::parse($reservation->date)->toFormattedDateString() }}</li>
+                        <li>Payable(pax * set price): &#8369;{{ number_format($reservation->payable(), 2) }}</li>
                     </ul>
                 </div>
             </div>
-            <div class="col-lg-4 col-md-4 col-sm-12">
+            <div class="col-lg-4 col-md-4 col-sm-4">
                 <div class="pricing-plan">
                     <div class="pricing-header green">
                         <h4 class="pricing-title">Setting</h4>
@@ -62,13 +63,13 @@
                         <div class="pricing-save">&#8369;{{ number_format($reservation->setting->price, 2) }}</div>
                     </div>
                     <ul class="pricing-features">
-                        @foreach( $reservation->setting->types as $type )
-                            <li>{{ $type->name }}</li>
+                        @foreach( $reservation->courses as $courses )
+                            <li>{{ $courses->type->name }}</li>
                         @endforeach
                     </ul>
                 </div>
             </div>
-            <div class="col-lg-4 col-md-4 col-sm-12">
+            <div class="col-lg-4 col-md-4 col-sm-4">
                 <div class="pricing-plan">
                     <div class="pricing-header orange">
                         <h4 class="pricing-title">Choosen Menu</h4>
@@ -77,7 +78,10 @@
                     </div>
                     <ul class="pricing-features">
                         @foreach( $reservation->courses as $menu )
-                            <li>{{ $menu->type->name }} - {{ $menu->name }}</li>
+                            <li class="pb-2">
+                                {{ $menu->type->name }} - {{ $menu->name }} <br>
+                                <img src="/storage/{{ $menu->image }}" class="w-50 pt-2">
+                            </li>
                         @endforeach
                     </ul>
                 </div>

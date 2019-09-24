@@ -64,6 +64,8 @@
                                                     <th>Name</th>
                                                     <th>Email</th>
                                                     <th>Contact</th>
+                                                    <th>Venue</th>
+                                                    <th>Date</th>
                                                     <th>Time of reservation</th>
                                                     <th>Action</th>
                                                 </tr>
@@ -75,6 +77,8 @@
                                                     <td>{{ $pending->name }}</td>
                                                     <td>{{ $pending->email }}</td>
                                                     <td>{{ $pending->contact }}</td>
+                                                    <td>{{ $pending->venue }}</td>
+                                                    <td>{{ $pending->date }}</td>
                                                     {{-- <td>{{ str_limit($pending->message, $limit=50, $end="...") }}</td> --}}
                                                     <td>{{ $pending->created_at->diffForHumans() }}({{ $pending->created_at->toFormattedDateString() }})</td>
                                                     {{-- <td><span class="badge badge-danger">Pending</span></td> --}}
@@ -120,7 +124,8 @@
                                                     <th>Email</th>
                                                     <th>Contact</th>
                                                     <th>Service</th>
-                                                    <th>Date <a href="#" title="Cancellation of order will be unavailable if event date is less than two days!"><i class="icon-report"></i></a></th>
+                                                    <th>Status</th>
+                                                    <th>Date <a href="#" title="Cancellation of reservation will be unavailable if event date is less than two days!"><i class="icon-report"></i></a></th>
                                                     <th>Action</th>
                                                     <th>Contract</th>
                                                 </tr>
@@ -133,12 +138,21 @@
                                                     <td>{{ $approved->email }}</td>
                                                     <td>{{ $approved->contact }}</td>
                                                     <td>{{ $approved->service->name }}</td>
+                                                    <td>
+                                                        @if($approved->eventDate() > $now )
+                                                            <span class="badge badge-warning">Upcoming</span>
+                                                        @elseif($approved->eventDate() < $now)
+                                                            <span class="badge badge-danger">Over</span>
+                                                        @elseif($approved->eventDate() == $now)
+                                                        <span class="badge badge-success">On Going</span>
+                                                        @endif
+                                                    </td>
                                                     @php
                                                         $date = $approved->eventDate();
                                                         $diffInDays = $now->diffInDays($date, false);
                                                         $year = $approved->eventDate()->year;
                                                     @endphp
-                                                    <td>{{ $date->toFormattedDateString() }} <a href="#" title="Cancellation of order will be unavailable if event date is less than two days!"><i class="icon-report"></i></a></td>
+                                                    <td>{{ $date->toFormattedDateString() }} <a href="#" title="Cancellation of reservation will be unavailable if event date is less than two days!"><i class="icon-report"></i></a></td>
                                                     <td>
                                                         <div class="dropdown">
                                                             <button type="button" class="btn btn-info dropdown-toggle btn-sm" data-toggle="dropdown">

@@ -148,18 +148,18 @@
                                 <tbody>
                                     @foreach($reservations->take(6) as $reservation)
                                         <tr>
-                                            <td><a href="store.html" class="text-inherit">{{ $reservation->name }}</a></td>
+                                            <td><a href="{{ route('reservation.show', $reservation->id) }}" target="_blank" class="text-inherit">{{ $reservation->name }}</a></td>
                                             <td>{{ Carbon\Carbon::parse($reservation->date)->toFormattedDateString() }}</td>
                                             <td>
-                                                @if($reservation->is_approved == true)
-                                                    <span class="status-icon bg-success"></span> Approved
-
-                                                @elseif (Carbon\Carbon::parse($reservation->date) == Carbon\Carbon::now() )
-
-                                                    <span class="status-icon bg-danger"></span> On Going
-
-                                                @else
-                                                    <span class="status-icon bg-warning"></span> Pending
+                                                @php
+                                                    $now = Carbon\Carbon::now();
+                                                @endphp
+                                                @if($reservation->eventDate() > $now )
+                                                    <span class="badge badge-warning">Upcoming</span>
+                                                @elseif($reservation->eventDate() < $now)
+                                                    <span class="badge badge-danger">Over</span>
+                                                @elseif($reservation->eventDate() == $now)
+                                                    <span class="badge badge-success">On Going</span>
                                                 @endif
                                             </td>
                                             <td>{{ $reservation->service->name ?? '' }}</td>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Frontend;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\User;
 use App\Service;
 use App\Setting;
 
@@ -13,7 +14,8 @@ class HomepageController extends Controller
     {
         $services = Service::orderBy('created_at')->get();
         $settings = Setting::orderBy('name', 'asc')->pluck('name','id');
+        $admins = User::whereIsAdmin(true)->get();
 
-        return view('pages.frontend.index', compact('services', 'settings'));
+        return view('pages.frontend.index', compact('services', 'settings', 'admins'));
     }
 }

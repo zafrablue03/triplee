@@ -82,7 +82,7 @@
                 <a class="portfolio-link" data-toggle="modal" href="#modal{{ $service->id }}">
                   <h4>{{ ucfirst($service->name) }}</h4>
                 </a>
-                  <p class="text-muted">Illustration</p>
+                  <p class="text-muted">{{ $service->description }}</p>
                 </div>
               </div>
             @endforeach
@@ -181,31 +181,39 @@
             </div>
           </div>
           <div class="row">
-            <div class="col-sm-4">
-              <div class="team-member">
-                <img class="mx-auto rounded-circle" src="{{ ('assets/frontend/img/team/1.jpg') }}" alt="">
-                <h4>Kay Garland</h4>
-                <p class="text-muted">Lead Designer</p>
-                <ul class="list-inline social-buttons">
-                  <li class="list-inline-item">
-                    <a href="#">
-                      <i class="fab fa-twitter"></i>
-                    </a>
-                  </li>
-                  <li class="list-inline-item">
-                    <a href="#">
-                      <i class="fab fa-facebook-f"></i>
-                    </a>
-                  </li>
-                  <li class="list-inline-item">
-                    <a href="#">
-                      <i class="fab fa-linkedin-in"></i>
-                    </a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-            <div class="col-sm-4">
+              @if(!empty($admins))
+                @foreach($admins->take(3) as $admin)
+
+                <div class="col-sm-4">
+                    <div class="team-member">
+                      <img class="mx-auto rounded-circle" src="storage/{{ $admin->profile->image }}" alt="">
+                      <h4>{{ $admin->name }}</h4>
+                      <p class="text-muted">{{ ucfirst($admin->profile->title) }}</p>
+                      <ul class="list-inline social-buttons">
+                        <li class="list-inline-item">
+                        <a href="{{ $admin->profile->twitter }}" target="_blank">
+                            <i class="fab fa-twitter"></i>
+                          </a>
+                        </li>
+                        <li class="list-inline-item">
+                        <a href="{{ $admin->profile->facebook }}" target="_blank"">
+                            <i class="fab fa-facebook-f"></i>
+                          </a>
+                        </li>
+                        <li class="list-inline-item">
+                        <a href="{{ $admin->profile->linkedin }}" target="_blank"">
+                            <i class="fab fa-linkedin-in"></i>
+                          </a>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+
+                @endforeach
+              @endif
+            
+
+            {{-- <div class="col-sm-4">
               <div class="team-member">
                 <img class="mx-auto rounded-circle" src="{{ ('assets/frontend/img/team/2.jpg') }}" alt="">
                 <h4>Larry Parker</h4>
@@ -229,6 +237,7 @@
                 </ul>
               </div>
             </div>
+
             <div class="col-sm-4">
               <div class="team-member">
                 <img class="mx-auto rounded-circle" src="{{ ('assets/frontend/img/team/3.jpg') }}" alt="">
@@ -252,7 +261,8 @@
                   </li>
                 </ul>
               </div>
-            </div>
+            </div> --}}
+
           </div>
           <div class="row">
             <div class="col-lg-8 mx-auto text-center">
