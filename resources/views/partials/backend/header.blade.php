@@ -10,49 +10,35 @@
             <ul class="header-actions">
                 <li class="dropdown d-none d-sm-block">
                     <a href="#" id="notifications" data-toggle="dropdown" aria-haspopup="true">
+                        @php
+                            $auth = auth()->user();
+                            $pending_reservation = App\Reservation::whereIsApproved(false)->get();
+                        @endphp
                         <img src="{{ asset('assets/img/notification.svg') }}" alt="notifications" class="list-icon" />
+                        @if(count($pending_reservation) > 0)
+                            <span class="badge badge-danger badge-pill">{{ $pending_reservation->count() }}</span>
+                        @endif
                     </a>
                     <div class="dropdown-menu lrg" aria-labelledby="notifications">
                         <div class="dropdown-menu-header">
-                            <h5>Notifications</h5>
-                            <p class="m-0 sub-title">You have 5 unread notifications</p>
-                        </div>	
+                            <h5>Reservations</h5>
+                            <p class="m-0 sub-title">You have {{ $pending_reservation->count() }} pending reservation/s</p>
+                        </div>
                         <ul class="header-notifications">
                             <li>
-                                <a href="#" class="clearfix">
-                                    <div class="avatar">
-                                        <img src="{{ asset('assets/img/user.png') }}" alt="avatar" />
-                                        <span class="notify-iocn icon-drafts text-danger"></span>
-                                    </div>
-                                    <div class="details">
-                                        <h6>Corey Haggard</h6>
-                                        <p>This is so good, I can't stop watching.</p>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" class="clearfix">
-                                    <div class="avatar">
-                                        <img src="{{ asset('assets/img/user2.png') }}" alt="avatar" />
-                                        <span class="notify-iocn icon-layers text-info"></span>
-                                    </div>
-                                    <div class="details">
-                                        <h6>Eric R. Mortensen</h6>
-                                        <p>Eric sent you a file. Download now</p>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" class="clearfix">
-                                    <div class="avatar">
-                                        <img src="{{ asset('assets/img/user3.png') }}" alt="avatar" />
-                                        <span class="notify-iocn icon-person_add text-success"></span>
-                                    </div>
-                                    <div class="details">
-                                        <h6>Gleb Kuznetsov</h6>
-                                        <p>Stella, Added you as a Friend. Accept.</p>
-                                    </div>
-                                </a>
+                                @if(!empty($pending_reservation))
+                                    @foreach ($pending_reservation->take(5) as $pending)
+                                        <a href="{{ route('reservation.edit',$pending->id) }}" class="clearfix">
+                                            <div class="avatar">
+                                                <img src="{{ asset('assets/img/user.png') }}" alt="avatar" />
+                                            </div>
+                                            <div class="details">
+                                                <h6>{{ ucfirst($pending->name) }}</h6>
+                                                <p>{{ $pending->eventDate()->toFormattedDateString() }}</p>
+                                            </div>
+                                        </a>
+                                    @endforeach
+                                @endif
                             </li>
                         </ul>
                     </div>
@@ -61,7 +47,7 @@
                 <li class="dropdown">
                     <a href="#" id="userSettings" class="user-settings" data-toggle="dropdown" aria-haspopup="true">
                         <span class="user-name">{{ auth()->user()->name }}</span>
-                        <span class="avatar">NJ<span class="status busy"></span></span>
+                        <span class="avatar">NJ</span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userSettings">
                         <div class="header-profile-actions">

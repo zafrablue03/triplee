@@ -4,9 +4,12 @@ namespace App\Http\Controllers\Frontend\Reservation;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Notifications\NewReservation;
+use App\User;
 use App\Reservation;
 use App\Spam;
 use Carbon\Carbon;
+use Notification;
 
 class ReservationsController extends Controller
 {
@@ -34,7 +37,7 @@ class ReservationsController extends Controller
      */
     public function store(Request $request)
     {
-        
+        $users = User::whereIsAdmin(true)->get();
         if($this->checkIfSpamming($request->email, $request->date))
         {
             Spam::create($request->all());
@@ -51,7 +54,10 @@ class ReservationsController extends Controller
         ]);
         if($this->checkMaxReservation($request->date)){
 
-            Reservation::create($request->except('_token'));
+            $reservation = Reservation::create($request->except('_token'));
+            
+            // Notification::send($users, new NewReservation($reservation));
+
 
             return redirect()->back()->withSuccess('Thank you!');
         }else{

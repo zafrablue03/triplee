@@ -20,15 +20,12 @@
         <link rel="stylesheet" href="{{ asset('assets/form-wizard-only/fonts/fonts/font-awesome.min.css') }}">
         <!-- forn-wizard css-->
         <link href="{{ asset('assets/form-wizard-only/plugins/forn-wizard/css/material-bootstrap-wizard.css') }}" rel="stylesheet" />
-        <link href="{{ asset('assets/form-wizard-only/plugins/forn-wizard/css/demo.css') }}" rel="stylesheet" />
+        {{-- <link href="{{ asset('assets/form-wizard-only/plugins/forn-wizard/css/demo.css') }}" rel="stylesheet" /> --}}
         <!---Font icons-->
         <link href="{{ asset('assets/form-wizard-only/plugins/iconfonts/plugin.css') }}" rel="stylesheet" />
-    
-    @else 
-        
-        <link rel="stylesheet" href="{{ asset('assets/vendor/daterange/daterange.css') }}" />
 
     @endif
+        <link rel="stylesheet" href="{{ asset('assets/vendor/daterange/daterange.css') }}" />
     <!-- Icomoon Font Icons css -->
         
         <link rel="stylesheet" type="text/css" href="{{ asset('assets/fonts/style.css') }}">

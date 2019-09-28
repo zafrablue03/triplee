@@ -85,6 +85,8 @@ class ReservationsController extends Controller
         ));
         $reservation->courses()->sync($course);
 
+        // auth()->user()->unreadNotifications->markAsRead();
+
         return redirect()->route('reservation.index')->withSuccess('Reservation approved!');
     }
 
