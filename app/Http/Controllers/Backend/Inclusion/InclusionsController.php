@@ -107,11 +107,11 @@ class InclusionsController extends Controller
     {
         if ($request->status) {
             $active = Inclusion::whereIsActive(true)->pluck('id');
-            Inclusion::whereIn('id', $active)->update([
-                'is_active' => false,
-            ]);
-            $inclusion->is_active = !$inclusion->is_active;
-            $inclusion->save();
+                Inclusion::whereIn('id', $active)->update([
+                    'is_active' => false,
+                ]);
+                $inclusion->is_active = true;
+                $inclusion->save();
             return redirect()->route('inclusions.index')->withSuccess('Set of Inclusion has been successfully updated!');
         }
         
