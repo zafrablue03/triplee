@@ -48,6 +48,7 @@
                                     <th>Name</th>
                                     <th>Slug</th>
                                     <th>Features</th>
+                                    <th>Status</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -63,6 +64,21 @@
                                             {{ $feature->name }}
                                         @endforeach
                                         ...
+                                    </td>
+                                    <td>
+                                        <form action="{{ route('inclusions.update',$inclusion->slug) }}" method="POST">
+                                            @csrf
+                                            {{ method_field('PUT') }}
+                                            <button class="btn {{ $inclusion->is_active == true ? 'btn-outline-success' : 'btn-outline-dark' }} btn-rounded" 
+                                                type="submit" name="status" value="{{ $inclusion->slug }}">
+                                                    @if($inclusion->is_active == true)
+                                                        <small>Active</small>
+                                                    @else
+                                                        <small>Inactive</small>
+                                                    @endif
+                                            </button>
+                                                        
+                                        </form>
                                     </td>
                                     <td>
                                         <div class="dropdown">

@@ -105,6 +105,16 @@ class InclusionsController extends Controller
      */
     public function update(Request $request, Inclusion $inclusion)
     {
+        if ($request->status) {
+            $active = Inclusion::whereIsActive(true)->pluck('id');
+            Inclusion::whereIn('id', $active)->update([
+                'is_active' => false,
+            ]);
+            $inclusion->is_active = !$inclusion->is_active;
+            $inclusion->save();
+            return redirect()->route('inclusions.index')->withSuccess('Set of Inclusion has been successfully updated!');
+        }
+        
         $request->request->add(['slug' => str_slug($request->name)]);
 
         $request->validate([
@@ -121,6 +131,7 @@ class InclusionsController extends Controller
         } elseif ($request->get('action') == 'continue') {
             return redirect()->route('inclusions.edit', $inclusion->slug)->withSuccess('Set of Inclusion has been successfully updated!');
         }
+        
     }
 
     /**

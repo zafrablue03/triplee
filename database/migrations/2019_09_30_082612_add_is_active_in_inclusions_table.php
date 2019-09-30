@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddPriceToSettingsTable extends Migration
+class AddIsActiveInInclusionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class AddPriceToSettingsTable extends Migration
      */
     public function up()
     {
-        Schema::table('settings', function (Blueprint $table) {
-            $table->float('price',8,2);
+        Schema::table('inclusions', function (Blueprint $table) {
+            $table->boolean('is_active')->default(false);
         });
     }
 
@@ -25,8 +25,8 @@ class AddPriceToSettingsTable extends Migration
      */
     public function down()
     {
-        Schema::table('settings', function (Blueprint $table) {
-            $table->dropColumn('price');
+        Schema::table('inclusions', function (Blueprint $table) {
+            $table->dropColumn('is_active');
         });
     }
 }

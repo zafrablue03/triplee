@@ -171,7 +171,7 @@
                 <hr>
                 @php
                     $sets = App\Setting::get();
-                    $inclusion = App\Inclusion::first();
+                    $inclusion = App\Inclusion::whereIsActive(true)->first();
                 @endphp
                 @if(!empty($sets))
                     @foreach ($sets as $set)
