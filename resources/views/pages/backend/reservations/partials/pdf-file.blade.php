@@ -12,7 +12,7 @@
         </div>
 
         <div class="col-xs-4">
-            <img src="https://res.cloudinary.com/dqzxpn5db/image/upload/v1537151698/website/logo.png" alt="logo">
+            <h4><strong>Triple E Catering Services</strong></h4>
         </div>
     </div>
 
@@ -34,7 +34,7 @@
             <table style="width: 100%">
                 <tbody>
                     <tr>
-                        <th>Pax Num:</th>
+                        <th>Total Pax:</th>
                         <td class="text-right">{{ $reservation->pax }}</td>
                     </tr>
                     <tr>
@@ -42,9 +42,21 @@
                         <td class="text-right">{{ $reservation->setting->description }}</td>
                     </tr>
                     <tr>
+                        <th> Transportation Fee:</th>
+                        <td class="text-right">{{ $reservation->payment->transportation_charge }}</td>
+                    </tr>
+                    <tr>
+                        <th> Total Payable:</th>
+                        <td class="text-right">{{ $reservation->payment->payable }}</td>
+                    </tr>
+                    <tr>
+                        <th> Payment/Down Payment:</th>
+                        <td class="text-right">{{ $reservation->payment->payment }}</td>
+                    </tr>
+                    {{-- <tr>
                         <th> Date: </th>
                         <td class="text-right">{{ $date }}</td>
-                    </tr>
+                    </tr> --}}
                 </tbody>
             </table>
 
@@ -54,9 +66,9 @@
                 <tbody>
                     <tr class="well" style="padding: 5px">
                         <th style="padding: 5px">
-                            <div>Payable: </div>
+                            <div>Balance: </div>
                         </th>
-                        <td style="padding: 5px" class="text-right"><strong> P{{ $total }} </strong></td>
+                        <td style="padding: 5px" class="text-right"><strong> P{{ $reservation->payment->balance }} </strong></td>
                     </tr>
                 </tbody>
             </table>
@@ -100,9 +112,9 @@
                 <tbody>
                     <tr class="well" style="padding: 5px">
                         <th style="padding: 5px">
-                            <div> Payable: </div>
+                            <div> Balance: </div>
                         </th>
-                        <td style="padding: 5px" class="text-right"><strong> P{{ $total }} </strong></td>
+                        <td style="padding: 5px" class="text-right"><strong> P{{ $reservation->payment->balance }} </strong></td>
                     </tr>
                 </tbody>
             </table>

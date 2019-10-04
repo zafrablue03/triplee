@@ -127,7 +127,6 @@
                                                     <th>Status</th>
                                                     <th>Date <a href="#" title="Cancellation of reservation will be unavailable if event date is less than two days!"><i class="icon-report"></i></a></th>
                                                     <th>Action</th>
-                                                    <th>Contract</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -176,9 +175,9 @@
                                                             </div>
                                                         </div>
                                                     </td>
-                                                    <td>
+                                                    {{-- <td>
                                                         <a href="{{ route('reservation.pdf', $approved->id) }}" class="btn btn-info" target="_blank"><i class="icon-export"></i>Export PDF</a>
-                                                    </td>
+                                                    </td> --}}
                                                 </tr>
                                                 @endforeach               
                                             </tbody>

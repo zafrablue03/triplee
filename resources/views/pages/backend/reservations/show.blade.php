@@ -16,7 +16,9 @@
             </div>
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                 <div class="daterange-container pr-5">
-                    <a href="{{ route('reservation.pdf', $reservation->id) }}" class="btn btn-info" target="_blank"><i class="icon-export"></i>Export PDF</a>
+                    @if($reservation->payment)
+                    <a href="{{ route('reservation.pdf', $reservation->id) }}" class="btn btn-success" target="_blank"><i class="icon-export"></i>Export PDF</a>
+                    @endif
                 </div>
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
@@ -51,9 +53,24 @@
                         <li>Phone: {{ $reservation->contact }}</li>
                         <li>Venue: {{ ucfirst($reservation->venue) }}</li>
                         <li>Date: {{ Carbon\Carbon::parse($reservation->date)->toFormattedDateString() }}</li>
-                        <li>Payable(pax * set price): &#8369;{{ number_format($reservation->payable(), 2) }}</li>
+                        @if($reservation->payment)
+                        @php
+                            $total = number_format($reservation->payment->payable,2);
+                            $balance = number_format($reservation->payment->balance,2);
+                        @endphp
+                        <li>Total: &#8369; {{ $total == 0 ? number_format($reservation->payable(), 2).' + transportation fee' : $total }} <br>
+                            <small id="passwordHelpBlock" class="form-text text-muted">(pax * setting price + transportation fee)</small> 
+                        </li>
+                        <li>
+                            Downpayment: &#8369;{{ number_format($reservation->payment->payment,2) }}
+                        </li>
+                        <li>
+                            Balance: &#8369; {{ $balance }}
+                        </li>
+                        @endif
                     </ul>
                 </div>
+                <a class="btn btn-info" href="{{ route('payable.create',$reservation->id) }}" class="dropdown-item">{{ $reservation->payment ? 'Paid Full' : 'Add Payment' }}</a>
             </div>
             <div class="col-lg-4 col-md-4 col-sm-4">
                 <div class="pricing-plan">

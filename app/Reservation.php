@@ -34,6 +34,11 @@ class Reservation extends Model
         return $this->belongsTo(Setting::class, 'set_id');
     }
 
+    public function payment()
+    {
+        return $this->hasOne(Payable::class, 'reservation_id');
+    }
+
     public function getCourseArray($course)
     {
         $val_arr = [];
@@ -56,5 +61,33 @@ class Reservation extends Model
     public function eventDate()
     {
         return Carbon::parse($this->date);
+    }
+
+    public function payments($request){
+
+        if($request->action == 'update')
+        {
+            $payment = $this->payment->payment + $request->payment;
+            $balance = $this->payment->balance - $payment;
+            $paid = max($balance,0) == 0 ? true : false;
+            $this->payment()->update([
+                'payment'   =>  $payment,
+                'balance'   =>  max($balance,0),
+                'is_paid'   =>  $paid
+            ]);
+        }else{
+            $transpo = $request->transportation_charge;
+            $downPayment = $request->payment;
+            $totalPrice = $this->setting->price * $this->pax;
+            $payable = $totalPrice + $transpo;
+            $balance = $payable - $downPayment;
+
+            $this->payment()->create([
+                'transportation_charge' =>  $transpo,
+                'payment'               =>  $downPayment,
+                'payable'               =>  $payable,
+                'balance'               =>  $balance,
+            ]);
+        }
     }
 }

@@ -85,7 +85,7 @@
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                 <div class="card">
                     <div class="card-header">
-                        <div class="card-title"> Setup Settings</div>
+                        <div class="card-title"> New Reservation</div>
                     </div>
                     <div class="card-body p-12">
                         <div class="wizard-container">
@@ -182,7 +182,8 @@
     
                                                                 <div class="form-group label-floating">
                                                                     <label class="control-label">Number of pax <small>(required)</small></label>
-                                                                    <input name="pax" type="text" class="form-control @error('pax') is-invalid @enderror" value="{{ old('pax') }}" required>
+                                                                    <input type="number" class="form-control @error('pax') is-invalid @enderror" 
+                                                                    min="0.00" max="10000.00" step="0.01" name="pax" value="{{ old('pax') }}" required/>
                                                                 </div>
                                                                 @error('pax')
                                                                     <span class="invalid-feedback" role="alert">
@@ -191,7 +192,6 @@
                                                                 @enderror
                                                             </div>
                                                         </div>
-
                                                     </div>
                                                 </div>
                                             </div>

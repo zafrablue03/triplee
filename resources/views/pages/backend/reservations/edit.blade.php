@@ -73,7 +73,7 @@
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                 <div class="card">
                     <div class="card-header">
-                        <div class="card-title"> Setup Settings</div>
+                        <div class="card-title"> Manage Reservation</div>
                     </div>
                     <div class="card-body p-12">
                         <div class="wizard-container">
@@ -181,7 +181,6 @@
                                                                 @enderror
                                                             </div>
                                                         </div>
-
                                                     </div>
                                                 </div>
                                             </div>
