@@ -125,6 +125,7 @@
                                                     <th>Contact</th>
                                                     <th>Service</th>
                                                     <th>Status</th>
+                                                    <th>Payment</th>
                                                     <th>Date <a href="#" title="Cancellation of reservation will be unavailable if event date is less than two days!"><i class="icon-report"></i></a></th>
                                                     <th>Action</th>
                                                 </tr>
@@ -143,7 +144,18 @@
                                                         @elseif($approved->eventDate() < $now)
                                                             <span class="badge badge-danger">Over</span>
                                                         @elseif($approved->eventDate() == $now)
-                                                        <span class="badge badge-success">On Going</span>
+                                                            <span class="badge badge-success">On Going</span>
+                                                        @endif
+                                                    </td>
+                                                    <td>
+                                                        @if($approved->payment)
+                                                            @if($approved->payment->is_paid == true)
+                                                                <span class="badge badge-success">Paid</span>
+                                                            @else
+                                                                <span class="badge badge-warning">Downpayment</span>
+                                                            @endif
+                                                        @else
+                                                            <span class="badge badge-danger">To be reviewed</span>
                                                         @endif
                                                     </td>
                                                     @php

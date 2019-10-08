@@ -57,15 +57,23 @@
                         @php
                             $total = number_format($reservation->payment->payable,2);
                             $balance = number_format($reservation->payment->balance,2);
+                            $is_paid = $reservation->payment->is_paid;
                         @endphp
-                        <li>Total: &#8369; {{ $total == 0 ? number_format($reservation->payable(), 2).' + transportation fee' : $total }} <br>
+                        <li>Total: &#8369; {{ $total }} (transportation fee &#8369;{{ $reservation->payment->transportation_charge }}) <br>
                             <small id="passwordHelpBlock" class="form-text text-muted">(pax * setting price + transportation fee)</small> 
                         </li>
                         <li>
                             Downpayment: &#8369;{{ number_format($reservation->payment->payment,2) }}
                         </li>
                         <li>
-                            Balance: &#8369; {{ $balance }}
+                            Balance: &#8369; {{ $is_paid ? '0.00 Paid' : $balance }}
+                        </li>
+                        @else
+                        <li>Total: &#8369; {{ number_format($reservation->payable(), 2).' + transportation fee' }} <br>
+                            <small id="passwordHelpBlock" class="form-text text-muted">(pax * setting price + transportation fee)</small> 
+                        </li>
+                        <li>
+                            Downpayment: &#8369;0.00
                         </li>
                         @endif
                     </ul>
