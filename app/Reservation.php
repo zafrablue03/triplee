@@ -69,9 +69,12 @@ class Reservation extends Model
         {
             $payment = $this->payment->payment + $request->payment;
             $balance = $this->payment->balance - $payment;
+            $payable = $this->payment->payable;
+            //payment should not overlapse total payable;
+            $max_payable = $payable > $payment ? $payment : $payable;
             $paid = max($balance,0) == 0 ? true : false;
             $this->payment()->update([
-                'payment'   =>  $payment,
+                'payment'   =>  $max_payable,
                 'balance'   =>  max($balance,0),
                 'is_paid'   =>  $paid
             ]);
@@ -80,13 +83,17 @@ class Reservation extends Model
             $downPayment = $request->payment;
             $totalPrice = $this->setting->price * $this->pax;
             $payable = $totalPrice + $transpo;
+            //same goes here for payment
+            $max_payable = $payable > $downPayment ? $downPayment : $payable;
             $balance = $payable - $downPayment;
+            $paid = max($balance,0) == 0 ? true : false;
 
             $this->payment()->create([
                 'transportation_charge' =>  $transpo,
-                'payment'               =>  $downPayment,
+                'payment'               =>  $max_payable,
                 'payable'               =>  $payable,
-                'balance'               =>  $balance,
+                'balance'               =>  max($balance,0),
+                'is_paid'               =>  $paid
             ]);
         }
     }

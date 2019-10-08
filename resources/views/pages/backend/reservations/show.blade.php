@@ -78,7 +78,8 @@
                         @endif
                     </ul>
                 </div>
-                <a class="btn btn-info" href="{{ route('payable.create',$reservation->id) }}" class="dropdown-item">{{ $reservation->payment ? 'Paid Full' : 'Add Payment' }}</a>
+                    <a class="btn btn-info" href="{{ route('payable.create',$reservation->id) }}" 
+                        class="dropdown-item">{{ $reservation->payment ? 'Paid Full' : 'Add Payment' }}</a>
             </div>
             <div class="col-lg-4 col-md-4 col-sm-4">
                 <div class="pricing-plan">

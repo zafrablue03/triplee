@@ -96,7 +96,7 @@
                                             <div class="form-group">
                                                 <label for="inputName">{{ $exists ? 'Fullpayment' : 'Payment/DownPayment' }}:</label>
                                                 <input type="number" class="form-control @error('payment') is-invalid @enderror" 
-                                                min="0.00" max="100000.00" step="0.01" name="payment" required value="{{ old('value') }}" />
+                                                min="0.00" max="1000000.00" step="0.01" name="payment" required value="{{ old('value') }}" />
                                                 @error('payment')
                                                     <span class="invalid-feedback" role="alert">
                                                         <strong>{{ $message }}</strong>
