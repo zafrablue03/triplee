@@ -159,19 +159,21 @@
                                                             </button>
                                                             <div class="dropdown-menu">
                                                                 <a class="dropdown-item" href="{{ route('reservation.show', $approved->id) }}">View</a>
-                                                                <form action="{{ route('reservation.destroy', $approved->id) }}" method="POST">
-                                                                    @csrf
-                                                                    @method('DELETE')
-                                                                    <button type="submit" name="approved" value="cancel" class="dropdown-item"
-                                                                    @if(!($now->year == $year))
-                                                                        disabled
-                                                                        style="background:gray; color:grayish; cursor:default"
-                                                                    @elseif( $diffInDays < 2 AND $date->month <= $now->month )
-                                                                        disabled
-                                                                        style="background:gray; color:grayish; cursor:default"
-                                                                    @endif
-                                                                    >Cancel</button>
-                                                                </form>
+                                                                @if(!$approved->payment)
+                                                                    <form action="{{ route('reservation.destroy', $approved->id) }}" method="POST">
+                                                                        @csrf
+                                                                        @method('DELETE')
+                                                                        <button type="submit" name="approved" value="cancel" class="dropdown-item"
+                                                                        @if(!($now->year == $year))
+                                                                            disabled
+                                                                            style="background:gray; color:grayish; cursor:default"
+                                                                        @elseif( $diffInDays < 2 AND $date->month <= $now->month )
+                                                                            disabled
+                                                                            style="background:gray; color:grayish; cursor:default"
+                                                                        @endif
+                                                                        >Cancel</button>
+                                                                    </form>
+                                                                @endif
                                                             </div>
                                                         </div>
                                                     </td>

@@ -26,12 +26,17 @@
                     <div class="form-group">
                         <div class="input-group">
                             <div class="custom-file">
-                                <input type="file" name="image" class="custom-file-input" id="inputGroupFile02">
+                                <input type="file" name="image" class="custom-file-input @error('image') is-invalid @enderror" id="inputGroupFile02">
                                 <label class="custom-file-label" for="inputGroupFile02" aria-describedby="inputGroupFileAddon02">Choose file</label>
                             </div>
                             <div class="input-group-append">
                                 <button type="submit" class="input-group-text" id="inputGroupFileAddon02">Upload</button>
                             </div>
+                            @error('image')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         </div>
                     </div>
                 </form>

@@ -43,7 +43,7 @@ class GalleriesController extends Controller
         $service = Service::find($request->service);
 
         $request->validate([
-            'image'     =>  'sometimes|image|mimes:jpeg,png,jpg,gif,svg|max:2048|dimensions:min_width=50,max_width=2000, min_height=50, max_height=2000',
+            'image'     =>  'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048|dimensions:min_width=50,max_width=2000, min_height=50, max_height=2000',
         ]);
 
         $image = $request->file('image')->store('events','public');
