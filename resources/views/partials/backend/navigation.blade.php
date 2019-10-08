@@ -61,9 +61,9 @@
                         <a class="dropdown-item" href="{{ route('settings.index') }}">Setting</a>
                     </li>
                 </ul>
-            </li>            
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="uiElementsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            </li>
+            <li class="nav-item">
+                <a class="nav-link {{ Request::routeIs('gallery*') ? 'active-page': '' }}" href="{{ route('gallery.index') }}">
                     <i class="icon-camera2 nav-icon"></i>
                     Gallery
                 </a>

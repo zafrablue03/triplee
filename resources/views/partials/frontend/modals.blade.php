@@ -174,36 +174,44 @@
                     $inclusion = App\Inclusion::whereIsActive(true)->first();
                     $types = App\Type::get();
                 @endphp
-                <div class="col-12">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                    <div class="row">
                     @if(!empty($sets))
-                    @foreach ($sets as $set)
-                        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4">
-                            <h1 class="menu-heading">{{ ucfirst($set->name) }}</h1>
-                            <h2 class="sub-heading" style="font-size: 16px;">{{ $set->description }}</h2>
-                            <ul class="list-inline">
-                                @foreach ($set->types as $type)
-                                    <li>{{ $type->name }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endforeach
-                @endif
+                        @foreach ($sets as $set)
+                            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4">
+                                <h1 class="menu-heading">{{ ucfirst($set->name) }}</h1>
+                                <h2 class="sub-heading" style="font-size: 16px;">{{ $set->description }}</h2>
+                                <ul class="list-inline">
+                                    @foreach ($set->types as $type)
+                                        <li>{{ $type->name }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endforeach
+                    @endif
+                    </div>
                 </div>
 
                 <hr>
-                <div class="col-12"><h2 class="sub-heading" style="font-size: 30px;">Menus</h2></div>
-                @if(!empty($types))
-                    @foreach ($types as $type)
-                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3">
-                            <h5>{{ $type->name }}</h5>
-                            <ul class="list-inline">
-                                @foreach ($type->courses as $course)
-                                    <li><small class="text-muted">{{ $course->name }}</small></li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endforeach
-                @endif
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                    <h2 class="sub-heading" style="font-size: 30px;">Menus</h2>
+                </div>
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                    <div class="row">
+                        @if(!empty($types))
+                            @foreach ($types as $type)
+                                <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3">
+                                    <h5>{{ $type->name }}</h5>
+                                    <ul class="list-inline">
+                                        @foreach ($type->courses as $course)
+                                            <li><small class="text-muted">{{ $course->name }}</small></li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endforeach
+                        @endif
+                    </div>
+                </div>
 
                 @if(!empty($inclusion))
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">

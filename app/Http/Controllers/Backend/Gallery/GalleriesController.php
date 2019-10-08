@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Backend\Gallery;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Type;
+use Intervention\Image\Facades\Image;
+use App\Service;
+use App\ImageUpload;
 
 class GalleriesController extends Controller
 {
@@ -15,9 +17,9 @@ class GalleriesController extends Controller
      */
     public function index()
     {
-        $types = Type::get();
+        $services = Service::get();
 
-        return view('pages.backend.gallery.index', compact('types'));
+        return view('pages.backend.gallery.index', compact('services'));
     }
 
     /**
@@ -38,7 +40,23 @@ class GalleriesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $service = Service::find($request->service);
+
+        $request->validate([
+            'image'     =>  'sometimes|image|mimes:jpeg,png,jpg,gif,svg|max:2048|dimensions:min_width=50,max_width=2000, min_height=50, max_height=2000',
+        ]);
+
+        $image = $request->file('image')->store('events','public');
+        $thumbnail = $request->file('image')->store('events/thumbnail','public');
+        $thumbnailImage = Image::make(public_path("storage/{$thumbnail}"))->fit(200,200);
+        $thumbnailImage->save();
+
+        $service->images()->create([
+            'url'       =>  $image,
+            'thumbnail' =>  $thumbnail
+        ]);
+
+        return redirect()->route('gallery.index')->withSuccess('Uploaded successfully!');
     }
 
     /**
@@ -81,8 +99,10 @@ class GalleriesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(ImageUpload $image)
     {
-        //
+        $image->delete();
+
+        return redirect()->route('gallery.index');
     }
 }

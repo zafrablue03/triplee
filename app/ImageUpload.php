@@ -4,9 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Image extends Model
+class ImageUpload extends Model
 {
-    protected $fillable = ['url', 'imageable_id', 'imageable_type'];
+    protected $fillable = ['url', 'thumbnail', 'imageable_id', 'imageable_type'];
 
     public function imageable()
     {

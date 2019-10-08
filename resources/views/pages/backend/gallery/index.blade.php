@@ -5,20 +5,37 @@
 <div class="page-title">
     <div class="row gutters">
         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
-            <h5 class="title">Menu Gallery</h5>
+            <h5 class="title">Events Gallery</h5>
         </div>
         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
             <div class="daterange-container">
-                <div class="date-range">
-                    <div id="reportrange">
-                        <i class="icon-calendar cal"></i>
-                        <span class="range-text"></span>
-                        <i class="icon-chevron-down arrow"></i>
-                    </div>
-                </div>
-                <a href="#" data-toggle="tooltip" data-placement="top" title="Download CSV" class="download-reports">
+                {{-- <a href="#" data-toggle="tooltip" data-placement="top" title="Download CSV" class="download-reports">
                     <i class="icon-download1"></i>
-                </a>
+                </a> --}}
+                <form action="{{ route('gallery.store') }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <div class="form-group">
+                            <select name="service" class="form-control">
+                                @if(!empty($services))
+                                    @foreach($services->pluck('name', 'id') as $key => $value)
+                                        <option value="{{ $key }}"> {{ $value }} </option>
+                                    @endforeach
+                                @endif
+                            </select>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="custom-file">
+                                <input type="file" name="image" class="custom-file-input" id="inputGroupFile02">
+                                <label class="custom-file-label" for="inputGroupFile02" aria-describedby="inputGroupFileAddon02">Choose file</label>
+                            </div>
+                            <div class="input-group-append">
+                                <button type="submit" class="input-group-text" id="inputGroupFileAddon02">Upload</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
             </div>
         </div>
     </div>
@@ -29,29 +46,29 @@
 <!-- Content wrapper start -->
 <div class="content-wrapper">
 
-
     <!-- Gallery start -->
     <div class="baguetteBoxThree gallery">
         <!-- Row start -->
-        @foreach($types as $type)
-            <div class="card d-flex">
-                <div class="card-header">
-                    <div class="card-title"><h4 class="text-info">{{ ucfirst($type->name) }}</h4></div>
-                </div>
-                @foreach($type->courses as $course)
-                    <div class="card-body">
-                        <div class="row gutters">
-                            <div class="col-xl-2 col-lg-2 col-md-3 col-sm-4 col-6">
-                                <a href="/storage/{{ $course->image }}" class="effects">
-                                    <img src="/storage/{{ $course->image }}" class="img-fluid" alt="Retail Admin">
-                                    <div class="overlay">
-                                        <span class="expand">+</span>
-                                    </div>
-                                </a>
-                            </div>
+        @foreach($services as $service)
+        <h4>{{ $service->name }}</h4>
+            <div class="row gutters">
+                @if(!empty($service->images))
+                    @foreach($service->images as $image)
+                        <div class="col-xl-2 col-lg-2 col-md-3 col-sm-4 col-6">
+                            <a href="/storage/{{ $image->url }}" class="effects">
+                                <img src="/storage/{{ $image->thumbnail }}" class="img-fluid" alt="Triple-E">
+                                <div class="overlay">
+                                    <span class="expand">+</span>
+                                </div>
+                            </a>
+                            <form action="{{ route('gallery.destroy',$image->id) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button class="btn-danger" type="submit" style="float:right" onclick="return confirm('Are you sure you want to delete it?');"><span class="icon-trash"></span></button>
+                            </form>
                         </div>
-                    </div>
-                @endforeach
+                    @endforeach
+                @endif
             </div>
         @endforeach
         <!-- Row end -->

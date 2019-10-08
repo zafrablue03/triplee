@@ -13,6 +13,11 @@ class Service extends Model
         return $this->belongsToMany(Reservation::class);
     }
 
+    public function images()
+    {
+        return $this->morphMany(ImageUpload::class, 'imageable');
+    }
+
     public function getRouteKeyName()
     {
         return 'slug';

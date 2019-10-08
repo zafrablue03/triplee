@@ -41,11 +41,11 @@ Route::group( ['prefix' => 'admin', 'middleware' => ['auth','admin'], ], functio
     Route::resource('profile', 'Backend\Profile\ProfileController')->parameters(['profile' => 'user']);
 
     Route::get('contract/{reservation}', 'Backend\Reservation\ReservationsController@streamPDF')->name('reservation.pdf');
-    // Route::resource('reservation/payable', 'Backend\Payable\PayablesController')->except(['index', 'destroy']);
+
     Route::get('reservation/{reservation}/payable', 'Backend\Payable\PayablesController@create')->name('payable.create');
     Route::post('reservation/{reservation}/payable', 'Backend\Payable\PayablesController@store')->name('payable.store');
 
-    Route::resource('gallery', 'Backend\Gallery\GalleriesController');
+    Route::resource('gallery', 'Backend\Gallery\GalleriesController')->except(['show', 'edit', 'create', 'update'])->parameters(['gallery' => 'image']);
 
     
 
