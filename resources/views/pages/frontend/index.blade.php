@@ -24,40 +24,41 @@
           </div>
         </div>
       </section>
-      <section>
-      {{-- <div class="row text-center">
-          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-              <h5>With Captions</h5>
-              <div id="carouselExampleFade" class="carousel slide carousel-fade" data-ride="carousel">
-                <ol class="carousel-indicators">
-                    @foreach( $services as $service)
-                      <li data-target="#carouselExampleFade" data-slide-to="{{ $loop->index }}" class="{{ $loop->first ? 'active' : '' }}"></li>
-                    @endforeach
-                </ol>
-                <div class="carousel-inner">
-                    @foreach( $services as $service )
-                      <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
-                        <img src="/storage/{{ $service->thumbnail }}" class="rounded d-block w-100" alt="Carousel">
-                        <div class="carousel-caption d-none d-md-block">
-                          <h5>{{ $service->name }}</h5>
-                          <p>{{ $service->description }}</p>
+
+      {{-- <section class="bg-light page-section">
+        <div class="row text-center">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                <h5>Events</h5>
+                <div id="carouselExampleFade" class="carousel slide carousel-fade" data-ride="carousel">
+                  <ol class="carousel-indicators">
+                      @foreach( $services as $service)
+                        <li data-target="#carouselExampleFade" data-slide-to="{{ $loop->index }}" class="{{ $loop->first ? 'active' : '' }}"></li>
+                      @endforeach
+                  </ol>
+                  <div class="carousel-inner">
+                      @foreach( $services as $service )
+                        <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
+                          <img src="/storage/{{ $service->thumbnail }}" class="img-fluid d-block mx-auto" alt="Carousel">
+                          <div class="carousel-caption d-none d-md-block">
+                            <h5>{{ $service->name }}</h5>
+                            <p>{{ $service->description }}</p>
+                          </div>
                         </div>
-                      </div>
-                    @endforeach
+                      @endforeach
+                  </div>
+                  <a class="carousel-control-prev" href="#carouselExampleFade" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                  </a>
+                  <a class="carousel-control-next" href="#carouselExampleFade" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                  </a>
                 </div>
-                <a class="carousel-control-prev" href="#carouselExampleFade" role="button" data-slide="prev">
-                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                  <span class="sr-only">Previous</span>
-                </a>
-                <a class="carousel-control-next" href="#carouselExampleFade" role="button" data-slide="next">
-                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                  <span class="sr-only">Next</span>
-                </a>
-              </div>
-          </div>
-      </div> --}}
-        
-      </section>
+            </div>
+        </div>
+      </section> --}}
+      
       <!-- Portfolio Grid -->
       <section class="bg-light page-section" id="portfolio">
         <div class="container">

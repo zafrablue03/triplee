@@ -15,15 +15,20 @@
                 <form action="{{ route('gallery.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="form-group">
-                            <select name="service" class="form-control">
-                                @if(!empty($services))
-                                    @foreach($services->pluck('name', 'id') as $key => $value)
-                                        <option value="{{ $key }}"> {{ $value }} </option>
-                                    @endforeach
-                                @endif
-                            </select>
+                        <select name="service" class="form-control">
+                            @if(!empty($services))
+                                @foreach($services->pluck('name', 'id') as $key => $value)
+                                    <option value="{{ $key }}"> {{ $value }} </option>
+                                @endforeach
+                            @endif
+                        </select>
                     </div>
                     <div class="form-group">
+                        @error('image')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
                         <div class="input-group">
                             <div class="custom-file">
                                 <input type="file" name="image" class="custom-file-input @error('image') is-invalid @enderror" id="inputGroupFile02">
@@ -32,11 +37,6 @@
                             <div class="input-group-append">
                                 <button type="submit" class="input-group-text" id="inputGroupFileAddon02">Upload</button>
                             </div>
-                            @error('image')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
                         </div>
                     </div>
                 </form>
