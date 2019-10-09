@@ -24,7 +24,7 @@
                     <div class="card-body">
                         <div class="row mb-2">
                             <div class="col-auto">
-                                <img class="card-profile-img" src="/storage/{{ $user->profile->image }}">
+                                <img class="card-profile-img" src="{{ $user->profile->image }}">
                             </div>
                             <div class="col">
                                 <h3 class="mb-1 ">{{ $user->name }}</h3>
@@ -34,6 +34,7 @@
                         <form action="{{ route('profile.update', $user->id) }}" method="POST">
                             @csrf
                             {{ method_field('PUT') }}
+                            <input type="hidden" name="user_id" value="{{ $user->id }}">
                             <div class="form-group">
                                 <label class="form-label">Fullname </label>
                                 <input class="form-control" type="text" name="name" value="{{ $user->name }}"/>

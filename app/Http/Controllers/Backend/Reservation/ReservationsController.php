@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Backend\Reservation;
 
-use Illuminate\Http\Request;
+use App\Http\Requests\ReservationRequest;
 use App\Http\Controllers\Controller;
 use App\Reservation;
 use App\Setting;
@@ -30,21 +30,12 @@ class ReservationsController extends Controller
     }
 
 
-    public function store(Request $request)
+    public function store(ReservationRequest $request)
     {
         $reservation = new Reservation();
         $course = $reservation->getCourseArray($request->course);
 
-        $data = $request->validate([
-            'date'                  =>  'date_format:Y-m-d|required',
-            'name'                  =>  'required|min:2|max:50',
-            'email'                 =>  'required|email|min:3|max:80',
-            'contact'               =>  'required|numeric|digits_between:11,15',
-            'venue'                 =>  'required|min:2|max:90',
-            'pax'                   =>  'required|numeric|min:10',
-            'service_id'            =>  'required',
-            'set_id'                =>  'required',
-        ]);
+        $data = $request->validated();
         
         $reservation = new Reservation();
 
@@ -66,27 +57,17 @@ class ReservationsController extends Controller
         return view('pages.backend.reservations.edit', compact('reservation'));
     }
 
-    public function update(Request $request, Reservation $reservation)
+    public function update(ReservationRequest $request, Reservation $reservation)
     {       
         $course = $reservation->getCourseArray($request->course);
 
-        $request->validate([
-            'date'                  =>  'date_format:Y-m-d|required',
-            'name'                  =>  'required|min:2|max:50',
-            'email'                 =>  'required|email|min:3|max:80',
-            'contact'               =>  'required|numeric|digits_between:11,15',
-            'venue'                 =>  'required|min:2|max:90',
-            'pax'                   =>  'required|numeric|min:10',
-            'service_id'            =>  'required',
-            'set_id'                =>  'required',
-        ]);
+        $request->validated();
         
         $reservation->update(array_merge(
             $request->except('_token', 'finish'),
             ['is_approved' => 1]
         ));
         $reservation->courses()->sync($course);
-        // auth()->user()->unreadNotifications->markAsRead();
 
         return redirect()->route('reservation.index')->withSuccess('Reservation approved!');
     }

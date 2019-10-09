@@ -3,12 +3,14 @@
 namespace App;
 
 use Illuminate\Notifications\Notifiable;
+use App\Traits\UploadTrait;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
     use Notifiable;
+    use UploadTrait;
 
     const ADMIN_TYPE = 1;
     const DEFAULT_TYPE = 0;
@@ -64,4 +66,33 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function updateUserDetails($request)
+    {
+        $this->update($request->except('_token'));
+    }
+
+    public function updateUserProfile($request)
+    {
+        $img_arr = [];
+
+        if($request->image){
+            $image = $request->file('image');
+            $name = $this->name.'_'.time();
+            $folder = '/uploads/images/';
+            $avatar = $folder.'avatar/';
+            $filePath = $folder . $name . '.' . $image->getClientOriginalExtension();
+            $avatarFilePath = $avatar . $name . '.' . $image->getClientOriginalExtension();
+
+            $this->uploadUserProfile($this,$image,$folder,'public', $name);
+            array_push($img_arr, ['image' => $filePath]);
+            array_push($img_arr, ['avatar' => $avatarFilePath]);
+        }
+
+        $this->profile()->update(array_merge(
+            $request->except(['_token', 'image', '_method','action']),
+            $img_arr[0] ?? [],
+            $img_arr[1] ?? []
+        ));
+    }
 }

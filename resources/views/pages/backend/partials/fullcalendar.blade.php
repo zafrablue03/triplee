@@ -38,9 +38,9 @@
                   //   $randomColors = array_rand($colors);
 						$now = Carbon\Carbon::now();
 						$color = $reservation->eventDate() < $now ? 'darkgrey' : 'limegreen';
-						$over = $reservation->eventDate() < $now ? '(Over)' : '';
+						$is_over = $reservation->eventDate() < $now ? '(Over)' : '';
                 @endphp
-               title: '{{ $reservation->service->name }} - {{ $reservation->name }} {{ $over }}',
+               title: '{{ $reservation->service->name }} - {{ $reservation->name }} {{ $is_over }}',
                start: '{{ $reservation->date }}',
 					color: '{{ $color }}',
 					url: '{{ route('reservation.show', $reservation->id) }}',

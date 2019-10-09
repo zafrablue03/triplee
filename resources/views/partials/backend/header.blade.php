@@ -53,7 +53,7 @@
                         <div class="header-profile-actions">
                             <div class="header-user-profile">
                                 <div class="header-user">
-                                    <img src="/storage/{{ auth()->user()->profile->image }}" alt="Reatil Admin" />
+                                    <img src="{{ auth()->user()->profile->image }}" alt="Reatil Admin" />
                                 </div>
                                 <h5>{{ auth()->user()->name }}</h5>
                                 <p>{{ auth()->user()->profile->title }}</p>

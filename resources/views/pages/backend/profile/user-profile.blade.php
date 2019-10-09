@@ -41,7 +41,7 @@
             <div class="col-md-12">
                 <div class="card card-profile "  style="background-image: url({{ asset('assets/img/listing-bg.png') }}); background-position: center; background-size:cover;">
                     <div class="card-body text-center">
-                        <img class="card-profile-img" src="/storage/{{ $user->profile->image }}">
+                        <img class="card-profile-img" src="{{ $user->profile->image }}">
                         <h3 class="mb-3 text-white">{{ $user->name }}</h3>
                         <p class="mb-4 text-white">{{ $user->profile->title }}</p>
                         <p>@if($user->is_admin == true)<span class="badge badge-pill badge-success">Administrator</span> @endif</p><br><br>
