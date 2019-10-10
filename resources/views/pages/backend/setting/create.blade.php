@@ -59,7 +59,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="inputName">Description</label>
-                                        <input type="text" class="form-control @error('description') is-invalid @enderror" name="description" placeholder="Setting Description" value="{{ old('description') }}">
+                                        <input type="text" class="form-control @error('description') is-invalid @enderror" name="description" placeholder="ex. P100/head" value="{{ old('description') }}">
                                         @error('description')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>

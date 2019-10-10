@@ -126,7 +126,7 @@
                     </div>
                 </div>
             </div>
-
+            @if(auth()->user()->isOwner())
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header">
@@ -173,6 +173,7 @@
                     </div>
                 </div>
             </div>
+            @endif
         </div>
     </div>
 </div>

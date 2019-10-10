@@ -187,7 +187,7 @@
 
                 <div class="col-sm-4">
                     <div class="team-member">
-                      <img class="mx-auto rounded-circle" src="storage/{{ $admin->profile->image }}" alt="">
+                      <img class="mx-auto rounded-circle" src="{{ $admin->profile->image }}" alt="">
                       <h4>{{ $admin->name }}</h4>
                       <p class="text-muted">{{ ucfirst($admin->profile->title) }}</p>
                       <ul class="list-inline social-buttons">

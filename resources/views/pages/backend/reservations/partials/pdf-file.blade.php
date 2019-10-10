@@ -102,6 +102,15 @@
                 <td></td>
                 <td class="text-right"> P{{ $reservation->setting->price }}</td>
             </tr>
+            <tr>
+                <td>
+                    <div><strong>Inclusion</strong></div>
+                    @foreach($inclusion->features as $feature)
+                        {{ $loop->first ? '' : ',' }}
+                        {{ $feature->name }}
+                    @endforeach
+                </td>
+            </tr>
         </tbody>
     </table>
 

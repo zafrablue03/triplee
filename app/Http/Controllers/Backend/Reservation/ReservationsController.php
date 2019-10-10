@@ -6,6 +6,7 @@ use App\Http\Requests\ReservationRequest;
 use App\Http\Controllers\Controller;
 use App\Reservation;
 use App\Setting;
+use App\Inclusion;
 use Carbon\Carbon;
 
 class ReservationsController extends Controller
@@ -88,8 +89,9 @@ class ReservationsController extends Controller
     public function streamPDF(Reservation $reservation)
     {
         $total = $reservation->payable();
+        $inclusion = Inclusion::whereIsActive(true)->first();
         $date = Carbon::parse($reservation->date)->toFormattedDateString();
-        $pdf = \PDF::loadView('pages.backend.reservations.partials.contract-pdf', compact('reservation', 'date', 'total'))->setPaper('a4', 'portrait');
+        $pdf = \PDF::loadView('pages.backend.reservations.partials.contract-pdf', compact('reservation', 'date', 'total', 'inclusion'))->setPaper('a4', 'portrait');
         return $pdf->stream('test.pdf');
     }
 }

@@ -14,6 +14,8 @@ class User extends Authenticatable
 
     const ADMIN_TYPE = 1;
     const DEFAULT_TYPE = 0;
+    const OWNER = 1;
+    const STAFF = 0;
 
     /**
      * The attributes that are mass assignable.
@@ -32,6 +34,11 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function isOwner()
+    {
+        return $this->is_owner === self::OWNER;
+    }
 
     public function isAdmin()
     {
