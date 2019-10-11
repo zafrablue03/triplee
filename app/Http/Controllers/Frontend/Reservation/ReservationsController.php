@@ -26,7 +26,7 @@ class ReservationsController extends Controller
 
     public function checkMaxReservation($date)
     {
-        return Reservation::whereIsApproved(true)->where('date',$date)->count() < 3 ? true : false;
+        return Reservation::whereIsApproved(false)->where('date',$date)->count() < 3 ? true : false;
     }
 
     /**
