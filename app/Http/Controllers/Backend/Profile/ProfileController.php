@@ -14,10 +14,11 @@ class ProfileController extends Controller
 {
     public function index()
     {
+        $users = User::get();
         $user = auth()->user();
         $reservations = Reservation::approved()->orderBy('date', 'ASC')->get();
 
-        return view('pages.backend.profile.user-profile', compact('user', 'reservations'));
+        return view('pages.backend.profile.user-profile', compact('user', 'reservations', 'users'));
     }
     
     public function edit(User $user)

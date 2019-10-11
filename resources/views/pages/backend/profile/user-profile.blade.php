@@ -31,6 +31,12 @@
         background-color: #ecb403 !important;
     }
 </style>
+    <link rel="stylesheet" href="{{ asset('assets/vendor/datatables/dataTables.bs4.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/vendor/datatables/dataTables.bs4-custom.css') }}" />
+@endpush
+@push('additionalJS')
+    @include('pages.backend.partials.datatables')
+    @include('pages.backend.partials.ajax-for-delete')
 @endpush
 
 @section('content')
@@ -126,7 +132,49 @@
                     </div>
                 </div>
             </div>
+            @include('pages.backend.profile.add-staff-modal')
             @if(auth()->user()->isOwner())
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">My Staffs</h3>
+                    </div>
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                        <div class="daterange-container pr-5">
+                            <a href="" class="btn btn-secondary btn-rounded mb-4" data-toggle="modal" data-target="#modalContactForm">
+                                Add new Staff
+                            </a>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table card-table table-vcenter border text-nowrap" id="datatables">
+                                <thead>
+                                    <tr>
+                                        <th>Staff ID:</th>
+                                        <th>Name</th>
+                                        <th>Email</th>
+                                        <th>Date staff added</th>
+                                        <th>Action</th>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        @foreach($users as $user)
+                                            @if($user->is_owner == true) 
+                                                @continue 
+                                            @endif
+                                            <td>{{ $user->id }}</td>
+                                            <td>{{ $user->name }}</td>
+                                            <td>{{ $user->email }}</td>
+                                            <td>{{ $user->created_at->toFormattedDateString() }}</td>
+                                        @endforeach
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header">

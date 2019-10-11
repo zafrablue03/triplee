@@ -47,6 +47,9 @@ Route::group( ['prefix' => 'admin', 'middleware' => ['auth','admin'], ], functio
 
     Route::resource('gallery', 'Backend\Gallery\GalleriesController')->except(['show', 'edit', 'create', 'update'])->parameters(['gallery' => 'image']);
 
+    //Admin add staff
+    Route::post('add-staff', 'Backend\Users\UsersController@addStaff')->name('add.staff');
+
     
 
 });
