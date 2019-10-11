@@ -1,6 +1,8 @@
 @extends('layouts.backend.master')
 
 @push('additionalCSS')
+<link rel="stylesheet" href="{{ asset('assets/vendor/datatables/dataTables.bs4.css') }}" />
+<link rel="stylesheet" href="{{ asset('assets/vendor/datatables/dataTables.bs4-custom.css') }}" />
 <style>
     .card-profile-img {
         max-width: 6rem;
@@ -31,12 +33,9 @@
         background-color: #ecb403 !important;
     }
 </style>
-    <link rel="stylesheet" href="{{ asset('assets/vendor/datatables/dataTables.bs4.css') }}" />
-    <link rel="stylesheet" href="{{ asset('assets/vendor/datatables/dataTables.bs4-custom.css') }}" />
 @endpush
 @push('additionalJS')
     @include('pages.backend.partials.datatables')
-    @include('pages.backend.partials.ajax-for-delete')
 @endpush
 
 @section('content')
@@ -137,18 +136,18 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">My Staffs</h3>
+                        <h3 class="card-title">My Staff(s)</h3>
                     </div>
                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                         <div class="daterange-container pr-5">
-                            <a href="" class="btn btn-secondary btn-rounded mb-4" data-toggle="modal" data-target="#modalContactForm">
+                            <a href="" class="btn btn-secondary btn-rounded mb-4" data-toggle="modal" data-target="#modalAddStaffForm">
                                 Add new Staff
                             </a>
                         </div>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table card-table table-vcenter border text-nowrap" id="datatables">
+                            <table id="datatables" class="table m-0">
                                 <thead>
                                     <tr>
                                         <th>Staff ID:</th>
@@ -167,6 +166,15 @@
                                             <td>{{ $user->name }}</td>
                                             <td>{{ $user->email }}</td>
                                             <td>{{ $user->created_at->toFormattedDateString() }}</td>
+                                            <td>
+                                                <form action="{{ route('delete.staff', $user->id) }}" method="POST">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button class="btn btn-danger" type="submit" onclick="return confirm('Are you sure you want to delete this item>');">
+                                                        <i class="icon-trash"></i> Remove
+                                                    </button>
+                                                </form>
+                                            </td>
                                         @endforeach
                                     </tr>
                                 </tbody>

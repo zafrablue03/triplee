@@ -105,10 +105,12 @@
             <tr>
                 <td>
                     <div><strong>Inclusion</strong></div>
-                    @foreach($inclusion->features as $feature)
-                        {{ $loop->first ? '' : ',' }}
-                        {{ $feature->name }}
-                    @endforeach
+                    @if(!empty($inclusion->features))
+                        @foreach($inclusion->features as $feature)
+                            {{ $loop->first ? '' : ',' }}
+                            {{ $feature->name }}
+                        @endforeach
+                    @endif
                 </td>
             </tr>
         </tbody>
@@ -131,24 +133,25 @@
     </div>
 
     <div style="margin-bottom: 0px">&nbsp;</div>
-
+    Thank you for your business.
     <div class="row">
-        <div class="col-xs-6 invbody-terms">
-            Thank you for your business.
+        <div class="col-xs-6 invbody-terms text-center">
             <br>
             <br>
             <br>
             <br>
             <h4>{{ $reservation->name }}</h4>
             <small>Signature over printed name</small>
+            <h5>Customer</h5>
         </div>
-        <div class="col-xs-6 invbody-terms">
+        <div class="col-xs-6 invbody-terms text-center">
             <br>
             <br>
             <br>
             <br>
-            <h4>Management</h4>
+            <h4>Jhey-R Cequina</h4>
             <small>Signature over printed name</small>
+            <h5>Owner</h5>
         </div>
     </div>
 </div>

@@ -90,11 +90,11 @@
                                                             <div class="dropdown-menu">
                                                                 {{-- <a class="dropdown-item" href="{{ route('reservation.show', $pending->id) }}">View</a> --}}
                                                                 <a class="dropdown-item" href="{{ route('reservation.edit', $pending->id) }}">Manage reservation</a>
-                                                                <form action="{{ route('reservation.destroy', $pending->id) }}" method="POST">
+                                                                {{-- <form action="{{ route('reservation.destroy', $pending->id) }}" method="POST">
                                                                     @csrf
                                                                     @method('DELETE')
                                                                     <button type="submit" class="dropdown-item">Delete</button>
-                                                                </form>
+                                                                </form> --}}
                                                             </div>
                                                         </div>
                                                     </td>

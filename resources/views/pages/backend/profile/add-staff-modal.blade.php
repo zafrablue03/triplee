@@ -1,10 +1,10 @@
 <form action="{{ route('add.staff') }}" method="POST">
     @csrf
-    <div class="modal fade" id="modalContactForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal fade" id="modalAddStaffForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header text-center">
-                    <h4 class="modal-title w-100 font-weight-bold">Triple E adding new Staff</h4>
+                    <h4 class="modal-title w-100 font-weight-bold">Triple E add new Staff</h4>
                 </div>
                 <div class="modal-body mx-3">
                     <div class="md-form mb-5">

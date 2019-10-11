@@ -49,6 +49,7 @@ Route::group( ['prefix' => 'admin', 'middleware' => ['auth','admin'], ], functio
 
     //Admin add staff
     Route::post('add-staff', 'Backend\Users\UsersController@addStaff')->name('add.staff');
+    Route::delete('delete-staff/{user}', 'Backend\Users\UsersController@destroy')->name('delete.staff');
 
     
 

@@ -68,7 +68,7 @@
                     Gallery
                 </a>
             </li>
-            <li class="nav-item dropdown">
+            {{-- <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="formsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="icon-edit1 nav-icon"></i>
                     Reviews
@@ -78,7 +78,7 @@
                         <a class="dropdown-item" href="bs-select.html">BS Select</a>
                     </li>
                 </ul>
-            </li>
+            </li> --}}
         </ul>
     </div>
 </nav>
