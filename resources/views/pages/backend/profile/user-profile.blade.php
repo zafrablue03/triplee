@@ -36,8 +36,14 @@
 @endpush
 @push('additionalJS')
     @include('pages.backend.partials.datatables')
+    @if (count($errors) > 0)
+        <script>
+            $(function() {
+                $( "#modalAddStaffForm" ).modal('show');
+            });
+        </script>
+    @endif
 @endpush
-
 @section('content')
     
 <div class="my-3 my-md-5">
