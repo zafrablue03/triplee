@@ -1,5 +1,13 @@
 @extends('layouts.backend.master')
 
+@push('additionalCSS')
+    <link rel="stylesheet" href="{{ asset('assets/vendor/bs-select/bs-select.css') }}" />
+@endpush
+
+@push('additionalJS')
+    <script src="{{ asset('assets/vendor/bs-select/bs-select.min.js') }}"></script>
+@endpush
+
 @section('content')
 
 <div class="page-title">
@@ -38,7 +46,8 @@
                         <div class="row gutters">
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6">
                                 <div class="form-group">
-                                    <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" placeholder="Type Name" value="{{ old('name') ?? $course->name }}" required>
+                                    <input type="hidden" name="course" value="{{ $course->id }}">
+                                    <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" placeholder="Course Name" value="{{ old('name') ?? $course->name }}" required>
                                     @error('name')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -46,7 +55,7 @@
                                     @enderror
                                 </div>
                                 <div class="form-group">
-                                    <input type="text" class="form-control @error('description') is-invalid @enderror" name="description" placeholder="Type Description" value="{{ old('description') ?? $course->description }}">
+                                    <input type="text" class="form-control @error('description') is-invalid @enderror" name="description" placeholder="Course Description" value="{{ old('description') ?? $course->description }}">
                                     @error('description')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -54,7 +63,7 @@
                                     @enderror
                                 </div>
                                 <div class="form-group">
-                                    <select class="form-control selectpicker" data-style="btn-info" name="type">
+                                    <select class="form-control selectpicker  @error('type_id') is-invalid @enderror" data-style="btn-info" name="type_id">
                                         <option selected disabled>Select Type</option>
                                         @foreach($types as $key => $value)
                                         <option value="{{ $key }}"
@@ -65,6 +74,11 @@
                                         </option>
                                         @endforeach
                                     </select>
+                                    @error('type_id')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>Type field is required</strong>
+                                        </span>
+                                    @enderror
                                 </div>
                                 <div class="form-row pb-2">
                                         <span><code>Maximum size is 500x500</code></span>
@@ -87,7 +101,7 @@
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6">
                                 <div class="form-group row">
                                     <label class="col-sm-2 col-form-label"><h4>Image</h4></label>
-                                    <img src="/storage/{{ $course->image }}" class="w-50">
+                                    <img src="{{ $course->image }}" class="w-50">
                                 </div>
                             </div>
 

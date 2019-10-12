@@ -60,8 +60,8 @@
                 @if(!empty($service->images))
                     @foreach($service->images as $image)
                         <div class="col-xl-2 col-lg-2 col-md-3 col-sm-4 col-6">
-                            <a href="/storage/{{ $image->url }}" class="effects">
-                                <img src="/storage/{{ $image->thumbnail }}" class="img-fluid" alt="Triple-E">
+                            <a href="{{ $image->url }}" class="effects">
+                                <img src="{{ $image->thumbnail }}" class="img-fluid" alt="Triple-E">
                                 <div class="overlay">
                                     <span class="expand">+</span>
                                 </div>

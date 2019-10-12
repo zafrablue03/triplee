@@ -42,7 +42,7 @@ class PayablesController extends Controller
             $reservation->payments($request);
         }
 
-        return redirect()->route('reservation.index')->withSuccess('Payments added!');
+        return redirect()->route('reservation.show', $reservation->id)->withSuccess('Payments added!');
     }
 
     /**

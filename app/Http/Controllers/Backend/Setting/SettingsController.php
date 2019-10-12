@@ -63,8 +63,8 @@ class SettingsController extends Controller
         $request->validate([
             'name'          =>  'required|min:3',
             'slug'          =>  'required|unique:settings',
-            'description'   =>  'sometimes|min:3',
-            'price'         =>  'numeric|min:1'
+            'description'   =>  'sometimes|min:3|max:50',
+            'price'         =>  'numeric|min:1|max:10'
         ]);
 
         Setting::create($request->except('_token'))->types()->attach($request->type);
@@ -115,8 +115,8 @@ class SettingsController extends Controller
         $request->validate([
             'name'          =>  'required|min:3',
             'slug'          =>  'required|unique:settings,slug,'.$setting->id,
-            'description'   =>  'sometimes|min:3',
-            'price'         =>  'numeric|min:1'
+            'description'   =>  'sometimes|min:3|max:50',
+            'price'         =>  'numeric|min:1|max:10'
         ]);
 
         $setting->update($request->except('_token'));

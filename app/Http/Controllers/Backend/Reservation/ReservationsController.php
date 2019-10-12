@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend\Reservation;
 
 use App\Http\Requests\ReservationRequest;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Reservation;
 use App\Setting;
@@ -79,10 +80,24 @@ class ReservationsController extends Controller
     {
         if($request->get('approved') === 'cancel')
         {
-            $reservation->is_approved = false;
+            $reservation->update([
+                'is_approved' => false,
+                'pax'   => 0,
+                'service_id' => 0,
+                'set_id' => 0
+            ]);
+            // $reservation->is_approved = false;
             $reservation->courses()->detach();
-            $reservation->save();
+            // $reservation->save();
+            if($reservation->payment)
+            {
+                $reservation->payment()->delete();
+            }
             return redirect()->route('reservation.index')->withSuccess('Reservation cancelled!');
+        }elseif($request->get('action') === 'delete')
+        {
+            $reservation->delete();
+            return redirect()->route('reservation.index')->withSuccess('Reservation deleted!');
         }
     }
 

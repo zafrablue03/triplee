@@ -54,23 +54,13 @@ class ServicesController extends Controller
         $request->validate([
             'name'          =>  'required|min:2',
             'slug'          =>  'required|unique:services',
-            'description'   =>  '',
+            'description'   =>  'required|min:2|max:50',
             'image'         =>  'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048|dimensions:min_width=25,max_width=2000',
         ]);
 
-        $image = $request->file('image')->store('gallery','public');
+        $service = new Service();
 
-        $thumbnail = $request->file('image')->store('thumbnail','public');
-
-        $imageThumbnail = Image::make(public_path("storage/{$thumbnail}"))->fit(800,800);
-        $imageThumbnail->save();
-
-        Service::create(array_merge(
-            $request->except(['_token', 'type', 'image']),
-            ['type_id'      => $request->type],
-            ['image'        => $image],
-            ['thumbnail'    => $thumbnail]
-        ));
+        $service->addService($request);
 
         if ($request->get('action') == 'save') {
             return redirect()->route('services.index')->withSuccess('A new Service/Occassion has been successfully added!');
@@ -125,32 +115,27 @@ class ServicesController extends Controller
         $request->validate([
             'name'          =>  'required|min:2',
             'slug'          =>  'required|unique:services,slug,'.$service->id,
-            'description'   =>  '',
+            'description'   =>  'required|min:2|max:50',
             'image'         =>  'sometimes|image|mimes:jpeg,png,jpg,gif,svg|max:2048|dimensions:min_width=25,max_width=2000',
         ]);
 
         $img_arr = [];
 
-        if( request()->has('image') ){
-            if($this->checkImage($service->image)){
-                File::delete(storage_path('app/public/'.$service->image));
-            }
-            $image = $request->file('image')->store('gallery','public');
-            array_push($img_arr, ['image' => $image]);
-
-            if($this->checkThumbnail($service->thumbnail)){
-                File::delete(storage_path('app/public/'.$service->thumbnail));
-            }
-            $thumbnail = $request->file('image')->store('thumbnail','public');
-
-            $imageThumbnail = Image::make(public_path("storage/{$thumbnail}"))->fit(800,800);
-            $imageThumbnail->save();
-
-            array_push($img_arr, ['thumbnail' => $thumbnail]);
+        if(request()->has('image'))
+        {
+            $image = $request->file('image');
+            $name = str_random(25).'_'.time();
+            $folder = '/uploads/services/';
+            $thumbnail = $folder . 'thumbnail/';
+            $filePath = $folder . $name . '.' . $image->getClientOriginalExtension();
+            $thumbnailPath = $thumbnail . $name . '.' . $image->getClientOriginalExtension();
+            $service->uploadServiceImage($service,$image,$folder,'public', $name);
+            array_push($img_arr, ['image' => $filePath]);
+            array_push($img_arr, ['thumbnail' => $thumbnailPath]);
         }
 
         $service->update(array_merge(
-            $request->except(['_token', 'type', 'image']),
+            $request->except(['_token', 'image']),
             $img_arr[0] ?? [],
             $img_arr[1] ?? []
         ));

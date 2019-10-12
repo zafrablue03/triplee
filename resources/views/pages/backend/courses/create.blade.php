@@ -5,7 +5,6 @@
 @endpush
 
 @push('additionalJS')
-
     <script src="{{ asset('assets/vendor/bs-select/bs-select.min.js') }}"></script>
 @endpush
 
@@ -46,7 +45,7 @@
                         <div class="row gutters">
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6">
                                 <div class="form-group">
-                                    <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" placeholder="Type Name" value="{{ old('name') }}" required>
+                                    <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" placeholder="Course Name" value="{{ old('name') }}" required>
                                     @error('name')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -54,7 +53,7 @@
                                     @enderror
                                 </div>
                                 <div class="form-group">
-                                    <input type="text" class="form-control @error('description') is-invalid @enderror" name="description" placeholder="Type Description" value="{{ old('description') }}">
+                                    <input type="text" class="form-control @error('description') is-invalid @enderror" name="description" placeholder="Course Description" value="{{ old('description') }}">
                                     @error('description')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>

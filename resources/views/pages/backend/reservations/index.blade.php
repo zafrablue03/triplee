@@ -88,13 +88,12 @@
                                                                 <i class="fa fa-cogs mr-2"></i>Actions
                                                             </button>
                                                             <div class="dropdown-menu">
-                                                                {{-- <a class="dropdown-item" href="{{ route('reservation.show', $pending->id) }}">View</a> --}}
                                                                 <a class="dropdown-item" href="{{ route('reservation.edit', $pending->id) }}">Manage reservation</a>
-                                                                {{-- <form action="{{ route('reservation.destroy', $pending->id) }}" method="POST">
+                                                                <form action="{{ route('reservation.destroy', $pending->id) }}" method="POST">
                                                                     @csrf
                                                                     @method('DELETE')
-                                                                    <button type="submit" class="dropdown-item">Delete</button>
-                                                                </form> --}}
+                                                                    <button type="submit" name="action" value="delete" class="dropdown-item" onclick="return confirm('Are you sure about this?');">Delete</button>
+                                                                </form>
                                                             </div>
                                                         </div>
                                                     </td>
@@ -171,21 +170,19 @@
                                                             </button>
                                                             <div class="dropdown-menu">
                                                                 <a class="dropdown-item" href="{{ route('reservation.show', $approved->id) }}">View</a>
-                                                                @if(!$approved->payment)
-                                                                    <form action="{{ route('reservation.destroy', $approved->id) }}" method="POST">
-                                                                        @csrf
-                                                                        @method('DELETE')
-                                                                        <button type="submit" name="approved" value="cancel" class="dropdown-item"
-                                                                        @if(!($now->year == $year))
-                                                                            disabled
-                                                                            style="background:gray; color:grayish; cursor:default"
-                                                                        @elseif( $diffInDays < 2 AND $date->month <= $now->month )
-                                                                            disabled
-                                                                            style="background:gray; color:grayish; cursor:default"
-                                                                        @endif
-                                                                        >Cancel</button>
-                                                                    </form>
-                                                                @endif
+                                                                <form action="{{ route('reservation.destroy', $approved->id) }}" method="POST">
+                                                                    @csrf
+                                                                    @method('DELETE')
+                                                                    <button type="submit" name="approved" value="cancel" class="dropdown-item"
+                                                                    @if(!($now->year == $year))
+                                                                        disabled
+                                                                        style="background:gray; color:grayish; cursor:default"
+                                                                    @elseif( $diffInDays < 2 AND $date->month <= $now->month )
+                                                                        disabled
+                                                                        style="background:gray; color:grayish; cursor:default"
+                                                                    @endif
+                                                                    >Cancel</button>
+                                                                </form>
                                                             </div>
                                                         </div>
                                                     </td>

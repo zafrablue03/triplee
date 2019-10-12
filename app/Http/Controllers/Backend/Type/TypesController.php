@@ -50,7 +50,7 @@ class TypesController extends Controller
 
         $request->validate([
             'name'          =>  'required|min:2',
-            'description'   =>  '',
+            'description'   =>  'required|min:2|max:50',
         ]);
 
         Type::create($request->except('_token'));
@@ -97,11 +97,9 @@ class TypesController extends Controller
 
         $request->validate([
             'name'          =>  'required|min:2',
-            'description'   =>  '',
+            'description'   =>  'required|min:2|max:50',
         ]);
-
-        // dd($request->all());
-
+        
         $type->update($request->except('_token'));
 
         return redirect()->route('types.index')->withSuccess('Course Type Successfully updated!');
@@ -115,7 +113,7 @@ class TypesController extends Controller
      */
     public function destroy(Type $type)
     {
-        // $type->delete();
-        // return redirect()->route('types.index')->withSuccess('Course Type Successfully deleted!');
+        $type->delete();
+        return redirect()->route('types.index')->withSuccess('Course Type Successfully deleted!');
     }
 }

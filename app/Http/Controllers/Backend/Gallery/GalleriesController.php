@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Backend\Gallery;
 
-use Illuminate\Http\Request;
+// use Illuminate\Http\Request;
+use App\Http\Requests\GalleryRequest;
 use App\Http\Controllers\Controller;
 use Intervention\Image\Facades\Image;
 use App\Service;
 use App\ImageUpload;
+use File;
 
 class GalleriesController extends Controller
 {
@@ -23,74 +25,21 @@ class GalleriesController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(GalleryRequest $request)
     {
+        $request->validated();
+
+        $imageUpload = new ImageUpload();
         $service = Service::find($request->service);
 
-        $request->validate([
-            'image'     =>  'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048|dimensions:min_width=50,max_width=2000, min_height=50, max_height=2000',
-        ]);
-
-        $image = $request->file('image')->store('events','public');
-        $thumbnail = $request->file('image')->store('events/thumbnail','public');
-        $thumbnailImage = Image::make(public_path("storage/{$thumbnail}"))->fit(200,200);
-        $thumbnailImage->save();
-
-        $service->images()->create([
-            'url'       =>  $image,
-            'thumbnail' =>  $thumbnail
-        ]);
+        $imageUpload->upload($request, $service);
 
         return redirect()->route('gallery.index')->withSuccess('Uploaded successfully!');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
     }
 
     /**
@@ -101,6 +50,12 @@ class GalleriesController extends Controller
      */
     public function destroy(ImageUpload $image)
     {
+        if(ImageUpload::whereUrl($image->url)->exists()){
+            File::delete(public_path($image->url));
+        }
+        if(ImageUpload::whereThumbnail($image->thumbnail)->exists()){
+            File::delete(public_path($image->thumbnail));
+        }
         $image->delete();
 
         return redirect()->route('gallery.index');

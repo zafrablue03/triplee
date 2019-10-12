@@ -23,20 +23,6 @@
             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
                 <h5 class="title">Welcome back, {{ auth()->user()->name }}</h5>
             </div>
-            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
-                <div class="daterange-container">
-                    <div class="date-range">
-                        <div id="reportrange">
-                            <i class="icon-calendar cal"></i>
-                            <span class="range-text"></span>
-                            <i class="icon-chevron-down arrow"></i>
-                        </div>
-                    </div>
-                    <a href="#" data-toggle="tooltip" data-placement="top" title="Download CSV" class="download-reports">
-                        <i class="icon-download1"></i>
-                    </a>
-                </div>
-            </div>
         </div>
     </div>
     <!-- Page header end -->
@@ -62,15 +48,20 @@
                 </div>
             </div>
         </div>
-
+        @php
+            $customersCount = App\Reservation::whereIsApproved(true)->sum('pax');
+            $approved = App\Reservation::whereIsApproved(true)->count();
+            $pending = App\Reservation::whereIsApproved(false)->count();
+            $revenue = App\Payable::sum('payable');
+        @endphp
 
         <div class="row gutters justify-content-center">
             <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 col-12">
                 
                 <div class="daily-sales">
                     <h6>Customers</h6>
-                    <h1>10,000</h1>
-                    <p>Total Customers</p>
+                    <h1>{{ $customersCount }}</h1>
+                    <p>No. of customers based on approved reservations</p>
                     <div id="apexLineChartGradient" class="blue-graph"></div>
                 </div>
 
@@ -79,8 +70,8 @@
                 
                 <div class="daily-sales">
                     <h6>Revenue</h6>
-                    <h1>45,000</h1>
-                    <p>Total Revenue</p>
+                    <h1>{{ $revenue }}</h1>
+                    <p>Revenue based on approved reservations</p>
                     <div id="apexLineChartGradient2" class="red-graph"></div>
                 </div>
 
@@ -88,8 +79,8 @@
             <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 col-12">
                 
                 <div class="daily-sales">
-                    <h6>Expenses</h6>
-                    <h1>23,000</h1>
+                    <h6>Approved Reservations</h6>
+                    <h1>{{ $approved }}</h1>
                     <p>Total Expenses</p>
                     <div id="apexLineChartGradient3" class="green-graph"></div>
                 </div>
@@ -98,8 +89,8 @@
             <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 col-12">
                 
                 <div class="daily-sales">
-                    <h6>Profit</h6>
-                    <h1>22,000</h1>
+                    <h6>Pending Reservations</h6>
+                    <h1>{{ $pending }}</h1>
                     <p>Total Profit</p>
                     <div id="apexLineChartGradient4" class="lavandar-graph"></div>
                 </div>

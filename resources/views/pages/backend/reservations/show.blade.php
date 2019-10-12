@@ -106,7 +106,7 @@
                         @foreach( $reservation->courses as $menu )
                             <li class="pb-2">
                                 {{ $menu->type->name }} - {{ $menu->name }} <br>
-                                <img src="/storage/{{ $menu->image }}" class="w-50 pt-2">
+                                <img src="{{ $menu->image }}" class="w-50 pt-2">
                             </li>
                         @endforeach
                     </ul>

@@ -5,12 +5,14 @@ namespace App\Http\Controllers\Backend\Course;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Intervention\Image\Facades\Image;
+use App\Traits\UploadTrait;
 use App\Course;
 use App\Type;
 use File;
 
 class CourseController extends Controller
 {
+    use UploadTrait;
     /**
      * Display a listing of the resource.
      *
@@ -34,11 +36,6 @@ class CourseController extends Controller
         return view('pages.backend.courses.create', compact('types'));
     }
 
-    public function checkSlug($slug)
-    {
-        return Course::where('slug', $slug)->exists();
-    }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -50,30 +47,24 @@ class CourseController extends Controller
     public function store(Request $request)
     {
         $request->request->add(['slug' => str_slug($request->name)]);
-
         $request->validate([
             'name'          =>  'required|min:2',
             'slug'          =>  'required|unique:courses',
-            'description'   =>  '',
+            'description'   =>  'required|min:2|max:50',
             'type_id'       =>  'required',
-            'image'         =>  'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048|dimensions:min_width=25,max_width=500',
+            'image'         =>  'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048|dimensions:min_width=25,max_width=1000',
         ]);
 
-        $image = $request->file('image')->store('gallery','public');
+        $course = new Course();
 
-        $imageSquare = Image::make(public_path("storage/{$image}"))->fit(500,500);
+        $course->upload($request);
 
-        Course::create(array_merge(
-            $request->except(['_token', 'type', 'image']),
-            ['type_id'  => $request->type_id],
-            ['image'    => $image]
-        ));
-
-        if ($request->get('action') == 'save') {
+        if($request->get('action') == 'save') {
             return redirect()->route('courses.index')->withSuccess('Course Successfully created!');
-        } elseif ($request->get('action') == 'continue') {
+        }elseif ($request->get('action') == 'continue') {
             return redirect()->route('courses.create')->withSuccess('Course Successfully created!');
         }
+
     }
 
     /**
@@ -99,52 +90,43 @@ class CourseController extends Controller
         return view('pages.backend.courses.edit', compact('course', 'types'));
     }
 
-    public function checkImage($image)
-    {
-        return File::exists(storage_path('app/public/'.$image));
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, Course $course)
     {
-        
         $request->request->add(['slug' => str_slug($request->name)]);
         
-
         $request->validate([
             'name'          =>  'required|min:2',
             'slug'          =>  'required|unique:courses,slug,' .$course->id,
-            'description'   =>  '',
-            'image'         =>  'sometimes|image|mimes:jpeg,png,jpg,gif,svg|max:2048|dimensions:min_width=25,max_width=500',
+            'description'   =>  'required|min:2|max:50',
+            'type_id'       =>  'required',
+            'image'         =>  'sometimes|image|mimes:jpeg,png,jpg,gif,svg|max:2048|dimensions:min_width=25,max_width=1000',
         ]);
 
         $img_arr = [];
 
-        if( request()->has('image') ){
-            if($this->checkImage($course->image)){
-                File::delete(storage_path('app/public/'.$course->image));
-            }
-            $image = $request->file('image')->store('gallery','public');
-            $imageSquare = Image::make(public_path("storage/{$image}"))->fit(500,500);
-            
-            array_push($img_arr, ['image' => $image]);
+        if(request()->has('image'))
+        {
+            $image = $request->file('image');
+            $name = str_random(25).'_'.time();
+            $folder = '/uploads/courses/';
+            $filePath = $folder . $name . '.' . $image->getClientOriginalExtension();
+            $course->uploadImage($course,$image,$folder,'public', $name);
+            array_push($img_arr, ['image' => $filePath]);
         }
 
-        $course->update(array_merge(
-            $request->except(['_token', 'type', 'image']),
-            ['type_id'  => $request->type],
+        $course->update(array_merge([
+            'name' => $request->name,
+            'slug' => $request->slug,
+            'description' => $request->description,
+            'type_id' => $request->type_id
+            ],
             $img_arr[0] ?? []
         ));
-        if ($request->get('action') == 'save') {
+
+        if($request->get('action') == 'save') {
             return redirect()->route('courses.index')->withSuccess('Course Successfully updated!');
-        } elseif ($request->get('action') == 'continue') {
-            return redirect()->route('courses.edit',$course->slug)->withSuccess('Course Successfully update!');
+        }elseif ($request->get('action') == 'continue') {
+            return redirect()->route('courses.edit', $course->slug)->withSuccess('Course Successfully updated!');
         }
     }
 
@@ -156,12 +138,11 @@ class CourseController extends Controller
      */
     public function destroy(Course $course)
     {
-        if($this->checkImage($course->image)){
-            File::delete(storage_path('app/public/'.$course->image));
+        if(Course::whereImage($course->image)->exists()){
+            File::delete(public_path($course->image));
         }
         $course->delete();
 
         return response()->json('Course successfully deleted!');
-        // return redirect()->route('courses.index')->withSuccess('Course Successfully deleted!');
     }
 }

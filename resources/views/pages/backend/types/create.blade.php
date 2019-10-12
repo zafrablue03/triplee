@@ -40,8 +40,13 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="inputName">Description</label>
-                                    {{-- <input type="text" class="form-control" name="description" placeholder="Type Description" value="{{ old('description') }}"> --}}
-                                    <textarea name="description"placeholder="Type Description" cols="30" rows="10" class="form-control">{{ old('description') }}</textarea>
+                                    <textarea name="description"placeholder="Type Description" 
+                                    class="form-control @error('description') is-invalid @enderror">{{ old('description') }}</textarea>
+                                    @error('description')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
                                 </div>
                                 <button type="submit" class="btn btn-secondary btn-rounded">Save</button>
                             </div>

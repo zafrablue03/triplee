@@ -9,8 +9,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-    use Notifiable;
-    use UploadTrait;
+    use Notifiable, UploadTrait;
 
     const ADMIN_TYPE = 1;
     const DEFAULT_TYPE = 0;

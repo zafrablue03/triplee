@@ -66,11 +66,11 @@
                                             <div class="dropdown-menu">
                                                 <a class="dropdown-item" href="{{ route('types.show', $type->slug) }}">View</a>
                                                 <a class="dropdown-item" href="{{ route('types.edit',$type->slug) }}">Edit</a>
-                                                {{-- <form action="{{ route('types.destroy',$type->slug) }}" method="POST">
+                                                <form action="{{ route('types.destroy',$type->slug) }}" method="POST">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="dropdown-item" >Delete</button>
-                                                </form> --}}
+                                                    <button type="submit" class="dropdown-item" onclick="return confirm('Are you sure you want to delete this item?');">Delete</button>
+                                                </form>
                                             </div>
                                         </div>
                                     </td>
