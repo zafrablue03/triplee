@@ -27,25 +27,26 @@
  		editable: true,
  		eventLimit: true, // allow "more" link when too many events
  		events: [
-             @php
-                $reservations = App\Reservation::whereIsApproved(true)->get();
-                
-             @endphp
-             @foreach($reservations as $reservation)
-             {
-                @php
-                  //   $colors = ['#67caf0', '#80bcdc', '#fd7274', '#a5ca7b', '#f68d60', '#f9be52', '#ff8087', '#ac92ec', '#41ca94', '#ffb445', '#89bf52', '#00b894'];
-                  //   $randomColors = array_rand($colors);
-						$now = Carbon\Carbon::now();
-						$color = $reservation->eventDate() < $now ? 'darkgrey' : 'limegreen';
-						$is_over = $reservation->eventDate() < $now ? '(Over)' : '';
-                @endphp
-               title: '{{ $reservation->service->name }} - {{ $reservation->name }} {{ $is_over }}',
-               start: '{{ $reservation->date }}',
-					color: '{{ $color }}',
-					url: '{{ route('reservation.show', $reservation->id) }}',
-            },
-         @endforeach
+			@php
+				$reservations = App\Reservation::whereIsApproved(true)->get();
+			@endphp
+			@if(!empty($reservations))
+				@foreach($reservations as $reservation)
+					{
+					@php
+						//   $colors = ['#67caf0', '#80bcdc', '#fd7274', '#a5ca7b', '#f68d60', '#f9be52', '#ff8087', '#ac92ec', '#41ca94', '#ffb445', '#89bf52', '#00b894'];
+						//   $randomColors = array_rand($colors);
+							$now = Carbon\Carbon::now();
+							$color = $reservation->eventDate() < $now ? 'darkgrey' : 'limegreen';
+							$is_over = $reservation->eventDate() < $now ? '(Over)' : '';
+					@endphp
+					title: '{{ $reservation->service->name }} - {{ $reservation->name }} {{ $is_over }}',
+					start: '{{ $reservation->date }}',
+						color: '{{ $color }}',
+						url: '{{ route('reservation.show', $reservation->id) }}',
+				},
+				@endforeach
+			@endif
     ]
  	}); 	
 });

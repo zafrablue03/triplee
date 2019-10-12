@@ -81,7 +81,7 @@
                                             <div class="form-group">
                                                 <label for="inputName">Transportation Charge:</label>
                                                 <input type="number" {{ $exists ? 'disabled' : '' }} class="form-control @error('transportation_charge') is-invalid @enderror" 
-                                                min="0.00" max="10000.00" step="0.01" name="transportation_charge" required value="{{ old('value') }}" />
+                                                min="0.00" max="5000.00" step="0.01" name="transportation_charge" required value="{{ old('value') }}" />
                                                 <small id="passwordHelpBlock" class="form-text text-muted">
                                                     Areas within Tubigon and Inabanga are free of charge.
                                                 </small>

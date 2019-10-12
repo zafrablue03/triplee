@@ -209,7 +209,7 @@
                                                         <div  class="text-center">
                                                             <label>
                                                                 <input type="radio" name="service_id" id="service" value="{{ $service->id }}" required>
-                                                                <img src="/storage/{{ $service->thumbnail }}" class="w-50">
+                                                                <img src="{{ $service->thumbnail }}" class="w-50">
                                                                 <h6>{{ $service->name }}</h6>
                                                             </label>
                                                         </div>
