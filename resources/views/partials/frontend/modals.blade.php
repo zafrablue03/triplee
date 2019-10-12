@@ -156,7 +156,7 @@
                         <!-- Project Details Go Here -->
                         <h2 class="text-uppercase">{{ $service->name }}</h2>
                         
-                        <img class="img-fluid d-block mx-auto" src="/storage/{{ $service->image }}" alt="">
+                        <img class="img-fluid d-block mx-auto" src="{{ $service->image }}" alt="">
                         <p class="item-intro text-muted">{{ $service->description }}</p>
                         {{-- <p>Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere nemo!</p>
                         <ul class="list-inline">

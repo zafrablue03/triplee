@@ -15,7 +15,7 @@
             <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4">
                 <div class="portfolio-caption text-center">
                   <h4>{{ ucfirst($service->name) }}</h4>
-                  <img class="w-100" src="/storage/{{ $service->thumbnail }}" style="width:100%">
+                  <img class="w-100" src="{{ $service->thumbnail }}" style="width:100%">
                   <small><p class="text-muted">{{ ucfirst($service->description) }}</p></small>
                 </div>
                   
@@ -77,7 +77,7 @@
                       <i class="fas fa-plus fa-3x"></i>
                     </div>
                   </div>
-                  <img class="img-fluid" src="/storage/{{ $service->thumbnail }}" alt="">
+                  <img class="img-fluid" src="{{ $service->thumbnail }}" alt="">
                 </a>
                 <div class="portfolio-caption">
                 <a class="portfolio-link" data-toggle="modal" href="#modal{{ $service->id }}">

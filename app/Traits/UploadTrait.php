@@ -78,7 +78,7 @@ trait UploadTrait
         $file = $uploadedFile->storeAs($folder, $name.'.'.$uploadedFile->getClientOriginalExtension(), $disk);
         $thumbnail = $uploadedFile->storeAs($thumbnailFolder, $name.'.'.$uploadedFile->getClientOriginalExtension(), $disk);
 
-        $this->fitImage($thumbnail, 200,200);
+        $this->fitImage($thumbnail, 400,400);
 
         return $file;
     }
