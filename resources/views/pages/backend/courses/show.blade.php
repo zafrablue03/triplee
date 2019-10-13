@@ -68,7 +68,7 @@
                                     <div class="form-group row">
                                         <label class="col-sm-2 col-form-label"><h5>Image</h5></label>
                                         <div class="col-sm-10">
-                                            <img src="/storage/{{ $course->image }}" class="w-50">
+                                            <img src="{{ $course->image }}" class="w-50">
                                         </div>
                                     </div>
                                     <div class="pt-3">
