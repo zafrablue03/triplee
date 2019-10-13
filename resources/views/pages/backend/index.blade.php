@@ -107,7 +107,7 @@
                 <!-- Row start -->
                 <div class="row no-gutters">
                     <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
-                
+                 {{-- 
                         <div class="daily-sales">
                             <h6>Emails</h6>
                             <h1>21</h1>
@@ -134,7 +134,7 @@
                             <p>Total Deals Claimed</p>
                             <div id="apexColumnBasic3" class="blue-graph"></div>
                         </div>
-
+--}}
                     </div>
                 </div>
                 <!-- Row end -->
