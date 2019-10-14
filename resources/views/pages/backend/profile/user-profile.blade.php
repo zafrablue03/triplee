@@ -138,7 +138,7 @@
                 </div>
             </div>
             @include('pages.backend.profile.add-staff-modal')
-            @if(auth()->user()->isOwner())
+            {{-- @if(auth()->user()->isOwner()) --}}
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header">
@@ -235,7 +235,7 @@
                     </div>
                 </div>
             </div>
-            @endif
+            {{-- @endif --}}
         </div>
     </div>
 </div>

@@ -59,14 +59,14 @@
                     </div>
                     <div class="card-body">
                         <div class="row">
-                            @if(auth()->user()->isOwner())
+                            {{-- @if(auth()->user()->isOwner()) --}}
                             <div class="col-sm-6 col-md-6">
                                 <div class="form-group flex">
                                     <label class="form-label">Title</label>
                                     <input type="text" class="form-control" name="title"  value="{{ old('title') ?? $user->profile->title }}">
                                 </div>
                             </div>
-                            @endif
+                            {{-- @endif --}}
 
                             <div class="col-md-12">
                                 <div class="form-group">
