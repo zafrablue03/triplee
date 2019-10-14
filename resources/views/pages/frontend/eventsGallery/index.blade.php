@@ -6,53 +6,24 @@
         <div class="page-header">
             <h2 class="section-heading text-uppercase">Gallery</h2>
         </div>
+        @php
+            $services = App\Service::get();
+        @endphp
         <div class="demo-gallery">
             <ul id="lightgallery" class="list-unstyled row">
-                <li class="col-xs-6 col-sm-4 col-md-3" data-responsive="{{ asset('assets/img/user.png') }}" data-src="{{ asset('/assets/img/user.png') }}" data-sub-html="<h4>Gallery Image 1</h4><p> Many desktop publishing packages and web page editors now use Lorem Ipsum</p>" >
-                    <a href="#">
-                        <img class="img-responsive" src="{{ asset('assets/img/user.png') }}" alt="Thumb-1">
-                    </a>
-                </li>
-                <li class="col-xs-6 col-sm-4 col-md-3" data-responsive="{{ asset('assets/img/user.png') }}" data-src="{{ asset('/assets/img/user.png') }}" data-sub-html="<h4>Gallery Image 1</h4><p> Many desktop publishing packages and web page editors now use Lorem Ipsum</p>" >
-                    <a href="#">
-                        <img class="img-responsive" src="{{ asset('assets/img/user.png') }}" alt="Thumb-2">
-                    </a>
-                </li>
-                <li class="col-xs-6 col-sm-4 col-md-3" data-responsive="{{ asset('assets/img/user.png') }}" data-src="{{ asset('/assets/img/user.png') }}" data-sub-html="<h4>Gallery Image 1</h4><p> Many desktop publishing packages and web page editors now use Lorem Ipsum</p>" >
-                    <a href="#">
-                        <img class="img-responsive" src="{{ asset('assets/img/user.png') }}" alt="Thumb-3">
-                    </a>
-                </li>
-                <li class="col-xs-6 col-sm-4 col-md-3" data-responsive="{{ asset('assets/img/user.png') }}" data-src="{{ asset('/assets/img/user.png') }}" data-sub-html="<h4>Gallery Image 1</h4><p> Many desktop publishing packages and web page editors now use Lorem Ipsum</p>" >
-                    <a href="#">
-                        <img class="img-responsive" src="{{ asset('assets/img/user.png') }}" alt="Thumb-4">
-                    </a>
-                </li>
-                <li class="col-xs-6 col-sm-4 col-md-3" data-responsive="{{ asset('assets/img/user.png') }}" data-src="{{ asset('/assets/img/user.png') }}" data-sub-html="<h4>Gallery Image 1</h4><p> Many desktop publishing packages and web page editors now use Lorem Ipsum</p>" >
-                    <a href="#">
-                        <img class="img-responsive" src="{{ asset('assets/img/user.png') }}" alt="Thumb-5">
-                    </a>
-                </li>
-                <li class="col-xs-6 col-sm-4 col-md-3" data-responsive="{{ asset('assets/img/user.png') }}" data-src="{{ asset('/assets/img/user.png') }}" data-sub-html="<h4>Gallery Image 1</h4><p> Many desktop publishing packages and web page editors now use Lorem Ipsum</p>" >
-                    <a href="#">
-                        <img class="img-responsive" src="{{ asset('assets/img/user.png') }}" alt="Thumb-6">
-                    </a>
-                </li>
-                <li class="col-xs-6 col-sm-4 col-md-3" data-responsive="{{ asset('assets/img/user.png') }}" data-src="{{ asset('/assets/img/user.png') }}" data-sub-html="<h4>Gallery Image 1</h4><p> Many desktop publishing packages and web page editors now use Lorem Ipsum</p>" >
-                    <a href="#">
-                        <img class="img-responsive" src="{{ asset('assets/img/user.png') }}" alt="Thumb-7">
-                    </a>
-                </li>
-                <li class="col-xs-6 col-sm-4 col-md-3" data-responsive="{{ asset('assets/img/user.png') }}" data-src="{{ asset('/assets/img/user.png') }}" data-sub-html="<h4>Gallery Image 1</h4><p> Many desktop publishing packages and web page editors now use Lorem Ipsum</p>" >
-                    <a href="#">
-                        <img class="img-responsive" src="{{ asset('assets/img/user.png') }}" alt="Thumb-7">
-                    </a>
-                </li>
-                <li class="col-xs-6 col-sm-4 col-md-3" data-responsive="{{ asset('assets/img/user.png') }}" data-src="{{ asset('/assets/img/user.png') }}" data-sub-html="<h4>Gallery Image 1</h4><p> Many desktop publishing packages and web page editors now use Lorem Ipsum</p>" >
-                    <a href="#">
-                        <img class="img-responsive" src="{{ asset('assets/img/user.png') }}" alt="Thumb-7">
-                    </a>
-                </li>
+            @foreach($services as $service)
+                    @php
+                        $name = $service->name;
+                        $description = $service->description;
+                    @endphp
+                    @foreach($service->images as $event)
+                        <li class="col-xs-6 col-sm-4 col-md-3" data-responsive="{{ $event->url }}" data-src="{{ $event->url }}" data-sub-html="<h4>{{ ucfirst($name) }}</h4><p> {{ $description }}</p>" >
+                            <a href="#">
+                                <img class="img-responsive" src="{{ $event->thumbnail }}">
+                            </a>
+                        </li>
+                    @endforeach
+            @endforeach
             </ul>
         </div>
     </div>
