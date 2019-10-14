@@ -56,7 +56,7 @@
                                     <div class="form-group row">
                                         <label class="col-sm-2 col-form-label"><h5>Image</h5></label>
                                         <div class="col-xl-10 col-lg-10 col-md-10 col-sm-10 col-10">
-                                            <img src="/storage/{{ $service->image }}" class="w-50">
+                                            <img src="{{ $service->image }}" class="w-50">
                                         </div>
                                     </div>
                                     <div class="pt-3">
