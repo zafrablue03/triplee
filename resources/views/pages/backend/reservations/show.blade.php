@@ -78,9 +78,20 @@
                         @endif
                     </ul>
                 </div>
+               {{--@if($reservation->payment)
                     <a class="btn btn-info" href="{{ route('payable.create',$reservation->id) }}" 
                         class="dropdown-item">{{ $reservation->payment ? 'Paid Full' : 'Add Payment' }}</a>
-            </div>
+                @endif --}}
+                @if($reservation->payment)
+                    @if($reservation->payment->is_paid)
+                       <h4>Fully Paid</h4>
+                @else
+                      <a class="btn btn-info" href="{{ route('payable.create',$reservation->id) }}"                  class="dropdown-item">Paid Full</a>
+                @endif
+                    @else
+                      <a class="btn btn-info" href="{{ route('payable.create',$reservation->id) }}"                  class="dropdown-item">{{ $reservation->payment ? 'Paid Full' : 'Add Payment' }}</a>
+                @endif
+              </div>
             <div class="col-lg-4 col-md-4 col-sm-4">
                 <div class="pricing-plan">
                     <div class="pricing-header green">
