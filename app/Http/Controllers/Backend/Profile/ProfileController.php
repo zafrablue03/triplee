@@ -48,7 +48,7 @@ class ProfileController extends Controller
             }
         }
 
-        return redirect()->route('profile.edit', $user->id)->withSuccess('Profile updated successfully');
+        return redirect()->route('profile.index')->withSuccess('Profile updated successfully');
 
     }
 }
