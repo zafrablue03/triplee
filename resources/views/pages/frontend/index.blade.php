@@ -20,7 +20,7 @@
                           </a>
                           <div class="carousel-caption d-none d-md-block">
                             <h5>{{ $service->name }}</h5>
-                            <p>{{ $service->description }}</p>
+                            <p>Click to view more events galleries</p>
                           </div>
                         </div>
                       @endforeach
