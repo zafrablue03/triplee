@@ -201,7 +201,7 @@
                     <div class="row">
                         @if(!empty($types))
                             @foreach ($types as $type)
-                                <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3">
+                                <div class="col-xl-3 col-lg-3 col-md-4 col-sm-4 col-3">
                                     <h5>{{ $type->name }}</h5>
                                     <ul class="list-inline">
                                         @foreach ($type->courses as $course)
