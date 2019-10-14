@@ -61,7 +61,8 @@
                 <div class="daily-sales">
                     <h6>Customers</h6>
                     <h1>{{ $customersCount }}</h1>
-                    <p>No. of customers based on approved reservations</p>
+                    <p>No. of pax based on approved reservations</p>
+                    <small class="text-muted">(varies when a reservation is canceled)</small>
                     <div id="apexLineChartGradient" class="blue-graph"></div>
                 </div>
 
@@ -70,8 +71,9 @@
                 
                 <div class="daily-sales">
                     <h6>Revenue</h6>
-                    <h1>{{ $revenue }}</h1>
+                    <h1>&#8369;{{ number_format($revenue) }}</h1>
                     <p>Revenue based on approved reservations</p>
+                    <small class="text-muted">(varies when a reservation is canceled)</small>
                     <div id="apexLineChartGradient2" class="red-graph"></div>
                 </div>
 
@@ -81,7 +83,7 @@
                 <div class="daily-sales">
                     <h6>Approved Reservations</h6>
                     <h1>{{ $approved }}</h1>
-                    <p>Total Expenses</p>
+                    <p>Total Approved Reservation</p>
                     <div id="apexLineChartGradient3" class="green-graph"></div>
                 </div>
 
@@ -91,7 +93,7 @@
                 <div class="daily-sales">
                     <h6>Pending Reservations</h6>
                     <h1>{{ $pending }}</h1>
-                    <p>Total Profit</p>
+                    <p>Total Pending Reservation</p>
                     <div id="apexLineChartGradient4" class="lavandar-graph"></div>
                 </div>
 
