@@ -181,6 +181,7 @@
                             <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4">
                                 <h1 class="menu-heading">{{ ucfirst($set->name) }}</h1>
                                 <h2 class="sub-heading" style="font-size: 16px;">P{{ $set->price }}/Head</h2>
+                                <small class="text-muted">only 1 per each</small>
                                 <ul class="list-inline">
                                     @foreach ($set->types as $type)
                                         <li>{{ $type->name }}</li>

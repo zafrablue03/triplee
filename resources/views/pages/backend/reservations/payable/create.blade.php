@@ -50,10 +50,13 @@
                                             @php
                                                 $total = number_format($reservation->payment->payable,2);
                                                 $balance = number_format($reservation->payment->balance,2);
+                                                $paid = $reservation->payment->is_paid;
                                             @endphp
-                                            <div class="pricing-save">Total: &#8369; {{ $total == 0 ? number_format($reservation->payable(), 2).' + transportation fee' : $total }}</div>
-                                            <div class="pricing-save">Downpayment: &#8369; {{ $balance == 0 ? number_format($reservation->payable(), 2) : $balance }}</div>
-                                            <div class="pricing-save">Balance: &#8369; {{ $balance == 0 ? number_format($reservation->payable(), 2) : $balance }}</div>
+                                            <div class="pricing-save">Total: &#8369; {{ number_format($reservation->payment->payable, 2) }}
+                                                 <small>(with transportation fee of &#8369;{{ number_format($reservation->payment->transportation_charge) }})</small>
+                                            </div>
+                                            <div class="pricing-save">{{ $paid ? 'Payment:' : 'Downpayment:'}} &#8369; {{ number_format($reservation->payment->payment, 2) }}</div>
+                                            <div class="pricing-save">Balance: &#8369; {{ $balance }}</div>
                                             @else
                                             <div class="pricing-save">Total: &#8369; {{ number_format($reservation->payable(),2) .' + transportation fee'}}</div>
                                             @endif

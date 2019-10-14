@@ -1,34 +1,11 @@
 @extends('layouts.frontend.master')
 
 @section('content')
-     <!-- Services -->
-    <section class="page-section" id="services">
-        <div class="container">
-          <div class="row">
-            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 text-center">
-              <h2 class="section-heading text-uppercase">Gallery</h2>
-              <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
-            </div>
-          </div>
-          <div class="row">
-            @foreach($services as $service)
-            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4">
-                <div class="portfolio-caption text-center">
-                  <h4>{{ ucfirst($service->name) }}</h4>
-                  <img class="w-100" src="{{ $service->thumbnail }}" style="width:100%">
-                  <small><p class="text-muted">{{ ucfirst($service->description) }}</p></small>
-                </div>
-                  
-            </div>              
-            @endforeach
-          </div>
-        </div>
-      </section>
 
-      {{-- <section class="bg-light page-section">
+      <section class="bg-light page-section" id="gallery">
         <div class="row text-center">
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                <h5>Events</h5>
+                <h5>Events Gallery</h5>
                 <div id="carouselExampleFade" class="carousel slide carousel-fade" data-ride="carousel">
                   <ol class="carousel-indicators">
                       @foreach( $services as $service)
@@ -38,7 +15,9 @@
                   <div class="carousel-inner">
                       @foreach( $services as $service )
                         <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
-                          <img src="/storage/{{ $service->thumbnail }}" class="img-fluid d-block mx-auto" alt="Carousel">
+                          <a href="{{ route('gallery') }}">
+                              <img src="{{ $service->image }}" class="img-fluid d-block mx-auto" alt="Carousel">
+                          </a>
                           <div class="carousel-caption d-none d-md-block">
                             <h5>{{ $service->name }}</h5>
                             <p>{{ $service->description }}</p>
@@ -57,9 +36,9 @@
                 </div>
             </div>
         </div>
-      </section> --}}
+      </section>
       
-      <!-- Portfolio Grid -->
+      <!-- Services Grid -->
       <section class="bg-light page-section" id="portfolio">
         <div class="container">
           <div class="row">
@@ -212,57 +191,6 @@
 
                 @endforeach
               @endif
-            
-
-            {{-- <div class="col-sm-4">
-              <div class="team-member">
-                <img class="mx-auto rounded-circle" src="{{ ('assets/frontend/img/team/2.jpg') }}" alt="">
-                <h4>Larry Parker</h4>
-                <p class="text-muted">Lead Marketer</p>
-                <ul class="list-inline social-buttons">
-                  <li class="list-inline-item">
-                    <a href="#">
-                      <i class="fab fa-twitter"></i>
-                    </a>
-                  </li>
-                  <li class="list-inline-item">
-                    <a href="#">
-                      <i class="fab fa-facebook-f"></i>
-                    </a>
-                  </li>
-                  <li class="list-inline-item">
-                    <a href="#">
-                      <i class="fab fa-linkedin-in"></i>
-                    </a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-
-            <div class="col-sm-4">
-              <div class="team-member">
-                <img class="mx-auto rounded-circle" src="{{ ('assets/frontend/img/team/3.jpg') }}" alt="">
-                <h4>Diana Pertersen</h4>
-                <p class="text-muted">Lead Developer</p>
-                <ul class="list-inline social-buttons">
-                  <li class="list-inline-item">
-                    <a href="#">
-                      <i class="fab fa-twitter"></i>
-                    </a>
-                  </li>
-                  <li class="list-inline-item">
-                    <a href="#">
-                      <i class="fab fa-facebook-f"></i>
-                    </a>
-                  </li>
-                  <li class="list-inline-item">
-                    <a href="#">
-                      <i class="fab fa-linkedin-in"></i>
-                    </a>
-                  </li>
-                </ul>
-              </div>
-            </div> --}}
 
           </div>
           <div class="row">

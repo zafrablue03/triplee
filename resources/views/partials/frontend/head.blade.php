@@ -8,8 +8,8 @@
     <title>{{ env('APP_NAME') }}</title>
     
     <!-- Bootstrap core CSS -->
-    <link href="{{ asset('assets/frontend/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
     
+    <link href="{{ asset('assets/frontend/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
     <!-- Custom fonts for this template -->
     <link href="{{ asset('assets/frontend/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
@@ -21,7 +21,7 @@
     {{-- Select picker --}}
     <link rel="stylesheet" href="{{ asset('assets/vendor/bs-select/bs-select.css') }}" />
 
-    
+
     {{-- Datepicker --}}
     <link href="{{ asset('assets/frontend/vendor/datepicker/datepicker.css') }}" rel="stylesheet">
     <!-- Custom styles for this template -->
@@ -68,7 +68,7 @@
                 margin-top: -5px;
             }
         </style>
+        @stack('additionalCSS')
 
-    @stack('additionalCSS')
     
 </head>

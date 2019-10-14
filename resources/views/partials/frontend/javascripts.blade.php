@@ -13,6 +13,4 @@
 
   <script src="{{ asset('assets/js/nav.min.js') }}"></script>
   <script src="{{ asset('assets/js/moment.js') }}"></script>
-
   @stack('additionalJS')
-

@@ -10,13 +10,17 @@
 |
 */
 
-Route::get('/', 'Frontend\HomepageController@index');
+Route::get('/', 'Frontend\HomepageController@index')->name('home');
+
+Route::get('/gallery', function(){
+    return view('pages.frontend.eventsGallery.index');
+})->name('gallery');
 
 
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+// Route::get('/home', 'HomeController@index')->name('home');
 
 
 // Fronted

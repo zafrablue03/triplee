@@ -9,19 +9,22 @@
   <!-- Navigation -->
     @include('partials.frontend.navigation')
 
-    <!-- Header -->
-    @include('partials.frontend.header')
-
     {{-- Body --}}
-    @yield('content')
+    @if(Request::routeIs('gallery'))
+      @yield('gallery')
+    @else
+      <!-- Header -->
+      @include('partials.frontend.header')
+      @yield('content')
+      {{-- Modals --}}
+      @include('partials.frontend.modals')
+    @endif
     
 
     @include('partials.frontend.contact-us')
 
     <!-- Footer -->
     @include('partials.frontend.footer')
-    {{-- Modals --}}
-    @include('partials.frontend.modals')
 
     @include('sweetalert::alert')
     {{-- Javascripts --}}
