@@ -6,7 +6,7 @@
  		header: {
  			left: 'prev,next today',
  			center: 'title',
- 			right: 'month,agendaWeek,agendaDay'
+ 			right: 'month,agendaWeek'
  		},
  		navLinks: true, // can click day/week names to navigate views
  		selectable: false,
@@ -42,8 +42,8 @@
 					@endphp
 					title: '{{ $reservation->service->name }} - {{ $reservation->name }} {{ $is_over }}',
 					start: '{{ $reservation->date }}',
-						color: '{{ $color }}',
-						url: '{{ route('reservation.show', $reservation->id) }}',
+					color: '{{ $color }}',
+					url: '{{ route('reservation.show', $reservation->id) }}',
 				},
 				@endforeach
 			@endif
