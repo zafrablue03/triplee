@@ -101,4 +101,16 @@ class User extends Authenticatable
             $img_arr[1] ?? []
         ));
     }
+
+    public function getInitials()
+    {
+        $name = explode(" ", $this->name);
+        $initial = "";
+        foreach($name as $init)
+        {
+            $initial .= $init[0];
+        }
+
+        return $initial;
+    }
 }

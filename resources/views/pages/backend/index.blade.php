@@ -49,11 +49,16 @@
             </div>
         </div>
         @php
-            $customersCount = App\Reservation::whereIsApproved(true)->sum('pax');
-            $approved = App\Reservation::whereIsApproved(true)->count();
-            $pending = App\Reservation::whereIsApproved(false)->count();
-            $revenue = App\Payable::sum('payable');
+            $now = Carbon\Carbon::now();
+            $customersCount = App\Reservation::whereIsApproved(true)->whereMonth('date',$now->month)->sum('pax');
+            $approved = App\Reservation::whereIsApproved(true)->whereMonth('date',$now->month)->count();
+            $pending = App\Reservation::whereIsApproved(false)->whereMonth('date',$now->month)->count();
+            $revenue = App\Payable::whereMonth('created_at',$now->month)->sum('payable');
         @endphp
+
+        <div class="row gutters justify-content-center">
+            <h1 class="styled">Record as of Month - {{ ucFirst($now->format('F')) }}</h1>
+        </div>
 
         <div class="row gutters justify-content-center">
             <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 col-12">

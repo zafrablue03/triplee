@@ -47,15 +47,8 @@
                 <li class="dropdown">
                     <a href="#" id="userSettings" class="user-settings" data-toggle="dropdown" aria-haspopup="true">
                         <span class="user-name">{{ auth()->user()->name }}</span>
-                        @php
-                            $name = explode(" ",auth()->user()->name);
-                            $initial = "";
-                            foreach($name as $init)
-                            {
-                                $initial .= $init[0];
-                            }
-                        @endphp
-                        <span class="avatar">{{ $initial }}</span>
+
+                        <span class="avatar">{{ auth()->user()->getInitials() }}</span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userSettings">
                         <div class="header-profile-actions">
