@@ -109,4 +109,19 @@ class ReservationsController extends Controller
         $pdf = \PDF::loadView('pages.backend.reservations.partials.contract-pdf', compact('reservation', 'date', 'total', 'inclusion'))->setPaper('a4', 'portrait');
         return $pdf->stream('test.pdf');
     }
+
+    public function notify_pending()
+    {
+        $pending_reservations = Reservation::whereIsApproved(false)->get(['name', 'id', 'date']);
+        // dd($pending_reservation->id);
+        $total = $pending_reservations->count();
+
+        $datas = array(
+            $pending_reservations,
+            'total' => $total
+        );
+
+        // return json_decode($pending_reservation);
+        return $datas;
+    }
 }

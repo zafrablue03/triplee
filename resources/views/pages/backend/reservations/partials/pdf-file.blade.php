@@ -135,7 +135,7 @@
     <div style="margin-bottom: 0px">&nbsp;</div>
     Thank you for your business.
     <div class="row">
-        <div class="col-xs-6 invbody-terms text-center">
+        <div class="col-xs-4 invbody-terms text-center">
             <br>
             <br>
             <br>
@@ -144,7 +144,7 @@
             <small>Signature over printed name</small>
             <h5>Customer</h5>
         </div>
-        <div class="col-xs-6 invbody-terms text-center">
+        <div class="col-xs-4 invbody-terms text-center" style="float:right">
             <br>
             <br>
             <br>

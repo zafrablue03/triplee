@@ -138,7 +138,7 @@
                 </div>
             </div>
             @include('pages.backend.profile.add-staff-modal')
-            {{-- @if(auth()->user()->isOwner()) --}}
+            @if(auth()->user()->isOwner())
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header">
@@ -163,11 +163,11 @@
                                         <th>Action</th>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        @foreach($users as $user)
-                                            @if($user->is_owner == true) 
-                                                @continue 
-                                            @endif
+                                    @foreach($users as $user)
+                                    @if($user->is_owner == true) 
+                                        @continue 
+                                    @endif
+                                        <tr>
                                             <td>{{ $user->id }}</td>
                                             <td>{{ $user->name }}</td>
                                             <td>{{ $user->email }}</td>
@@ -181,14 +181,15 @@
                                                     </button>
                                                 </form>
                                             </td>
-                                        @endforeach
-                                    </tr>
+                                        </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
                     </div>
                 </div>
             </div>
+            @endif
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header">
@@ -235,7 +236,6 @@
                     </div>
                 </div>
             </div>
-            {{-- @endif --}}
         </div>
     </div>
 </div>

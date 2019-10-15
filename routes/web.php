@@ -55,6 +55,10 @@ Route::group( ['prefix' => 'admin', 'middleware' => ['auth','admin'], ], functio
     Route::post('add-staff', 'Backend\Users\UsersController@addStaff')->name('add.staff');
     Route::delete('delete-staff/{user}', 'Backend\Users\UsersController@destroy')->name('delete.staff');
 
+
+    // AJAX
+    Route::get('pending', 'Backend\Reservation\ReservationsController@notify_pending')->name('pending');
+
     
 
 });
