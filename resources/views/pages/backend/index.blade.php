@@ -48,13 +48,6 @@
                 </div>
             </div>
         </div>
-        @php
-            $now = Carbon\Carbon::now();
-            $customersCount = App\Reservation::whereIsApproved(true)->whereMonth('date',$now->month)->sum('pax');
-            $approved = App\Reservation::whereIsApproved(true)->whereMonth('date',$now->month)->count();
-            $pending = App\Reservation::whereIsApproved(false)->whereMonth('date',$now->month)->count();
-            $revenue = App\Payable::whereMonth('created_at',$now->month)->whereIsPaid(true)->sum('payable');
-        @endphp
 
         <div class="row gutters justify-content-center">
             <h1 class="styled">Record as of Month - {{ ucFirst($now->format('F')) }}</h1>
@@ -78,6 +71,10 @@
                     <h6>Revenue</h6>
                     <h1>&#8369;{{ number_format($revenue) }}</h1>
                     <p>Revenue based on approved reservations</p>
+                    <small class="text-muted pb-2">
+                        (expected revenue for this month <strong>&#8369;{{ number_format($expected_monthly_revenue) }}</strong>)
+                    </small>
+                    <br>
                     <small class="text-muted">(varies when a reservation is canceled)</small>
                     <div id="apexLineChartGradient2" class="red-graph"></div>
                 </div>
