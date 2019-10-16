@@ -55,7 +55,7 @@
                         <img class="card-profile-img" src="{{ $user->profile->image }}">
                         <h3 class="mb-3 text-white">{{ $user->name }}</h3>
                         <p class="mb-4 text-white">{{ $user->profile->title }}</p>
-                        <p>@if($user->is_admin == true)<span class="badge badge-pill badge-success">Administrator</span> @endif</p><br><br>
+                        <p><span class="badge badge-pill badge-success">{{ $user->is_owner ? 'Administrator' : 'Staff' }}</span></p><br><br>
                         <a href="{{ route('profile.edit', $user->id) }}" class="btn btn-warning btn-sm"><i class="fa fa-pencil" aria-hidden="true"></i> Edit profile</a>
                     </div>
                 </div>

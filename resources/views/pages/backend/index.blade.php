@@ -53,7 +53,7 @@
             $customersCount = App\Reservation::whereIsApproved(true)->whereMonth('date',$now->month)->sum('pax');
             $approved = App\Reservation::whereIsApproved(true)->whereMonth('date',$now->month)->count();
             $pending = App\Reservation::whereIsApproved(false)->whereMonth('date',$now->month)->count();
-            $revenue = App\Payable::whereMonth('created_at',$now->month)->sum('payable');
+            $revenue = App\Payable::whereMonth('created_at',$now->month)->whereIsPaid(true)->sum('payable');
         @endphp
 
         <div class="row gutters justify-content-center">
