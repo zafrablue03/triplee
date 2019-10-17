@@ -12,7 +12,9 @@
 
 <script>
     $(function(e) {
-        $('#pending-reservations').DataTable();
+        $('#pending-reservations').DataTable({
+            "order": [[ 6, "desc" ]]
+        });
     } );
 </script>
 <script>

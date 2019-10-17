@@ -160,6 +160,10 @@
                                         <th>Name</th>
                                         <th>Email</th>
                                         <th>Date staff added</th>
+                                        @if($user->is_owner)
+                                        <th>Feature to team</th>
+                                        <th>Status</th>
+                                        @endif
                                         <th>Action</th>
                                 </thead>
                                 <tbody>
@@ -172,6 +176,30 @@
                                             <td>{{ $user->name }}</td>
                                             <td>{{ $user->email }}</td>
                                             <td>{{ $user->created_at->toFormattedDateString() }}</td>
+                                            <td>
+                                                <form action="{{ route('feature.staff', $user->id) }}" method="POST">
+                                                    @csrf
+                                                    @php
+                                                        $featured = $user->is_featured_to_team;
+                                                    @endphp
+                                                    <button class="btn {{ $featured ? 'btn-success' : 'btn-outline-success' }} btn-rounded" 
+                                                    type="submit" name="action" value="feature">
+                                                        {{ $featured ? 'Featured' : 'Feature to Team'}}
+                                                    </button>
+                                                </form>
+                                            </td>
+                                            <td>
+                                                <form action="{{ route('feature.staff', $user->id) }}" method="POST">
+                                                    @csrf
+                                                    @php
+                                                        $admin = $user->is_admin;
+                                                    @endphp
+                                                    <button class="btn {{ $admin ? 'btn-success' : 'btn-outline-success' }} btn-rounded" 
+                                                    type="submit" name="action" value="admin">
+                                                        {{ $admin ? 'Admin' : 'Make admin'}}
+                                                    </button>
+                                                </form>
+                                            </td>
                                             <td>
                                                 <form action="{{ route('delete.staff', $user->id) }}" method="POST">
                                                     @csrf

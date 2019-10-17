@@ -14,8 +14,10 @@ class HomepageController extends Controller
     {
         $services = Service::orderBy('created_at')->get();
         $settings = Setting::orderBy('name', 'asc')->pluck('name','id');
+        $users = User::whereIsAdmin(true)->get();
         $admins = User::whereIsAdmin(true)->whereIsOwner(true)->get();
+        $teams = User::whereIsAdmin(true)->whereIsFeaturedToTeam(true)->get();
 
-        return view('pages.frontend.index', compact('services', 'settings', 'admins'));
+        return view('pages.frontend.index', compact('services', 'settings', 'admins','teams', 'users'));
     }
 }

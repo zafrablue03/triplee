@@ -161,33 +161,57 @@
             </div>
           </div>
           <div class="row">
-              @if(!empty($admins))
-                @foreach($admins->take(3) as $admin)
-
-                <div class="col-sm-4">
+              @if(!empty($users))
+                @foreach($users->take(3) as $user)
+                <div class="col-sm-4 col-4">
+                    @if($user->is_owner)
                     <div class="team-member">
-                      <img class="mx-auto rounded-circle" src="{{ $admin->profile->image }}" alt="">
-                      <h4>{{ $admin->name }}</h4>
-                      <p class="text-muted">{{ ucfirst($admin->profile->title) }}</p>
-                      <ul class="list-inline social-buttons">
-                        <li class="list-inline-item">
-                        <a href="{{ $admin->profile->twitter }}" target="_blank">
-                            <i class="fab fa-twitter"></i>
-                          </a>
-                        </li>
-                        <li class="list-inline-item">
-                        <a href="{{ $admin->profile->facebook }}" target="_blank"">
-                            <i class="fab fa-facebook-f"></i>
-                          </a>
-                        </li>
-                        <li class="list-inline-item">
-                        <a href="{{ $admin->profile->linkedin }}" target="_blank"">
-                            <i class="fab fa-linkedin-in"></i>
-                          </a>
-                        </li>
-                      </ul>
+                        <img class="mx-auto rounded-circle" src="{{ $user->profile->image }}" alt="">
+                        <h4>{{ $user->name }}</h4>
+                        <p class="text-muted">{{ ucfirst($user->profile->title) }}</p>
+                        <ul class="list-inline social-buttons">
+                          <li class="list-inline-item">
+                          <a href="{{ $user->profile->twitter }}" target="_blank">
+                              <i class="fab fa-twitter"></i>
+                            </a>
+                          </li>
+                          <li class="list-inline-item">
+                          <a href="{{ $user->profile->facebook }}" target="_blank"">
+                              <i class="fab fa-facebook-f"></i>
+                            </a>
+                          </li>
+                          <li class="list-inline-item">
+                          <a href="{{ $user->profile->linkedin }}" target="_blank"">
+                              <i class="fab fa-linkedin-in"></i>
+                            </a>
+                          </li>
+                        </ul>
                     </div>
-                  </div>
+                    @elseif($user->is_featured_to_team)
+                    <div class="team-member">
+                        <img class="mx-auto rounded-circle" src="{{ $user->profile->image }}" alt="">
+                        <h4>{{ $user->name }}</h4>
+                        <p class="text-muted">{{ ucfirst($user->profile->title) }}</p>
+                        <ul class="list-inline social-buttons">
+                          <li class="list-inline-item">
+                          <a href="{{ $user->profile->twitter }}" target="_blank">
+                              <i class="fab fa-twitter"></i>
+                            </a>
+                          </li>
+                          <li class="list-inline-item">
+                          <a href="{{ $user->profile->facebook }}" target="_blank"">
+                              <i class="fab fa-facebook-f"></i>
+                            </a>
+                          </li>
+                          <li class="list-inline-item">
+                          <a href="{{ $user->profile->linkedin }}" target="_blank"">
+                              <i class="fab fa-linkedin-in"></i>
+                            </a>
+                          </li>
+                        </ul>
+                    </div>
+                    @endif
+                </div>
 
                 @endforeach
               @endif

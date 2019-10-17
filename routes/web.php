@@ -54,6 +54,8 @@ Route::group( ['prefix' => 'admin', 'middleware' => ['auth','admin'], ], functio
     //Admin add staff
     Route::post('add-staff', 'Backend\Users\UsersController@addStaff')->name('add.staff');
     Route::delete('delete-staff/{user}', 'Backend\Users\UsersController@destroy')->name('delete.staff');
+    //Admin feature user to team
+    Route::post('feature-to-team/{user}','Backend\Users\UsersController@featureStaff')->name('feature.staff');
 
 
     // AJAX

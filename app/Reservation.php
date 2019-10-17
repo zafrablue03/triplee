@@ -21,12 +21,12 @@ class Reservation extends Model
 
     public function scopeApproved($query)
     {
-        return $query->whereIsApproved(true);
+        return $query->whereIsApproved(true)->orderBy('date', 'desc');
     }
 
     public function scopePending($query)
     {
-        return $query->whereIsApproved(false);
+        return $query->whereIsApproved(false)->orderBy('date', 'desc');
     }
     
     public function setting()

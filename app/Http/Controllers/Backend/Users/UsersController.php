@@ -26,6 +26,30 @@ class UsersController extends Controller
         return redirect()->route('profile.index')->withSuccess('Staff added successfully!');
     }
 
+    public function featureStaff(Request $request, User $user)
+    {
+
+        if($request->get('action') === 'feature')
+        {
+            $user->update([
+                'is_featured_to_team' => !$user->is_featured_to_team
+            ]);
+    
+            $message = $user->is_featured_to_team ? 'User is featured to team' : 'User is unfeatured to team';
+    
+            return redirect()->route('profile.index')->withSuccess($message);
+        }elseif($request->get('action') === 'admin')
+        {
+            $user->update([
+                'is_admin' => !$user->is_admin
+            ]);
+    
+            $message = $user->is_admin ? 'User is now ADMINISTRATOR' : 'User is demoted to staff';
+    
+            return redirect()->route('profile.index')->withSuccess($message);
+        }
+    }
+
     /**
      * Remove the specified resource from storage.
      *

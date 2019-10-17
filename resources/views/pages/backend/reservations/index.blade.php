@@ -65,8 +65,8 @@
                                                     <th>Email</th>
                                                     <th>Contact</th>
                                                     <th>Venue</th>
-                                                    <th>Date</th>
-                                                    <th>Time of reservation</th>
+                                                    <th>Event Date</th>
+                                                    <th>Date of reservation</th>
                                                     <th>Action</th>
                                                 </tr>
                                             </thead>
@@ -88,12 +88,25 @@
                                                                 <i class="fa fa-cogs mr-2"></i>Actions
                                                             </button>
                                                             <div class="dropdown-menu">
-                                                                <a class="dropdown-item" href="{{ route('reservation.edit', $pending->id) }}">Manage reservation</a>
+                                                                @php
+                                                                    $over = $now < $pending->eventDate();
+                                                                @endphp
+                                                                @if($over)
+                                                                    <a class="dropdown-item" {{ $over ? 'disabled' : '' }} 
+                                                                    href="{{ route('reservation.edit', $pending->id) }}">Manage reservation</a>
+                                                                    <form action="{{ route('reservation.destroy', $pending->id) }}" method="POST">
+                                                                        @csrf
+                                                                        @method('DELETE')
+                                                                        <button type="submit" name="action" value="delete" class="dropdown-item" onclick="return confirm('Are you sure about this?');">Delete</button>
+                                                                    </form>
+                                                                @else
+                                                                <small class="text-muted dropdown-item" aria-readonly="true">Event date is over!</small>
                                                                 <form action="{{ route('reservation.destroy', $pending->id) }}" method="POST">
                                                                     @csrf
                                                                     @method('DELETE')
                                                                     <button type="submit" name="action" value="delete" class="dropdown-item" onclick="return confirm('Are you sure about this?');">Delete</button>
                                                                 </form>
+                                                                @endif
                                                             </div>
                                                         </div>
                                                     </td>
