@@ -41,12 +41,13 @@ class UsersController extends Controller
         }elseif($request->get('action') === 'admin')
         {
             $user->update([
-                'is_admin' => !$user->is_admin
+                'is_admin' => !$user->is_admin,
+                'is_featured_to_team' => !$user->is_admin ? false : false
             ]);
     
-            $message = $user->is_admin ? 'User is now ADMINISTRATOR' : 'User is demoted to staff';
+            $message = $user->is_admin ? ' is now ADMINISTRATOR' : ' is demoted to staff';
     
-            return redirect()->route('profile.index')->withSuccess($message);
+            return redirect()->route('profile.index')->withSuccess($user->name . $message);
         }
     }
 

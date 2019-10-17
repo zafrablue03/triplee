@@ -181,9 +181,10 @@
                                                     @csrf
                                                     @php
                                                         $featured = $user->is_featured_to_team;
+                                                        $admin = $user->is_admin;
                                                     @endphp
-                                                    <button class="btn {{ $featured ? 'btn-success' : 'btn-outline-success' }} btn-rounded" 
-                                                    type="submit" name="action" value="feature">
+                                                    <button class="btn {{ $featured ? 'btn-success' : 'btn-light' }} btn-rounded" 
+                                                    type="submit" name="action" value="feature" {{ $admin ? '' : 'disabled' }}>
                                                         {{ $featured ? 'Featured' : 'Feature to Team'}}
                                                     </button>
                                                 </form>
