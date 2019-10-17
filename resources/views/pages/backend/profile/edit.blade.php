@@ -43,6 +43,13 @@
                                 <label class="form-label">Email-Address </label>
                                 <input class="form-control" type="text" name="email" value="{{ $user->email }}"/>
                             </div>
+                            <div class="form-group">
+                                <div class="custom-control custom-switch">
+                                    <input type="checkbox" name="featured" 
+                                    class="custom-control-input" {{ $user->is_featured_to_team ? 'checked' : '' }} id="customSwitch3">
+                                    <label class="custom-control-label" for="customSwitch3">Display Profile in Team</label>
+                                </div>
+                            </div>
                             <div class="card-footer text-right">
                                 <button type="submit" class="btn btn-primary" name="action" value="user">Save Profile</button>
                             </div>
@@ -96,7 +103,6 @@
                                     @enderror
                                 </div>
                             </div>
-
                             <div class="col-sm-6 col-md-6">
                                 <div class="form-group flex">
                                     <label class="form-label">Facebook</label>

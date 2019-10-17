@@ -75,7 +75,11 @@ class User extends Authenticatable
 
     public function updateUserDetails($request)
     {
-        $this->update($request->except('_token'));
+        $is_featured_to_team = $request->featured ? true : false;
+        $this->update(array_merge(
+            $request->except('_token'),
+            ['is_featured_to_team' => $is_featured_to_team]
+        ));
     }
 
     public function updateUserProfile($request)

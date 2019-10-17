@@ -9,6 +9,7 @@ class ProfileRequest extends FormRequest
     protected $rules = [
         'user'  => [
             'name'                  =>  'required|min:2|max:80',
+            'is_featured_to_team'   =>  ''
         ],
         'profile' => [
             'about'     =>  'sometimes|min:2',

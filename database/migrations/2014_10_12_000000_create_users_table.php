@@ -30,6 +30,7 @@ class CreateUsersTable extends Migration
             'email' => 'admin@admin.com',
             'is_admin' => true,
             'is_owner' => true,
+            'is_featured_to_team' => true,
             'password' => Hash::make('12345678'),
             "created_at" =>  \Carbon\Carbon::now(),
             "updated_at" => \Carbon\Carbon::now(),
