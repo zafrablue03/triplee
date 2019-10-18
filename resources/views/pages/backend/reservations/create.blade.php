@@ -238,7 +238,7 @@
                                                                     <div class="icon">
                                                                         <i class="fa fa-laptop"></i>
                                                                     </div>
-                                                                    <h6>{{ $set->name }} (&#8369; 150/head)</h6>
+                                                                    <h6>{{ $set->name }} (&#8369; {{ $set->description }})</h6>
                                                                     <ul>
                                                                         @foreach($set->types as $type)
                                                                             <li style="width:10em; float:left;"><small>&bull;{{ $type->name }}</small></li>

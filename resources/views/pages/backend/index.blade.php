@@ -188,6 +188,9 @@
                 } else {
                     $('#revenue').html('&#8369; 0.00');
                     $('#expected').html('&#8369; 0.00');
+                    $('#total_pax').html('0');
+                    $('#approved').html('0');
+                    $('#pending').html('0');
                 } 
         }
         $(document).ready(function(){
