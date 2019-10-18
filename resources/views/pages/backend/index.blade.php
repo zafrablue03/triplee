@@ -175,7 +175,6 @@
 
                         success:function(data) {
                             if(data){
-                                console.log(data);
                                 $('#revenue').html('&#8369;' + data.revenue);
                                 $('#expected').html('&#8369;' + data.expected_monthly_revenue);
                                 $('#total_pax').html(data.total_pax);
@@ -192,11 +191,9 @@
                 } 
         }
         $(document).ready(function(){
-            console.log($("#months").val());
             loadRevenue($("#months").val())
             $('#months').on('change', function(){
                 var month_num = $(this).val();
-                console.log(month_num);
                 loadRevenue(month_num);
                 
             });
