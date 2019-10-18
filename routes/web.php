@@ -58,6 +58,11 @@ Route::group( ['prefix' => 'admin', 'middleware' => ['auth','admin'], ], functio
     Route::post('feature-to-team/{user}','Backend\Users\UsersController@featureStaff')->name('feature.staff');
 
 
+    //Revenue
+
+    Route::get('revenue/{month}', 'AdminController@get_dynamic_revenue_using_ajax')->name('revenue');
+
+
     // AJAX
     Route::get('pending', 'Backend\Reservation\ReservationsController@notify_pending')->name('pending');
 

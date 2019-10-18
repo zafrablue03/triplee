@@ -50,7 +50,13 @@
         </div>
 
         <div class="row gutters justify-content-center">
-            <h1 class="styled">Record as of Month - {{ ucFirst($now->format('F')) }}</h1>
+            <h1 class="styled">Record as of Month 
+                <select name="months" id="months" class="form-control">
+                    @foreach ($months_array as $key => $months)
+                        <option value="{{ $key }}">{{ $months }}</option>
+                    @endforeach
+                </select>
+            </h1>
         </div>
 
         <div class="row gutters justify-content-center">
@@ -58,7 +64,7 @@
                 
                 <div class="daily-sales">
                     <h6>Customers</h6>
-                    <h1>{{ $customersCount }}</h1>
+                    <h1 id="total_pax"></h1>
                     <p>No. of pax based on approved reservations</p>
                     <small class="text-muted">(varies when a reservation is canceled)</small>
                     <div id="apexLineChartGradient" class="blue-graph"></div>
@@ -69,10 +75,12 @@
                 
                 <div class="daily-sales">
                     <h6>Revenue</h6>
-                    <h1>&#8369;{{ number_format($revenue) }}</h1>
+                    <h1 id="revenue"></h1>
+                    {{-- {{ number_format($revenue) }} --}}
                     <p>Revenue based on approved reservations</p>
                     <small class="text-muted pb-2">
-                        (expected revenue for this month <strong>&#8369;{{ number_format($expected_monthly_revenue) }}</strong>)
+                        (expected revenue for this month <strong id="expected"></strong>)
+                        {{-- {{ number_format($expected_monthly_revenue) }} --}}
                     </small>
                     <br>
                     <small class="text-muted">(varies when a reservation is canceled)</small>
@@ -84,7 +92,7 @@
                 
                 <div class="daily-sales">
                     <h6>Approved Reservations</h6>
-                    <h1>{{ $approved }}</h1>
+                    <h1 id="approved"></h1>
                     <p>Total Approved Reservation</p>
                     <div id="apexLineChartGradient3" class="green-graph"></div>
                 </div>
@@ -94,7 +102,7 @@
                 
                 <div class="daily-sales">
                     <h6>Pending Reservations</h6>
-                    <h1>{{ $pending }}</h1>
+                    <h1 id="pending"></h1>
                     <p>Total Pending Reservation</p>
                     <div id="apexLineChartGradient4" class="lavandar-graph"></div>
                 </div>
@@ -153,3 +161,45 @@
 
 </div>
 @endsection
+
+@push('additionalJS')
+    <script>
+        function loadRevenue(val) {
+            if(val) {
+                    $.ajax({
+                        processing : 'true',
+                        serverSide : 'true',
+                        url: '/admin/revenue/'+ val,
+                        type:"get",
+                        dataType:"json",
+
+                        success:function(data) {
+                            if(data){
+                                console.log(data);
+                                $('#revenue').html('&#8369;' + data.revenue);
+                                $('#expected').html('&#8369;' + data.expected_monthly_revenue);
+                                $('#total_pax').html(data.total_pax);
+                                $('#approved').html(data.approved);
+                                $('#pending').html(data.pending);
+                            }
+
+                        },
+
+                    });
+                } else {
+                    $('#revenue').html('&#8369; 0.00');
+                    $('#expected').html('&#8369; 0.00');
+                } 
+        }
+        $(document).ready(function(){
+            console.log($("#months").val());
+            loadRevenue($("#months").val())
+            $('#months').on('change', function(){
+                var month_num = $(this).val();
+                console.log(month_num);
+                loadRevenue(month_num);
+                
+            });
+        });
+    </script>
+@endpush
