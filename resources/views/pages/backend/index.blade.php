@@ -8,9 +8,9 @@
 @push('additionalJS')
 <!-- Apex Charts -->
 <script src="{{ asset('assets/vendor/apex/apexcharts.min.js') }}"></script>
-<script src="{{ asset('assets/vendor/apex/custom/apexLineChartGradient.js') }}"></script>
-<script src="{{ asset('assets/vendor/apex/custom/apexColumnBasic.js') }}"></script>
-<script src="{{ asset('assets/vendor/apex/custom/apexAllCustomGraphs.js') }}"></script>
+
+@include('pages.backend.partials.apexLineChartGradient')
+@include('pages.backend.partials.ajax-dynamic-load-dashboard')
 @include('pages.backend.partials.fullcalendar')
 
 @endpush
@@ -115,42 +115,43 @@
         <!-- Row start -->
         <div class="row gutters justify-content-center">
             <div class="col-xl-11 col-lg-12 col-md-12 col-sm-12 col-12">
-                
-                <!-- Row start -->
-                <div class="row no-gutters">
-                    <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
-                 {{-- 
-                        <div class="daily-sales">
-                            <h6>Emails</h6>
-                            <h1>21</h1>
-                            <p>Total Emails Sent</p>
-                            <div id="apexColumnBasic" class="orange-graph"></div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="card-title">Services Sales this month</div>
+                                <div class="card-sub-title">Overall Sales Revenue Performance of different Services.</div>
+                            </div>
+                            <div class="card-body btm-dr yellow pb-0">
+                                <div class="dpt-sales">
+                                    <div class="dpt-sales-header">
+                                        <span class="dpt-sales-number" id="total_sales">
+                                        </span>
+                                    </div>
+                                    <div id="apexSales" class="yellow-graph"></div>
+                                </div>
+                            </div>
                         </div>
-
                     </div>
-                    <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
-                        
-                        <div class="daily-sales">
-                            <h6>SMS</h6>
-                            <h1>25</h1>
-                            <p>Total SMS Sent</p>
-                            <div id="apexColumnBasic2" class="yellow-graph"></div>
+    
+                    <div class="col-6">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="card-title">Department Sales</div>
+                                <div class="card-sub-title">Overall Sales Revenue and Profits Performance Online and Offline for Q1 to Q4.</div>
+                            </div>
+                            <div class="card-body btm-dr yellow pb-0">
+                                <div class="dpt-sales">
+                                    <div class="dpt-sales-header">
+                                        <span class="dpt-sales-number">6000
+                                        </span>
+                                    </div>
+                                    <div id="apexOrders" class="yellow-graph"></div>
+                                </div>
+                            </div>
                         </div>
-
-                    </div>
-                    <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
-                        
-                        <div class="daily-sales">
-                            <h6>Deals</h6>
-                            <h1>9</h1>
-                            <p>Total Deals Claimed</p>
-                            <div id="apexColumnBasic3" class="blue-graph"></div>
-                        </div>
---}}
                     </div>
                 </div>
-                <!-- Row end -->
-
             </div>
         </div>
         <!-- Row end -->
@@ -161,45 +162,3 @@
 
 </div>
 @endsection
-
-@push('additionalJS')
-    <script>
-        function loadRevenue(val) {
-            if(val) {
-                    $.ajax({
-                        processing : 'true',
-                        serverSide : 'true',
-                        url: '/admin/revenue/'+ val,
-                        type:"get",
-                        dataType:"json",
-
-                        success:function(data) {
-                            if(data){
-                                $('#revenue').html('&#8369;' + data.revenue);
-                                $('#expected').html('&#8369;' + data.expected_monthly_revenue);
-                                $('#total_pax').html(data.total_pax);
-                                $('#approved').html(data.approved);
-                                $('#pending').html(data.pending);
-                            }
-
-                        },
-
-                    });
-                } else {
-                    $('#revenue').html('&#8369; 0.00');
-                    $('#expected').html('&#8369; 0.00');
-                    $('#total_pax').html('0');
-                    $('#approved').html('0');
-                    $('#pending').html('0');
-                } 
-        }
-        $(document).ready(function(){
-            loadRevenue($("#months").val())
-            $('#months').on('change', function(){
-                var month_num = $(this).val();
-                loadRevenue(month_num);
-                
-            });
-        });
-    </script>
-@endpush

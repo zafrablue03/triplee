@@ -37,14 +37,6 @@
     })
 </script>
 
-{{-- <script>
-    $('input[type=radio]').click(function(){
-        if (this.previous) {
-            this.checked = false;
-        }
-        this.previous = this.checked;
-    });
-</script> --}}
 
 <script src="{{ asset('assets/vendor/datepicker/datepicker.js') }}"></script>
 

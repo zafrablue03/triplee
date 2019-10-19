@@ -41,7 +41,7 @@ class AdminController extends Controller
         {
             if($reservation->payment)
             {
-                $data = $reservation->payment->$params + $reservation->payment->transportation_charge;
+                $data = $params === 'payable' ? $reservation->payment->$params : $reservation->payment->$params + $reservation->payment->transportation_charge;
                 $total_for_this_month +=  $data;
             }
         }

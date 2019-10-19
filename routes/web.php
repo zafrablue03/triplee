@@ -64,7 +64,11 @@ Route::group( ['prefix' => 'admin', 'middleware' => ['auth','admin'], ], functio
 
 
     // AJAX
-    Route::get('pending', 'Backend\Reservation\ReservationsController@notify_pending')->name('pending');
+    // Route::get('pending', 'Backend\Reservation\ReservationsController@notify_pending')->name('pending');
+    Route::get('chart-data', 'Backend\AjaxDataController@all-data')->name('chart.data');
+    Route::get('services-data/{month}', 'Backend\AjaxDataController@get_services_sales_per_month')->name('services.data');
+
+
 
     
 
