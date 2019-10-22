@@ -31,7 +31,7 @@ class AjaxDataController extends Controller
                 {
                     if($reservation->eventDate()->month == $month)
                     {
-                        $data = $reservation->payment->is_paid ? $reservation->payment->payment : $reservation->payment->payment + $reservation->payment->transportation_charge;
+                        $data = $reservation->payment->payment;
                         $total += $data;
                     }
                 }
@@ -55,7 +55,7 @@ class AjaxDataController extends Controller
         {
             if($reservation->payment)
             {
-                $data = $reservation->payment->is_paid ? $reservation->payment->payment : $reservation->payment->payment + $reservation->payment->transportation_charge;
+                $data = $reservation->payment->payment;
                 $total_sales += $data;
             }
         }

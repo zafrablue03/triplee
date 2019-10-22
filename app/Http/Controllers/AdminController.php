@@ -57,8 +57,8 @@ class AdminController extends Controller
         {
             if($reservation->payment)
             {
-                $data = $reservation->payment->is_paid ? $reservation->payment->$params : $reservation->payment->$params + $reservation->payment->transaction_charge;
-                
+                $data = $reservation->payment->is_paid ? $reservation->payment->$params : $params === 'payment' ? 
+                        $reservation->payment->$params + $reservation->payment->transaction_charge : $reservation->payment->$params;
                 $total_for_this_month +=  $data;
             }
         }
