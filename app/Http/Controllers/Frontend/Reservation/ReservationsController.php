@@ -26,7 +26,15 @@ class ReservationsController extends Controller
 
     public function checkMaxReservation($date)
     {
-        return Reservation::whereIsApproved(false)->where('date',$date)->count() < 3 ? true : false;
+        $pending = Reservation::whereIsApproved(false)->where('date',$date)->count() < 3 ? true : false;
+        $approved = Reservation::whereIsApproved(true)->where('date',$date)->count() < 3 ? true : false;
+
+        if($approved AND $pending)
+        {
+            return true;
+        }else{
+            return false;
+        }
     }
 
     /**
@@ -59,7 +67,7 @@ class ReservationsController extends Controller
             // Notification::send($users, new NewReservation($reservation));
 
 
-            return redirect()->back()->withSuccess('Thank you!');
+            return redirect()->back()->withSuccess('Thank you! Please wait for us to reach on you!');
         }else{
 
             return redirect()->back()->withError('Date being reserved is fully occupied!');

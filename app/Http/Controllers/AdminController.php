@@ -30,25 +30,6 @@ class AdminController extends Controller
         return view('pages.backend.index', compact('now', 'months_array'));
     }
 
-    public function total_payment_payable_reservation_by_month($params, $month)
-    {
-        // $month = $this->now()->month;
-        $reservations = Reservation::whereMonth('date', $month)->whereIsApproved(true)->get();
-
-        $total_for_this_month = 0;
-
-        foreach($reservations as $reservation)
-        {
-            if($reservation->payment)
-            {
-                $data = $params === 'payable' ? $reservation->payment->$params : $reservation->payment->$params + $reservation->payment->transportation_charge;
-                $total_for_this_month +=  $data;
-            }
-        }
-
-        return $total_for_this_month;
-    }
-
     public function get_dynamic_revenue_using_ajax($month)
     {
         $approved = Reservation::whereIsApproved(true)->whereMonth('date',$month)->count();
@@ -63,6 +44,26 @@ class AdminController extends Controller
         ];
 
         return $revenue_arr;
+    }
+
+    public function total_payment_payable_reservation_by_month($params, $month)
+    {
+        // $month = $this->now()->month;
+        $reservations = Reservation::whereMonth('date', $month)->whereIsApproved(true)->get();
+
+        $total_for_this_month = 0;
+
+        foreach($reservations as $reservation)
+        {
+            if($reservation->payment)
+            {
+                $data = $reservation->payment->is_paid ? $reservation->payment->$params : $reservation->payment->$params + $reservation->payment->transaction_charge;
+                
+                $total_for_this_month +=  $data;
+            }
+        }
+
+        return $total_for_this_month;
     }
 
     public function get_months_of_reservation()

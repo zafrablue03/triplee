@@ -17,12 +17,9 @@ class AjaxDataController extends Controller
         return $services;
     }
 
-    public function get_services_sales_per_month($month)
+    public function get_services_data_sales_per_month($month)
     {
         $services = Service::with('reservations')->get();
-        $reservations = Reservation::whereMonth('date',$month)->get();
-
-        $service_arr = [];
         $total_arr = [];
 
         foreach($services as $service)
@@ -30,9 +27,13 @@ class AjaxDataController extends Controller
             $total = 0;
             foreach($service->reservations as $reservation)
             {
-                if($reservation->eventDate()->month == $month)
+                if($reservation->payment)
                 {
-                    $total += $reservation->payment->payment + $reservation->payment->transportation_charge;
+                    if($reservation->eventDate()->month == $month)
+                    {
+                        $data = $reservation->payment->is_paid ? $reservation->payment->payment : $reservation->payment->payment + $reservation->payment->transportation_charge;
+                        $total += $data;
+                    }
                 }
             }
             array_push($total_arr, $total);
@@ -40,19 +41,23 @@ class AjaxDataController extends Controller
         $data = [
             $this->services(),
             $total_arr,
-            'total_sales' => $this->services_sales_per_month($month),
+            'total_sales' => $this->total_services_sales_per_month($month),
         ];
         return $data;
     }
 
-    public function services_sales_per_month($month)
+    public function total_services_sales_per_month($month)
     {
         $reservations = Reservation::whereMonth('date',$month)->get();
 
         $total_sales = 0;
         foreach($reservations as $reservation)
         {
-            $total_sales += $reservation->payment->payment + $reservation->payment->transportation_charge;
+            if($reservation->payment)
+            {
+                $data = $reservation->payment->is_paid ? $reservation->payment->payment : $reservation->payment->payment + $reservation->payment->transportation_charge;
+                $total_sales += $data;
+            }
         }
 
         return number_format($total_sales);
