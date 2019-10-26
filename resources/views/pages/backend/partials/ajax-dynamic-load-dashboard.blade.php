@@ -40,79 +40,95 @@
 </script>
 
 <script>
-    function chartTable(response)
-    {
-        var options5 = {
-            chart: {
-                height: 280,
-                type: 'bar',
-                toolbar: {
-                    show: false,
-                },
-            },
-            plotOptions: {
-                bar: {
-                    horizontal: true,
-                    barHeight: '35%',
-                    endingShape: 'arrow',
-                }
-            },
-            dataLabels: {
-                enabled: false
-            },
-            colors: ['#1177be', '#00b894', '#fd7274'],
-            fill: {
-                gradient: {
-                    color: '#80bcdc',
-                    shadeIntensity: 1,
-                    inverseColors: false,
-                    opacityFrom: 0.8,
-                    opacityTo: 0,
-                    stops: [0, 90, 100]
-                }
-            },
-            series: [{
-                name: 'Sales',
-                data: response[1]
-            }],
-            xaxis: {
-                categories: response[0],
-            },
-        }
-        var chartSale = new ApexCharts(
-            document.querySelector("#apexSales"),
-            options5
-        );
-        chartSale.render();
-    }
-    function loadChart(val, url)
-    {
-        $.ajax({
-            processing : 'true',
-            serverSide : 'true',
-            url: url + val,
-            type:"get",
-            dataType:"json",
-
-            success:function(data) {
-                if(data){
-                    $('#total_sales').html('&#8369;' + data.total_sales);
-                    chartTable(data);
-                }
-            },
-
-        });
-    }
 $(document).ready(function(){
     var url = '/admin/services-data/';
-    loadChart($("#months").val(), url)
-    $('#months').on('change', function(){
-        var month_num = $(this).val();
-        loadChart(month_num, url);
+    var val = $("#months").val();
+    $.ajax({
+        processing : 'true',
+        serverSide : 'true',
+        url: url + val,
+        type:"get",
+        dataType:"json",
+
+        success:function(data) {
+            if(data){
+                $('#total_sales').html('&#8369;' + data.total_sales);
+                var options5 = {
+                    chart: {
+                        height: 280,
+                        type: 'bar',
+                        toolbar: {
+                            show: false,
+                        },
+                    },
+                    plotOptions: {
+                        bar: {
+                            horizontal: true,
+                            barHeight: '35%',
+                            endingShape: 'arrow',
+                        }
+                    },
+                    dataLabels: {
+                        enabled: false
+                    },
+                    colors: ['#1177be', '#00b894', '#fd7274'],
+                    fill: {
+                        gradient: {
+                            color: '#80bcdc',
+                            shadeIntensity: 1,
+                            inverseColors: false,
+                            opacityFrom: 0.8,
+                            opacityTo: 0,
+                            stops: [0, 90, 100]
+                        }
+                    },
+                    series: [{
+                        name: 'Sales',
+                        data: data[1]
+                    }],
+                    xaxis: {
+                        categories: data[0],
+                    },
+                }
+                var chartSale = new ApexCharts(
+                    document.querySelector("#apexSales"),
+                    options5
+                );
+
+                chartSale.render();
+
+                $('#months').on('change', function(){
+                    var month_num = $(this).val();
+                    updateChart(month_num, url);
+                });
+
+                function updateChart(val, url)
+                {
+                    $.ajax({
+                        processing : 'true',
+                        serverSide : 'true',
+                        url: url + val,
+                        type:"get",
+                        dataType:"json",
+
+                        success:function(data) {
+                            if(data){
+                                $('#total_sales').html('&#8369;' + data.total_sales);
+                                chartSale.updateSeries([{
+                                    name: 'Series A',
+                                    data: data[1]
+                                }])
+                            }
+                        },
+
+                    });
+                }
+            }
+        },
+
     });
 });
 </script>
-
 
 
 
