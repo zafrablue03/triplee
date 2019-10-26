@@ -137,13 +137,13 @@
                     <div class="col-6">
                         <div class="card">
                             <div class="card-header">
-                                <div class="card-title">Department Sales</div>
-                                <div class="card-sub-title">Overall Sales Revenue and Profits Performance Online and Offline for Q1 to Q4.</div>
+                                <div class="card-title">Monthly Total Pax</div>
+                                <div class="card-sub-title">Overall pax per reservation by this month.</div>
                             </div>
                             <div class="card-body btm-dr yellow pb-0">
                                 <div class="dpt-sales">
                                     <div class="dpt-sales-header">
-                                        <span class="dpt-sales-number">6000
+                                        <span class="dpt-sales-number" id="pax">
                                         </span>
                                     </div>
                                     <div id="apexOrders" class="yellow-graph"></div>
