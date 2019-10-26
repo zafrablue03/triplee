@@ -70,7 +70,7 @@ class AdminController extends Controller
     {
 
         $months_arr = [];
-        $reservations = Reservation::whereIsApproved(true)->get();
+        $reservations = Reservation::whereIsApproved(true)->orderBy('date', 'asc')->get();
 
         if(!empty($reservations))
         {
