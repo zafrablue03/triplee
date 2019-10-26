@@ -42,7 +42,7 @@ class AjaxDataController extends Controller
             $this->services(),
             $total_arr,
             $this->totalServicesPaxPerMonth($month),
-            'total_sales' => $this->total_services_sales_per_month($month),
+            'total_sales' => $this->totalServicesSalesByMonth($month),
             'total_pax' => $this->totalPaxPerMonth($month)
         ];
         return $data;
@@ -74,7 +74,7 @@ class AjaxDataController extends Controller
         
     }
 
-    public function total_services_sales_per_month($month)
+    public function totalServicesSalesByMonth($month)
     {
         $reservations = Reservation::whereMonth('date',$month)->get();
 
