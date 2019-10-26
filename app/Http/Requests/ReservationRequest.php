@@ -25,6 +25,7 @@ class ReservationRequest extends FormRequest
     {
         return [
             'date'                  =>  'date_format:Y-m-d|required',
+            'time'                  =>  'date_format:H:i|required',
             'name'                  =>  'required|min:2|max:50',
             'email'                 =>  'required|email|min:3|max:80',
             'contact'               =>  'required|numeric|digits_between:11,15',

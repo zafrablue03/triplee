@@ -38,7 +38,9 @@
 <script src="{{ asset('assets/vendor/datepicker/datepicker.js') }}"></script>
 <script>
         $(function() {
-            $( "#date" ).datepicker({  
+            var date = new Date();
+            $( "#date" ).datepicker({
+                'startDate': date,
                 'format': 'yyyy-mm-dd',
                 'autoclose': true,
                 'todayHighlight': true
@@ -152,8 +154,19 @@
                                                                 @enderror
                                                             </div>
                                                         </div>
+
+                                                        <div class="col-2">
+                                                            <div class="form-group">
+                                                                <label for="time">Time <small>(required)</small></label>
+                                                                <select name="time" class="form-control">
+                                                                    @foreach ($datetimes as $key => $value)
+                                                                        <option value="{{ $key }}">{{ $value }} ({{ $key }})</option>
+                                                                    @endforeach
+                                                                </select>
+                                                            </div>
+                                                        </div>
     
-                                                        <div class="col-sm-6">
+                                                        <div class="col-sm-5">
                                                             <div class="input-group">
                                                                 <div class="form-group label-floating">
                                                                     <label class="control-label">Venue <small>(required)</small></label>
@@ -167,7 +180,7 @@
                                                             </div>
                                                         </div>
 
-                                                        <div class="col-sm-3">
+                                                        <div class="col-sm-2">
                                                             <div class="input-group">
     
                                                                 <div class="form-group label-floating">

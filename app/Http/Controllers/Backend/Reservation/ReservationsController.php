@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Reservation;
 use App\Setting;
+use App\Datetime;
 use App\Inclusion;
 use Carbon\Carbon;
 
@@ -28,7 +29,8 @@ class ReservationsController extends Controller
 
     public function create(Reservation $reservation)
     {
-        return view('pages.backend.reservations.create');
+        $datetimes = Datetime::pluck('name', 'time');
+        return view('pages.backend.reservations.create', compact('datetimes'));
     }
 
 
@@ -56,7 +58,8 @@ class ReservationsController extends Controller
 
     public function edit(Reservation $reservation)
     {
-        return view('pages.backend.reservations.edit', compact('reservation'));
+        $datetimes = Datetime::pluck('name', 'time');
+        return view('pages.backend.reservations.edit', compact('reservation','datetimes'));
     }
 
     public function update(ReservationRequest $request, Reservation $reservation)

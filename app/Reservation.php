@@ -7,7 +7,7 @@ use Carbon\Carbon;
 
 class Reservation extends Model
 {
-    protected $fillable = ['date', 'name', 'email', 'contact', 'message', 'venue', 'pax', 'service_id', 'set_id', 'inclusion_id', 'is_approved'];
+    protected $fillable = ['date','time', 'name', 'email', 'contact', 'message', 'venue', 'pax', 'service_id', 'set_id', 'inclusion_id', 'is_approved'];
 
     public function service()
     {

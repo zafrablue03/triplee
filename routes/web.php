@@ -67,6 +67,8 @@ Route::group( ['prefix' => 'admin', 'middleware' => ['auth','admin'], ], functio
     // Route::get('pending', 'Backend\Reservation\ReservationsController@notify_pending')->name('pending');
     Route::get('chart-data', 'Backend\AjaxDataController@all-data')->name('chart.data');
     Route::get('services-data/{month}', 'Backend\AjaxDataController@get_services_data_sales_per_month')->name('services.data');
+    Route::post('datetime', 'Backend\Setting\SettingsController@newDateTime')->name('datetime.add');
+    Route::delete('datetime/{datetime}', 'Backend\Setting\SettingsController@deleteDateTime')->name('datetime.delete');
 
 
 

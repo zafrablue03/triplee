@@ -6,7 +6,7 @@
  		header: {
  			left: 'prev,next today',
  			center: 'title',
- 			right: 'month,agendaWeek'
+ 			right: 'month,agendaWeek,agendaDay'
  		},
 		eventRender: function(event, eventElement) {
 		if (event.imageurl) {
@@ -47,7 +47,7 @@
 								$is_over = $reservation->eventDate() < $now ? '(Over)' : '';
 						@endphp
 						title: '{{ $reservation->service->name }} - {{ $reservation->name }} {{ $is_over }}',
-						start: '{{ $reservation->date }}',
+						start: '{{ $reservation->date }} {{ $reservation->time }}',
 						color: '{{ $color }}',
 						url: '{{ route('reservation.show', $reservation->id) }}',
 						imageurl: '{{ $reservation->service->thumbnail }}'

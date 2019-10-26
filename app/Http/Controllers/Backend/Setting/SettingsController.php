@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Setting;
 use App\Type;
+use App\Datetime;
 
 class SettingsController extends Controller
 {
@@ -17,8 +18,9 @@ class SettingsController extends Controller
     public function index()
     {
         $settings = Setting::get();
+        $datetimes = Datetime::get();
 
-        return view('pages.backend.setting.index', compact('settings'));
+        return view('pages.backend.setting.index', compact('settings', 'datetimes'));
     }
 
     /**
@@ -142,5 +144,22 @@ class SettingsController extends Controller
         return response()->json('Setting successfully deleted!');
 
         // return redirect()->route('settings.index')->withSuccess('Setting successfully deleted!');
+    }
+
+    public function newDateTime(Request $request)
+    {
+        $request->validate([
+            'name'  =>  'required|min:2|max:15|unique:datetimes',
+            'time'  =>  'required|unique:datetimes|date_format:H:i'
+        ]);
+        Datetime::create($request->except('_token'));
+
+        return redirect()->route('settings.index')->withSuccess('Successfully added!');
+    }
+
+    public function deleteDateTime(Datetime $datetime)
+    {
+        $datetime->delete();
+        return redirect()->route('settings.index')->withSuccess('Successfully deleted!');
     }
 }
