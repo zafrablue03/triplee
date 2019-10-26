@@ -118,7 +118,7 @@ class SettingsController extends Controller
             'name'          =>  'required|min:3',
             'slug'          =>  'required|unique:settings,slug,'.$setting->id,
             'description'   =>  'sometimes|min:3|max:50',
-            'price'         =>  'numeric|min:1|max:10'
+            'price'         =>  'numeric|min:2'
         ]);
 
         $setting->update($request->except('_token'));
