@@ -139,6 +139,7 @@
                                                     <th>Status</th>
                                                     <th>Payment</th>
                                                     <th>Date <a href="#" title="Cancellation of reservation will be unavailable if event date is less than two days!"><i class="icon-report"></i></a></th>
+                                                    <th>Time</th>
                                                     <th>Action</th>
                                                 </tr>
                                             </thead>
@@ -176,6 +177,7 @@
                                                         $year = $approved->eventDate()->year;
                                                     @endphp
                                                     <td>{{ $date->toFormattedDateString() }} <a href="#" title="Cancellation of reservation will be unavailable if event date is less than two days!"><i class="icon-report"></i></a></td>
+                                                    <td>{{ $approved->time}}
                                                     <td>
                                                         <div class="dropdown">
                                                             <button type="button" class="btn btn-info dropdown-toggle btn-sm" data-toggle="dropdown">
