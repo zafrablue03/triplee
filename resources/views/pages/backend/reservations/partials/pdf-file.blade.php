@@ -22,10 +22,11 @@
         <div class="col-xs-6">
             <h4>To:</h4>
             <address>
-            <strong>{{ $reservation->name }}</strong><br>
+            <span>{{ $reservation->name }}</span><br>
+            <span>{{ $reservation->email }}</span><br>
             <strong>Venue:</strong><br>
             <span>{{ $reservation->venue }}</span> <br>
-            <span>{{ $reservation->email }}</span><br>
+            <span>{{ $reservation->eventDate()->toFormattedDateString() }} {{ $reservation->time }}</span> <br>
             <span>{{ $reservation->contact }}</span>
         </address>
         </div>
@@ -43,15 +44,15 @@
                     </tr>
                     <tr>
                         <th> Transportation Fee:</th>
-                        <td class="text-right">{{ $reservation->payment->transportation_charge }}</td>
+                        <td class="text-right">{{ number_format($reservation->payment->transportation_charge) }}</td>
                     </tr>
                     <tr>
                         <th> Total Payable:</th>
-                        <td class="text-right">{{ $reservation->payment->payable }}</td>
+                        <td class="text-right">{{ number_format($reservation->payment->payable) }}</td>
                     </tr>
                     <tr>
                         <th> Payment/Down Payment:</th>
-                        <td class="text-right">{{ $reservation->payment->payment }}</td>
+                        <td class="text-right">{{ number_format($reservation->payment->payment) }}</td>
                     </tr>
                     {{-- <tr>
                         <th> Date: </th>
@@ -68,7 +69,7 @@
                         <th style="padding: 5px">
                             <div>Balance: </div>
                         </th>
-                        <td style="padding: 5px" class="text-right"><strong> P{{ $reservation->payment->balance }} </strong></td>
+                        <td style="padding: 5px" class="text-right"><strong> P{{ number_format($reservation->payment->balance) }} </strong></td>
                     </tr>
                 </tbody>
             </table>
@@ -125,7 +126,7 @@
                         <th style="padding: 5px">
                             <div> Balance: </div>
                         </th>
-                        <td style="padding: 5px" class="text-right"><strong> P{{ $reservation->payment->balance }} </strong></td>
+                        <td style="padding: 5px" class="text-right"><strong> P{{ number_format($reservation->payment->balance) }} </strong></td>
                     </tr>
                 </tbody>
             </table>
