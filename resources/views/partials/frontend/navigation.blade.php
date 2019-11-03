@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
     <div class="container">
-        @if(Request::routeIs('gallery'))
+        @if(Request::routeIs(['gallery','reservation']))
             <a class="navbar-brand js-scroll-trigger" href="{{ route('home') }}">Triple E Gourmet and Catering Services</a>
         @else
             <a class="navbar-brand js-scroll-trigger" href="#page-top">Triple E Gourmet and Catering Services</a>

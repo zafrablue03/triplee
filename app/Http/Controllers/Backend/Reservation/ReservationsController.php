@@ -74,7 +74,7 @@ class ReservationsController extends Controller
         ));
         $reservation->courses()->sync($course);
 
-        return redirect()->route('reservation.index')->withSuccess('Reservation approved!');
+        return redirect()->route('reservation.show', $reservation->id)->withSuccess('Reservation approved!');
     }
 
 

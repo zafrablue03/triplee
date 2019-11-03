@@ -10,6 +10,12 @@
 |
 */
 
+
+
+// Fronted
+
+Route::resource('reservations', 'Frontend\Reservation\ReservationsController');
+Route::get('reservation', 'Frontend\Reservation\ReservationsController@index')->name('reservation');
 Route::get('/', 'Frontend\HomepageController@index')->name('home');
 
 Route::get('/gallery', function(){
@@ -18,14 +24,13 @@ Route::get('/gallery', function(){
 
 
 
-Auth::routes();
+Auth::routes([
+    'register' => 'false',
+]);
 
 // Route::get('/home', 'HomeController@index')->name('home');
 
 
-// Fronted
-
-Route::resource('reservations', 'Frontend\Reservation\ReservationsController');
 
 // Backend
 

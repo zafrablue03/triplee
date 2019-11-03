@@ -185,7 +185,7 @@
     
                                                                 <div class="form-group label-floating">
                                                                     <label class="control-label">Number of pax <small>(required)</small></label>
-                                                                    <input name="pax" type="text" class="form-control @error('pax') is-invalid @enderror" value="{{ old('pax') }}" required>
+                                                                    <input name="pax" type="text" class="form-control @error('pax') is-invalid @enderror" value="{{ old('pax') ?? $reservation->pax }}" required>
                                                                 </div>
                                                                 @error('pax')
                                                                     <span class="invalid-feedback" role="alert">

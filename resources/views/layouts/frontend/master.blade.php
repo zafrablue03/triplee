@@ -10,7 +10,8 @@
     @include('partials.frontend.navigation')
 
     {{-- Body --}}
-    @if(Request::routeIs('gallery'))
+    @if(Request::routeIs(['gallery','reservation']))
+      @yield('reservation')
       @yield('gallery')
     @else
       <!-- Header -->

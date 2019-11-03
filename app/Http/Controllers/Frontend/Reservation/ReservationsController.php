@@ -14,6 +14,11 @@ use Notification;
 class ReservationsController extends Controller
 {
 
+    public function index()
+    {
+        return view('pages.frontend.reservation.index');
+    }
+
     public function checkIfSpamming($email, $date)
     {
         $approved_reservation = Reservation::whereEmail($email)
@@ -26,15 +31,18 @@ class ReservationsController extends Controller
 
     public function checkMaxReservation($date)
     {
-        $pending = Reservation::whereIsApproved(false)->where('date',$date)->count() < 3 ? true : false;
-        $approved = Reservation::whereIsApproved(true)->where('date',$date)->count() < 3 ? true : false;
+        $pending = Reservation::whereIsApproved(false)->where('date',$date)->count();
+        $approved = Reservation::whereIsApproved(true)->where('date',$date)->count();
 
-        if($approved AND $pending)
-        {
-            return true;
-        }else{
-            return false;
-        }
+        $total = $pending + $approved;
+
+        return $total < 3 ? true : false;
+        // if($approved AND $pending)
+        // {
+        //     return true;
+        // }else{
+        //     return false;
+        // }
     }
 
     /**
@@ -45,7 +53,7 @@ class ReservationsController extends Controller
      */
     public function store(Request $request)
     {
-        $users = User::whereIsAdmin(true)->get();
+        // $users = User::whereIsAdmin(true)->get();
         if($this->checkIfSpamming($request->email, $request->date))
         {
             Spam::create($request->all());
@@ -55,6 +63,7 @@ class ReservationsController extends Controller
             'date'          =>  'date_format:Y-m-d|required',
             'name'          =>  'required|min:2|max:50',
             'venue'         =>  'required|min:2',
+            'pax'           =>  'required|numeric|digits_between:1,3',
             'email'         =>  'required|email|min:3|max:80',
             'contact'       =>  'required|numeric|digits_between:11,15',
             'service_id'    =>  'required',
